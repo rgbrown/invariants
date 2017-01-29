@@ -4,14 +4,9 @@
 % is itself Euclidean-invariant
 
 
-%% Utility functions
-makegrid = @(xlim, ylim, nx, ny) ...
-    meshgrid(linspace(xlim(1), xlim(2), nx), ...
-    linspace(ylim(1), ylim(2), ny));
-dbl_imread = @(fname) double(imread(fname)) / 255;
 
 %% Load test image and set up coordinates
-F = dbl_imread('images/lena.jpg');
+F = double(imread('images/lena.jpg')) / 255;
 nx = size(F, 2);
 ny = size(F, 1);
 x = linspace(-1, 1, nx);
@@ -45,23 +40,33 @@ imshow(F_smooth)
 %% Now perform the experiments
 sigma_vals = 0.01:0.01:0.05;
 n = numel(sigma_vals);
+sig = cell(1, n);
+sigp = cell(1, n);
+fprintf('progress (%d):', n);
 for i = 1:n
+    fprintf('%d ', i);
     sigma = sigma_vals(i);
     K = makefilter(sigma);
     F_smooth = conv2(F, K, 'same');
     Fp_smooth = conv2(Fp, K, 'same');
-    sig = E2_signature(F_smooth, dx);
-    sigp = E2_signature(Fp_smooth, dx);
-    figure()
-    surf(sig{1}, sig{2}, sig{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'red');
-    hold on
-    surf(sigp{1}, sigp{2}, sigp{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
+    sig{i} = E2_signature(F_smooth, dx);
+    sigp{i} = E2_signature(Fp_smooth, dx);
+end
+fprintf('\n')
+
+%%
+S = surf(sig{1}{1}, sig{1}{2}, sig{1}{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'red');
+hold on
+camlight()
+set(gca, 'xlim', [0 1], 'ylim', [0 100], 'zlim', [0 300])
+%    surf(sigp{1}, sigp{2}, sigp{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
+for i = 1:numel(sig)
+    set(S, 'xdata', sig{i}{1}, 'ydata', sig{i}{2}, 'zdata', sig{i}{3})
+    pause
 end
 
 
-
-
-
+%%
 
 
 % %% Greyscale signatures
