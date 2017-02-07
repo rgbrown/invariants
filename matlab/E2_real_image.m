@@ -24,21 +24,20 @@ tform = E2Transform(theta, determinant, tx, ty);
 
 %% Transform our image
 Fp = tform.forward_image(F, x, y);
+Fp(isnan(Fp)) = 0;
 imshow(Fp);
 
 %% Set up the truncated Gaussian filter machinery
-width = 0.2; % approximate width
-n = round(width / dx);
-[X_filter, Y_filter] = meshgrid(dx*(-n:n), dy*(-n:n));
+[X_filter, Y_filter] = meshgrid(x, y);
 normalise = @(x) x / sum(x(:));
 makefilter = @(sigma) normalise(exp(-(X_filter.^2 + Y_filter.^2) ./ (2*sigma^2)));
 
 K = makefilter(0.01);
-F_smooth = conv2(F, K, 'same');
+F_smooth = conv_fft2(F, K, 'same');
 imshow(F_smooth)
 
 %% Now perform the experiments
-sigma_vals = 0.01:0.01:0.05;
+sigma_vals = 0.01:0.001:0.4;
 n = numel(sigma_vals);
 sig = cell(1, n);
 sigp = cell(1, n);
@@ -47,22 +46,27 @@ for i = 1:n
     fprintf('%d ', i);
     sigma = sigma_vals(i);
     K = makefilter(sigma);
-    F_smooth = conv2(F, K, 'same');
-    Fp_smooth = conv2(Fp, K, 'same');
+    F_smooth = conv_fft2(F, K, 'same');
+    Fp_smooth = conv_fft2(Fp, K, 'same');
     sig{i} = E2_signature(F_smooth, dx);
     sigp{i} = E2_signature(Fp_smooth, dx);
 end
 fprintf('\n')
 
 %%
-S = surf(sig{1}{1}, sig{1}{2}, sig{1}{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'red');
+clf
+S = contour(sig{1}{1}, sig{1}{2}, sig{1}{3}, [0.5 0.5], 'r');
 hold on
-camlight()
-set(gca, 'xlim', [0 1], 'ylim', [0 100], 'zlim', [0 300])
-%    surf(sigp{1}, sigp{2}, sigp{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
+contour(sigp{1}{1}, sigp{1}{2}, sigp{1}{3}, [0.5 0.5], 'b');
+pause
+% surf(sigp{1}, sigp{2}, sigp{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
 for i = 1:numel(sig)
-    set(S, 'xdata', sig{i}{1}, 'ydata', sig{i}{2}, 'zdata', sig{i}{3})
-    pause
+    pause(0.05)
+    clf
+    contour(sig{i}{1}, sig{i}{2}, sig{i}{3}, [0.5 0.5], 'r');
+    hold on
+    contour(sigp{i}{1}, sigp{i}{2}, sigp{i}{3}, [0.5 0.5], 'b');
+    
 end
 
 
