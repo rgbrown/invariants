@@ -15,12 +15,12 @@ classdef SE2Transform < SpatialTransform2D
             obj.s = sin(theta);
         end
         
-        function [xnew, ynew] = forward(obj, x, y)
+        function [xnew, ynew] = forward_coords(obj, x, y)
             xnew = obj.c*x - obj.s*y + obj.tx;
             ynew = obj.s*x + obj.c*y + obj.ty;
         end
         
-        function [xnew, ynew] = reverse(obj, x, y)
+        function [xnew, ynew] = reverse_coordsFp(obj, x, y)
             xnew = obj.c*(x - obj.tx) + obj.s*(y - obj.ty);
             ynew = -obj.s*(x - obj.tx) + obj.c*(y - obj.ty);
         end

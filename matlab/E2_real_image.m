@@ -37,7 +37,7 @@ F_smooth = conv_fft2(F, K, 'same');
 imshow(F_smooth)
 
 %% Now perform the experiments
-sigma_vals = 0.01:0.001:0.4;
+sigma_vals = linspace(0.01, 0.1, 9);
 n = numel(sigma_vals);
 sig = cell(1, n);
 sigp = cell(1, n);
@@ -50,24 +50,39 @@ for i = 1:n
     Fp_smooth = conv_fft2(Fp, K, 'same');
     sig{i} = E2_signature(F_smooth, dx);
     sigp{i} = E2_signature(Fp_smooth, dx);
+    figure(1)
+    subplot(3, 3, i);
+    imshow(F_smooth)
+    figure(2)
+    subplot(3, 3, i);
+    imshow(Fp_smooth)
+    figure(3)
+    subplot(3, 3, i);
+    %surf(sig{i}{1}, sig{i}{2}, sig{i}{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
+    contour(sig{i}{1}, sig{i}{2}, sig{i}{3}, [0.5 0.5], 'k', 'linewidth', 1);
+    hold on
+    contour(sigp{i}{1}, sigp{i}{2}, sigp{i}{3}, [0.5 0.5], 'r', 'linewidth', 1);
+    %camlight()
+    %axis off
+    
 end
 fprintf('\n')
 
 %%
-clf
-S = contour(sig{1}{1}, sig{1}{2}, sig{1}{3}, [0.5 0.5], 'r');
-hold on
-contour(sigp{1}{1}, sigp{1}{2}, sigp{1}{3}, [0.5 0.5], 'b');
-pause
-% surf(sigp{1}, sigp{2}, sigp{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
-for i = 1:numel(sig)
-    pause(0.05)
-    clf
-    contour(sig{i}{1}, sig{i}{2}, sig{i}{3}, [0.5 0.5], 'r');
-    hold on
-    contour(sigp{i}{1}, sigp{i}{2}, sigp{i}{3}, [0.5 0.5], 'b');
-    
-end
+% clf
+% S = contour(sig{1}{1}, sig{1}{2}, sig{1}{3}, [0.5 0.5], 'r');
+% hold on
+% contour(sigp{1}{1}, sigp{1}{2}, sigp{1}{3}, [0.5 0.5], 'b');
+% pause
+% % surf(sigp{1}, sigp{2}, sigp{3}, 'facealpha', 0.5, 'edgecolor', 'none', 'facecolor', 'blue');
+% for i = 1:numel(sig)
+%     pause(0.05)
+%     clf
+%     contour(sig{i}{1}, sig{i}{2}, sig{i}{3}, [0.5 0.5], 'r');
+%     hold on
+%     contour(sigp{i}{1}, sigp{i}{2}, sigp{i}{3}, [0.5 0.5], 'b');
+%     
+% end
 
 
 %%

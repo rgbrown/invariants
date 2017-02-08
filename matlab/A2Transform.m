@@ -1,6 +1,5 @@
-classdef E2Transform < SpatialTransform2D
+classdef A2Transform < SpatialTransform2D
     properties
-        determinant
         theta
         tx % translation vector
         ty %
@@ -8,9 +7,8 @@ classdef E2Transform < SpatialTransform2D
         s % cos theta
     end
     methods
-        function obj = E2Transform(theta, determinant, tx, ty) 
+        function obj = SE2Transform(theta, tx, ty) 
             obj.theta = theta;
-            obj.determinant = sign(determinant);
             obj.tx = tx;
             obj.ty = ty;
             obj.c = cos(theta);
@@ -18,13 +16,13 @@ classdef E2Transform < SpatialTransform2D
         end
         
         function [xnew, ynew] = forward_coords(obj, x, y)
-            xnew = obj.determinant*(obj.c*x - obj.s*y) + obj.tx;
+            xnew = obj.c*x - obj.s*y + obj.tx;
             ynew = obj.s*x + obj.c*y + obj.ty;
         end
         
-        function [xnew, ynew] = reverse_coords(obj, x, y)
-            xnew = obj.determinant*obj.c*(x - obj.tx) + obj.s*(y - obj.ty);
-            ynew = -obj.determinant*obj.s*(x - obj.tx) + obj.c*(y - obj.ty);
+        function [xnew, ynew] = reverse_coordsFp(obj, x, y)
+            xnew = obj.c*(x - obj.tx) + obj.s*(y - obj.ty);
+            ynew = -obj.s*(x - obj.tx) + obj.c*(y - obj.ty);
         end
     end
         

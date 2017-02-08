@@ -1,9 +1,34 @@
 classdef (Abstract) SpatialTransform2D
     methods (Abstract)
-        forward(obj, x, y)
-        reverse(obj, x, y)
+        forward_coords(obj, x, y)
+        reverse_coords(obj, x, y)
     end
     methods
+        function varargout = forward(obj, varargin)
+            if nargin == 3
+                [Xp, Yp] = obj.forward_coords(varargin{:});
+                varargout = {Xp, Yp};
+            elseif nargin == 2 % function handle
+                fp = obj.forward_fun(varargin{:});
+                varargout = {fp};
+            elseif nargin == 4 % image with x y limits
+                Fp = obj.forward_image(varargin{:});
+                varargout = {Fp};
+            end
+        end
+        function varargout = reverse(obj, varargin)
+            if nargin == 3
+                [Xp, Yp] = obj.reverse_coords(varargin{:});
+                varargout = {Xp, Yp};
+            elseif nargin == 2 % function handle
+                fp = obj.reverse_fun(varargin{:});
+                varargout = {fp};
+            elseif nargin == 4 % image with x y limits
+                Fp = obj.reverse_image(varargin{:});
+                varargout = {Fp};
+            end
+        end
+                
         function Fp = forward_image(obj, F, x, y)
             nx = size(F, 2);
             ny = size(F, 1);
@@ -21,6 +46,20 @@ classdef (Abstract) SpatialTransform2D
             [X, Y] = meshgrid(x, y);
             [X_irreg, Y_irreg] = obj.forward(X, Y);
             Fp = interp2(X, Y, F, X_irreg, Y_irreg, 'cubic');
+        end
+        function fp = forward_fun(obj, f)
+            fp = @out_fun;
+            function z = out_fun(x, y)
+                [xp, yp] = obj.reverse(x, y);
+                z = f(xp, yp);
+            end
+        end
+        function fp = reverse_fun(obj, f)
+            fp = @out_fun;
+            function z = out_fun(x, y)
+                [xp, yp] = obj.forward(x, y);
+                z = f(xp, yp);
+            end
         end
         
     end

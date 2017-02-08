@@ -37,7 +37,7 @@ function y = conv_fft2(x, m, shape)
 
 % Copyright David Young, April 2011
 
-error(nargchk(2,3,nargin,'struct'));
+narginchk(2,3);
 if nargin < 3
     shape = 'full';    % shape default as for CONV2
 end;

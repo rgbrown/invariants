@@ -1,4 +1,4 @@
-function varargout = Sim2_signature(F, varargin)
+function sig = Sim2_signature(F, varargin)
 [~, Fx, Fy, Fxx, Fxy, Fyy] = compute_derivatives(F, 2, varargin{:});
 J1 = Fx.*Fx + Fy.*Fy;
 J2 = Fxx + Fyy;
@@ -11,4 +11,4 @@ J3 = J3 ./ denom;
 I1 = acos(J3);
 I2 = atan2(J2, J1);
 
-varargout = {F, I1, I2};
+sig = {F, I1, I2};
