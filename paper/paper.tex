@@ -1,0 +1,90 @@
+\documentclass{article}
+\usepackage{amsmath, amsthm, amssymb}
+\newtheorem{theorem}{Theorem}
+
+\title{Differential invariant signatures for planar Lie group transformations of
+images}
+\date{\today}
+\author{Huey, Duey, and Louey}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+\subsection{Invariants, hey!}
+literature (Cartan, Olver, Russians, Draisma), motivation, etc,
+
+\subsection{Invariants for images}
+Colour and the lack of independence. Fractal dimension 
+
+Calculating derivatives (discussion on desirability thereof).
+Euclidean-invariant smoothing is a thing, other groups not so much.
+
+\subsection{Introducing the cast}
+Define each group, mesh image of what transformations can look like
+
+\subsection{Technical wank}
+Completeness, degeneracy, moving frames as concept, table of numbers of
+derivatives, all that jazz, maybe scaling technique
+for dealing with invariants of non-unit weight
+
+
+\section{The invariants}
+One subsection for each group. Mathematical details/theorem/derivation, no
+examples
+\subsection{SA(2), E(2), SE(2), and Sim(2), or some better title}
+\begin{theorem}
+  SA(2) invariants up to second order are:
+  I0, I1, I2 from Jupyter document
+\end{theorem}
+
+Corollary for E(2), SE(2), R2 and Sim(2)
+
+Commentary on geometric interpretation of these things.
+\subsection{A(2)}
+\begin{theorem}
+  General affine invariants using transvectants
+\end{theorem}
+Relative invariants and weights go here? probably
+
+\subsection{M\"obius and Projective (finite dimensional)}
+\begin{theorem}
+  Moving frame invariants for M\"obius
+\end{theorem}
+\begin{theorem}
+  Moving frame invariants for Projective
+\end{theorem}
+
+\subsection{Infinite dimensional diff groups (diff con, diff vol, diff)}
+
+
+
+
+\section{Computational examples}
+General idea of what we've done. Experiment to compare e.g. SA(2) and
+Sim(2). Contrast between intuitive notion of complexity (described by
+number of parameters in group) versus reality.
+
+\subsection{Examples of all of 'em}
+Big matrix of pictures for comparison purposes
+
+\subsection{Hat tip to practicality: smoothing for E(2) and subgroups thereof}
+Allows these groups to be used on real (i.e. not particularly
+differentiable) images
+
+\subsection{colour}
+
+\section{Discussion and Conclusion or whatever}
+Why are we using invariants? 
+This idea is extremely local, can global information be better utilised?
+Relation to using more computationally
+tractable e.g. SA(2) not E(2)
+Comparison with other invariant forms - e.g. Fourier, integral, etc.
+
+\subsection{Future work}
+Can we do better with the weights?
+Can we do better with derivatives?
+Projection onto Riemann sphere?
+Noise. Ugh.
+
+\end{document}
