@@ -2,6 +2,15 @@
 __pycache__/
 *.py[cod]
 
+# Latex/MATLAB
+*.aux
+*.log
+*.bbl
+*.swp
+*.bak
+*.mlx
+
+
 # C extensions
 *.so
 
