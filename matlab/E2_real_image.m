@@ -6,7 +6,10 @@
 
 
 %% Load test image and set up coordinates
-F = double(imread('images/lena.jpg')) / 255;
+F = double(imread('images/kiwi.jpg')) / 255;
+if size(F, 3) == 3
+    F = rgb2gray(F);
+end
 nx = size(F, 2);
 ny = size(F, 1);
 x = linspace(-1, 1, nx);

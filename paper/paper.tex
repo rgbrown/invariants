@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage{amsmath, amsthm, amssymb}
+\usepackage{amsmath, amsthm, amssymb, mathtools}
 \newtheorem{theorem}{Theorem}
 
 \title{Differential invariant signatures for planar Lie group transformations of
@@ -10,11 +10,50 @@ images}
 \begin{document}
 \maketitle
 
+
+
 % TODO
 %   SRM: Kiwi picture to Richard, paste text from disappear.tex
 %   RGB: Images for mesh, and for signatures
 
 \section{Introduction}
+\subsection{Notation}
+Let $G$ be a planar transformation group that acts on $k$-colour images $f
+\colon \mathbb{R}^2 \rightarrow \mathbb{R}^k$ by $\varphi \cdot f \coloneqq
+f \circ \varphi^{-1}$, where $\varphi \in G$.
+
+When referring to coordinates, with $x \in \mathbb{R}^2$, we write $\hat{x}
+= \varphi(x)$  and define the image post-transformation in the new
+coordinates as
+\begin{equation}
+  \hat{f}(\hat{x}) = f(x).
+\end{equation}
+We derive relationships between the derivatives before and after
+transformation by the chain rule:
+\begin{equation*}
+  f_{, i} = \hat{f}_{,k} \varphi_{k, i} 
+\end{equation*}
+etc. 
+
+
+
+
+
+\section{The Stamp Collection I: The Affine group and its subgroups}
+In this section we consider all the groups whose transformation is of the
+form. For these groups, the change of variables formulae are, in tensor,
+and matrix notations,
+\begin{align}
+  f_{,i} &= \hat{f}_{, k} a_{ki} & \nabla f &= A^T \nabla \hat{f} \\
+  f_{,ij} &= \hat{f}_{, kl} a_{ki} a_{lj} & 
+  \nabla^2 f &= A^T \nabla^2 \hat{f} A
+\end{align}
+$\varphi(x) = Ax + b$ for some matrix $A$ and vector $b$.
+
+\subsection{SE(2)}
+In this case we have $A^TA = I$ and $\det A = 1$.
+
+
 \subsection{Invariants, hey!}
 literature (Cartan, Olver, Russians, Draisma), motivation, etc,
 
