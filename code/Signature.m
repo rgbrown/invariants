@@ -8,12 +8,14 @@ classdef Signature
     end
     methods
         function obj = Signature(fn, sig_fn, order, varargin)
+            syms x y
             assert(isa(fn, 'sym') || isa(fn, 'symfun'));
             obj.derivative_order = order;
             obj.signature_fn = sig_fn;
             obj.fn = fn;
             obj.derivatives = compute_derivatives(fn, order);  
-            obj.derivatives_matlab = cellfun(@matlabFunction, ...
+            obj.derivatives_matlab = cellfun(@(f) ...
+                matlabFunction(f, 'Vars', [x y]), ...
                 obj.derivatives, 'UniformOutput', false);
         end
         
