@@ -1,6 +1,6 @@
 %% Signature surface generation script
 syms x y
-f = exp(-2*x.^2 - 4.*sin(y + x).^2);
+f(x, y) = exp(-2*x.^2 - 4.*sin(y + x).^2);
 f_numeric = matlabFunction(f);
 draw_image(f)
 [X, Y] = regular_grid(-1, 1, 500, -1, 1, 500);
