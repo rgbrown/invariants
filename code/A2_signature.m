@@ -1,10 +1,13 @@
-function sig = A2_signature(f, varargin)
-[~, Fx, Fy, Fxx, Fxy, Fyy, Fxxx, Fxxy, Fxyy, Fyyy] = ...
-    compute_derivatives(f, 3, varargin{:});
-C = Fxx.*Fyy - Fxy.^2;
-D = Fy.^2.*Fxx - 2*Fx.*Fy.*Fxy + Fx.^2.*Fyy;
-E = Fxxx.*Fy.^3 - 3*Fxxy.*Fx.*Fy.^2 + 3*Fxyy.*Fx.^2.*Fy - Fyyy.*Fx.^3;
-
-denom = sqrt(C.^6 + D.^6 + E.^4);
-sig = {f.*C.^3./denom, f.*D.^3./denom, f.*E.^2./denom};
+function out = A2_signature(f, varargin)
+derivative_order = 3;
+out = signature_switch(f, @evaluate, derivative_order, varargin{:});
+    function sig = evaluate(derivs)
+        [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
+        C = fxx.*fyy - fxy.^2;
+        D = fy.^2.*fxx - 2*fx.*fy.*fxy + fx.^2.*fyy;
+        E = fxxx.*fy.^3 - 3*fxxy.*fx.*fy.^2 + 3*fxyy.*fx.^2.*fy - fyyy.*fx.^3;
+        
+        denom = sqrt(C.^6 + D.^6 + E.^4);
+        sig = {f.*C.^3./denom, f.*D.^3./denom, f.*E.^2./denom};
+    end
 end

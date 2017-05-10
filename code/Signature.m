@@ -22,6 +22,8 @@ classdef Signature
                 d_numeric = cellfun(@(f) f(x, y), ...
                     obj.derivatives_matlab, 'UniformOutput', false);
                 sig = obj.signature_fn(d_numeric);
+            else
+                sig = obj.signature(obj.derivatives);
             end
             
         end

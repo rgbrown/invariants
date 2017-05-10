@@ -1,7 +1,11 @@
-function sig = E2_signature(F, varargin)
-[~, Fx, Fy, Fxx, ~, Fyy] = compute_derivatives(F, 2, varargin{:});
-I0 = F;
-I1 = Fx.*Fx + Fy.*Fy;
-I2 = Fxx + Fyy;
-sig = {I0, I1, I2};
+function out = E2_signature(f, varargin)
+derivative_order = 2;
+out = signature_switch(f, @evaluate, derivative_order, varargin{:});
+    function sig = evaluate(derivs)
+        [f, fx, fy, fxx, ~, fyy] = derivs{:}; % fxy not needed
+        I0 = f;
+        I1 = fx.*fx + fy.*fy;
+        I2 = fxx + fyy;
+        sig = {I0, I1, I2};
+    end
 end

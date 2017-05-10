@@ -1,5 +1,6 @@
 function out = SA2_signature(f, varargin)
-out = signature_switch(f, @evaluate, 3, varargin{:});
+derivative_order = 3;
+out = signature_switch(f, @evaluate, derivative_order, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
         C = fxx.*fyy - fxy.^2;
