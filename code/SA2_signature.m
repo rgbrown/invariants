@@ -1,11 +1,12 @@
-function [sig3, sig4] = SA2_signature(f, varargin)
-[~, Fx, Fy, Fxx, Fxy, Fyy, Fxxx, Fxxy, Fxyy, Fyyy] = ...
-    compute_derivatives(f, 3, varargin{:});
-C = Fxx.*Fyy - Fxy.^2;
-D = Fy.^2.*Fxx - 2*Fx.*Fy.*Fxy + Fx.^2.*Fyy;
-E = Fxxx.*Fy.^3 - 3*Fxxy.*Fx.*Fy.^2 + 3*Fxyy.*Fx.^2.*Fy - Fyyy.*Fx.^3;
-F = Fyy.*Fxxy.^2 + Fxx.*Fxyy.^2 + Fxyy.*Fxxx.*Fyyy - Fyy.*Fxxx.*Fxyy - ...
-    Fxyy.*Fxxy.*Fxyy - Fxx.*Fxxy.*Fyyy;
-sig3 = {f, C, D};
-sig4 = {f, C, D, F};
+function out = SA2_signature(f, varargin)
+out = signature_switch(f, @evaluate, 3, varargin{:});
+    function sig = evaluate(derivs)
+        [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
+        C = fxx.*fyy - fxy.^2;
+        D = fy.^2.*fxx - 2*fx.*fy.*fxy + fx.^2.*fyy;
+        E = fxxx.*fy.^3 - 3*fxxy.*fx.*fy.^2 + 3*fxyy.*fx.^2.*fy - fyyy.*fx.^3;
+        %F = fyy.*fxxy.^2 + fxx.*fxyy.^2 + fxyy.*fxxx.*fyyy - fyy.*fxxx.*fxyy - ...
+        %fxyy.*fxxy.*fxyy - fxx.*fxxy.*fyyy;
+        sig = {C, D, E};
+    end
 end

@@ -1,10 +1,10 @@
-function varargout = compute_derivatives(F, N, varargin)
+function derivs = compute_derivatives(F, N, varargin)
 if isa(F, 'symfun') || isa(F, 'sym')
     derivs = compute_derivatives_symbolic(F, N, varargin{:});
 else
     derivs = compute_derivatives_numeric(F, N, varargin{:});
 end
-varargout = derivs;
+derivs = derivs;
 end
 
 function derivs = compute_derivatives_symbolic(F, N, varargin)
