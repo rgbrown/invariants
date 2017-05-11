@@ -17,13 +17,13 @@ classdef PSL3RTransform < SpatialTransform2D
             obj.h = h;
         end
         
-        function [xnew, ynew] = forward(obj, x, y)
+        function [xnew, ynew] = forward_coords(obj, x, y)
             denom = 1 + obj.g*x + obj.h*y;
             xnew = (obj.a*x + obj.b*y) ./ denom;
             ynew = (obj.c*x + obj.d*y) ./ denom;
         end
         
-        function [xnew, ynew] = reverse(obj, x, y)
+        function [xnew, ynew] = reverse_coords(obj, x, y)
             denom = (obj.c*obj.h - obj.d*obj.g) * x + ...
                 (obj.b*obj.g - obj.a*obj.h) * y + ...
                 obj.a*obj.d - obj.b*obj.c;
