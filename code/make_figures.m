@@ -5,7 +5,7 @@ f_numeric = matlabFunction(f);
 
 xlim = [-1, 1];
 ylim = [-1, 1];
-ngrid = 1000;
+ngrid = 500;
 [X, Y, xvec, yvec] = regular_grid(xlim(1), xlim(2), ngrid, ...
     ylim(1), ylim(2), ngrid);
 
@@ -14,6 +14,8 @@ tform = E2Transform(1, -1, 0.1, -0.2);
 
 [Xp, Yp] = tform.reverse(X, Y); % arrays
 [xp, yp] = tform.reverse(x, y); %symbolic
+
+
 sig = E2_signature(f);
 sigp = E2_signature(f(xp, yp));
 
@@ -41,8 +43,19 @@ draw_signature(sig.evaluate(X, Y))
 sig = A2_signature(f);
 draw_signature(sig.evaluate(X, Y))
 
+%% Mobius
+% Use plotting from under PSL3R block
+tform = MobiusTransform(1.1, 0.2, 0.1, 0.3);
+[xp, yp] = tform.reverse(x, y);
+[Xp, Yp] = tform.reverse(X, Y);
+
+sig = Mobius_signature(f);
+sigp = Mobius_signature(f(xp, yp));
+
+
+
 %% PSL(3, R)
-tform = PSL3RTransform(1, 0.1, 0.05, 0.8, 0.2, 0.3);
+tform = PSL3RTransform(1, 0.1, 0.05, 0.8, 0.2, -0.1);
 
 [Xp, Yp] = tform.reverse(X, Y); % arrays
 [xp, yp] = tform.reverse(x, y); %symbolic
@@ -71,3 +84,5 @@ levels = linspace(0, 3e-4, 7);
 contour(S1{2}, S1{3}, S1{1}, levels, 'r');
 hold on
 contour(S2{2}, S2{3}, S2{1}, levels, 'b');
+
+%% Mobius
