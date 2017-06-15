@@ -23,10 +23,10 @@ out = signature_switch(f, @evaluate, derivative_order, varargin{:});
             3*fy.*fyy.*fx.^3.*fxx + 3*fy.^4.*fxy.*fxx - 9*fy.^2.*fx.^2.*fxy.*fxx + 3*fy.^3.*fx.*fxx.^2 + ...
             3*fy.^4.*fx.*fxxy + 3*fy.^2.*fx.^3.*fxxy - fy.^5.*fxxx - fy.^3.*fx.^2.*fxxx;
         
-        % Other choices: K1, K4, J1*J4
-        I1 = J1.^4;
-        I2 = J2.^4;
-        I3 = J1.*J3;
+        % Choices: J1.^4, J2^4, J1*J3, K1, K4, J1*J4
+        I1 = J1.*J3;
+        I2 = K4; %J2.^4;
+        I3 = K1; %J1.*J3;
         
         denom = sqrt(I1.^2 + I2.^2 + I3.^2);
         sig = {I1./denom, I2./denom, I3./denom};
