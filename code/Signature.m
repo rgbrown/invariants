@@ -29,5 +29,28 @@ classdef Signature
             end
             
         end
+        
+        function draw(obj, varargin)
+            params = draw_parameters(varargin{:});
+            [X, Y] = regular_grid(params.xlim(1), params.xlim(2), params.nx, ...
+                params.ylim(1), params.ylim(2), params.ny);
+            sig = obj.evaluate(X, Y);
+            surf(sig{2}, sig{3}, sig{1}, 'facecolor', params.facecolor, ...
+            'edgecolor', 'none', ...
+            'facealpha', params.facealpha)
+            camlight()
+        end
     end
+end
+
+function params = draw_parameters(varargin)
+p = inputParser();
+p.addParameter('xlim', [-1, 1]);
+p.addParameter('ylim', [-1, 1]);
+p.addParameter('nx', 1000);
+p.addParameter('ny', 1000);
+p.addParameter('facecolor', 'blue')
+p.addParameter('facealpha', 1);
+p.parse(varargin{:})
+params = p.Results;
 end
