@@ -26,7 +26,7 @@ classdef MobiusTransform < SpatialTransform2D
         
         function [xnew, ynew] = reverse_coords(obj, x, y)
             z = x + 1i*y;
-            w = -z ./(obj.gamma*y - obj.alpha);
+            w = -z ./(obj.gamma*z - obj.alpha);
             xnew = real(w);
             ynew = imag(w);
         end
