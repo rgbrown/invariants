@@ -5,12 +5,18 @@ f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
 f_numeric = matlabFunction(f);
 
 % Mesh for plotting surfaces
-xlim = [-0.2, 0.2];
-ylim = [-0.2, 0.2];
+xlim = [-0.5, 0.5];
+ylim = [-0.5, 0.5];
 ngrid = 500;
 ny = 480;
 [X, Y, xvec, yvec] = regular_grid(xlim(1), xlim(2), ngrid, ...
     ylim(1), ylim(2), ny);
+
+% Scan lines
+nline = 1000;
+nscan = 11;
+Xscan = repmat(linspace(xlim(1), xlim(2), nline), nscan, 1)';
+Yscan = repmat(linspace(ylim(1), ylim(2), nscan)', 1, nline)';
 
 %% Write image 
 n_image = 2000;
