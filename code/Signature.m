@@ -27,10 +27,9 @@ classdef Signature
             else
                 sig = obj.signature(obj.derivatives);
             end
-            
         end
         
-        function draw(obj, varargin)
+        function plot_signature(obj, varargin)
             params = draw_parameters(varargin{:});
             [X, Y] = regular_grid(params.xlim(1), params.xlim(2), params.nx, ...
                 params.ylim(1), params.ylim(2), params.ny);
@@ -39,6 +38,13 @@ classdef Signature
             'edgecolor', 'none', ...
             'facealpha', params.facealpha)
             camlight()
+        end
+        
+        function plot_image(obj, varargin)
+            params = draw_parameters(varargin{:});
+            [X, Y] = regular_grid(params.xlim(1), params.xlim(2), params.nx, ...
+                params.ylim(1), params.ylim(2), params.ny);
+            draw_image(obj.fn(X, Y), 'xlim', params.xlim, 'ylim', params.ylim)
         end
     end
 end
@@ -51,6 +57,8 @@ p.addParameter('nx', 1000);
 p.addParameter('ny', 1000);
 p.addParameter('facecolor', 'blue')
 p.addParameter('facealpha', 1);
+p.addParameter('clim', [0 1]);
+p.addParameter('cmap', gray(65536));
 p.parse(varargin{:})
 params = p.Results;
 end

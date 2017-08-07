@@ -1,30 +1,32 @@
 %% Signature surface generation script
+
+%% Set up the function
+% We create a symbolic and a numeric version of the function, for future
+% reference.
+addpath('signatures', 'transforms')
 syms x y
 %f(x, y) = exp(-2*x.^2 - 4.*sin((y + 0.5*x.^2)).^2);
 f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
 f_numeric = matlabFunction(f);
 
-% Mesh for plotting surfaces
-xlim = [-0.5, 0.5];
-ylim = [-0.5, 0.5];
-ngrid = 500;
-ny = 480;
-[X, Y, xvec, yvec] = regular_grid(xlim(1), xlim(2), ngrid, ...
-    ylim(1), ylim(2), ny);
+xlim = [-1, 1];
+ylim = [-1, 1];
 
-% Scan lines
+n_image = 2000;
+[Xim, Yim, ximvec, yimvec] = regular_grid(xlim(1), xlim(2), n_image, ...
+    ylim(1), ylim(2), n_image);
+
+F = f_numeric(Xim, Yim);
+draw_image(F, 'xlim', xlim, 'ylim', ylim);
+xlabel('x')
+ylabel('y')
+
+%% Scan lines
+% Scan lines to assist in signature visualisation
 nline = 1000;
 nscan = 11;
 Xscan = repmat(linspace(xlim(1), xlim(2), nline), nscan, 1)';
 Yscan = repmat(linspace(ylim(1), ylim(2), nscan)', 1, nline)';
-
-%% Write image 
-n_image = 2000;
-[Xim, Yim, ximvec, yimvec] = regular_grid(xlim(1), xlim(2), n_image, ...
-    ylim(1), ylim(2), n_image);
-F = f_numeric(Xim, Yim);
-draw_image(F, 'xlim', xlim, 'ylim', ylim);
-%imwrite(F, 'images/image.jpg')
 
 %% Write transformed image
 [Xpi, Ypi] = tform.reverse(Xim, Yim);
@@ -56,6 +58,8 @@ clf
 draw_signature(sig.evaluate(X, Y), 'facecolor', 'blue', 'facealpha', 1);
 %hold on
 %draw_signature(sigp.evaluate(X, Y), 'facecolor', 'red', 'facealpha', 0.5);
+
+
 
 
 %% SE(2)
