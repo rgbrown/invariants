@@ -1,10 +1,12 @@
 %% Signature surface generation script
+addpath('signatures', 'transforms')
+syms x y
+write_images = false;
 
 %% Set up the function
 % We create a symbolic and a numeric version of the function, for future
 % reference.
-addpath('signatures', 'transforms')
-syms x y
+
 %f(x, y) = exp(-2*x.^2 - 4.*sin((y + 0.5*x.^2)).^2);
 f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
 f_numeric = matlabFunction(f);
@@ -12,14 +14,7 @@ f_numeric = matlabFunction(f);
 xlim = [-1, 1];
 ylim = [-1, 1];
 
-n_image = 2000;
-[Xim, Yim, ximvec, yimvec] = regular_grid(xlim(1), xlim(2), n_image, ...
-    ylim(1), ylim(2), n_image);
-
-F = f_numeric(Xim, Yim);
-draw_image(F, 'xlim', xlim, 'ylim', ylim);
-xlabel('x')
-ylabel('y')
+draw_image(f_numeric, 'xlim', xlim, 'ylim', ylim);
 
 %% Scan lines
 % Scan lines to assist in signature visualisation
@@ -28,31 +23,20 @@ nscan = 11;
 Xscan = repmat(linspace(xlim(1), xlim(2), nline), nscan, 1)';
 Yscan = repmat(linspace(ylim(1), ylim(2), nscan)', 1, nline)';
 
-%% Write transformed image
-[Xpi, Ypi] = tform.reverse(Xim, Yim);
-imwrite(f_numeric(Xpi, Ypi), strcat('images/', class(tform), '_image.jpg'));
-
 %% Write signature picture
 % Manually position the signature and lighting first, then run this:
 axis off
 print('-r200', '-dpng', strcat('images/', class(tform), '_signature.png'))
 
 %% E(2)
+% Visualise transformation
 tform = E2Transform(1, -1, 0.1, -0.2);
+visualise_transformation(f_numeric, tform);
+visualise_signatures(f, @E2_signature, 'tform', tform);
 
-[Xp, Yp] = tform.reverse(X, Y); % arrays
-[xp, yp] = tform.reverse(x, y); %symbolic
 
-sig = E2_signature(f);
-sigp = E2_signature(f(xp, yp));
 
-figure(1)
-clf
-subplot(1,2,1)
-draw_image(f_numeric(X, Y), 'xlim', xlim, 'ylim', ylim)
-subplot(1,2,2)
-draw_image(f_numeric(Xp, Yp), 'xlim', xlim, 'ylim', ylim)
-
+%%
 figure(2)
 clf
 draw_signature(sig.evaluate(X, Y), 'facecolor', 'blue', 'facealpha', 1);

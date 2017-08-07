@@ -1,3 +1,8 @@
+% SPATIALTRANSFORM2D
+% Abstract class for working with 2D spatial transformations. To implement
+% the class, the methods forward_coords and reverse_coords must be
+% provided.
+
 classdef (Abstract) SpatialTransform2D
     methods (Abstract)
         forward_coords(obj, x, y)
