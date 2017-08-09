@@ -6,8 +6,9 @@ y = linspace(params.ylim(1), params.ylim(2), params.ny);
 [I0, I1, I2] = F(X, Y);
 surf(I0, I1, I2, 'facecolor', params.facecolor, ...
     'edgecolor', 'none', ...
-    'facealpha', params.facealpha)
+    'facealpha', params.facealpha);
 camlight()
+h = gca();
 end
 
 function params = parse_inputs(varargin)

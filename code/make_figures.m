@@ -35,7 +35,8 @@ end
 
 
 %% Write signature picture
-% Manually position the signature and lighting first, then run this:
+% Run one of the blocks below, manually position signature image (Fig 2)
+% for lighting, and then execute this block
 axis off
 print(1, '-r200', '-dpng', strcat('images/', class(tform), '_transform.png'))
 print(2, '-r200', '-dpng', strcat('images/', class(tform), '_signature.png'))
