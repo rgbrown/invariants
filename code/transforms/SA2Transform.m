@@ -18,6 +18,7 @@ classdef SA2Transform < SpatialTransform2D
             obj.tx = tx;
             obj.ty = ty;
             assert(norm(obj.det) > 1e-12);
+            assert(norm(obj.det - 1) < 1e-12);
         end
         
         function [xnew, ynew] = forward_coords(obj, x, y)

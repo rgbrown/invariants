@@ -1,4 +1,4 @@
-function draw_image(F, varargin)
+function h = draw_image(F, varargin)
 params = parse_inputs(varargin{:});
 x = linspace(params.xlim(1), params.xlim(2), params.nx);
 y = linspace(params.ylim(1), params.ylim(2), params.ny);
@@ -9,6 +9,7 @@ end
 imagesc(x, y, F, params.clim)
 axis image
 colormap(params.cmap);
+h = gca();
 end
 
 function params = parse_inputs(varargin)

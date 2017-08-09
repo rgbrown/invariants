@@ -1,4 +1,4 @@
-function visualise_transformation(f, tform, varargin)
+function [h0, h1] = visualise_transformation(f, tform, varargin)
 %VISUALISE_TRANSFORMATION
 params = parse_inputs(varargin{:});
 x = linspace(params.xlim(1), params.xlim(2), params.nx);
@@ -7,10 +7,9 @@ y = linspace(params.ylim(1), params.ylim(2), params.ny);
 
 [Xp, Yp ] = tform.reverse(X, Y);
 
-subplot(1,2,1)
-draw_image(f(X, Y), 'xlim', params.xlim, 'ylim', params.ylim)
-subplot(1,2,2)
-draw_image(f(Xp, Yp), 'xlim', params.xlim, 'ylim', params.ylim)
+h0 = draw_image(f(X, Y), 'xlim', params.xlim, 'ylim', params.ylim);
+figure()
+h1 = draw_image(f(Xp, Yp), 'xlim', params.xlim, 'ylim', params.ylim);
 
 if params.write
     if isempty(params.filename)

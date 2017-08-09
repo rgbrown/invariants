@@ -25,7 +25,10 @@ classdef Signature
                     obj.derivatives_matlab, 'UniformOutput', false);
                 sig = obj.signature_fn(d_numeric);
             else
-                sig = obj.signature(obj.derivatives);
+                for i = 1:numel(obj.derivatives)
+                    derivs{i} = obj.derivatives{i}(x, y);
+                end
+                sig = obj.signature_fn(derivs);
             end
         end
         

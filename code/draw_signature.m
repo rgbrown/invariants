@@ -1,6 +1,10 @@
-function draw_signature(sig, varargin)
+function h = draw_signature(F, varargin)
 params = parse_inputs(varargin{:});
-surf(sig{2}, sig{3}, sig{1}, 'facecolor', params.facecolor, ...
+x = linspace(params.xlim(1), params.xlim(2), params.nx);
+y = linspace(params.ylim(1), params.ylim(2), params.ny);
+[X, Y] = meshgrid(x, y);
+[I0, I1, I2] = F(X, Y);
+surf(I0, I1, I2, 'facecolor', params.facecolor, ...
     'edgecolor', 'none', ...
     'facealpha', params.facealpha)
 camlight()

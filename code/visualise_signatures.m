@@ -1,4 +1,4 @@
-function visualise_signatures(f, sig_fun, varargin)
+function [sig, h] = visualise_signatures(f, sig_fun, varargin)
 params = parse_inputs(varargin{:});
 sig = sig_fun(f);
 [X, Y] = regular_grid(params.xlim(1), params.xlim(2), params.nx, ...
@@ -6,6 +6,7 @@ sig = sig_fun(f);
 
 draw_signature(sig.evaluate(X, Y), 'facecolor', params.facecolor, ...
     'facealpha', params.facealpha);
+h = gca();
 
 % Draw signature of transformed function if a transformation has been
 % provided
