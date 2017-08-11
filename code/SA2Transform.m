@@ -1,4 +1,4 @@
-classdef A2Transform < SpatialTransform2D
+classdef SA2Transform < SpatialTransform2D
     properties
         a
         b
@@ -9,7 +9,7 @@ classdef A2Transform < SpatialTransform2D
         det
     end
     methods
-        function obj = A2Transform(a, b, c, d, tx, ty) 
+        function obj = SA2Transform(a, b, c, d, tx, ty) 
             obj.a = a;
             obj.b = b;
             obj.c = c;

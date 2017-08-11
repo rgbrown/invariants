@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{amsmath, amsthm, amssymb, mathtools}
+\usepackage{graphicx}
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}{Proposition}
 \def\R{\mathbb{R}}
@@ -473,7 +474,7 @@ Euclidean-invariant smoothing is a thing, other groups not so much.
 Define each group, mesh image of what transformations can look like
 
 \subsection{Technical wank}
-Completeness, degeneracy, moving frames as concept, table of numbers of
+Completeness, degeneracy, moving frames as concept table of numbers of
 derivatives, all that jazz, maybe scaling technique
 for dealing with invariants of non-unit weight
 
@@ -1019,6 +1020,23 @@ number of parameters in group) versus reality.
 
 \subsection{Examples of all of 'em}
 Big matrix of pictures for comparison purposes
+
+\begin{figure}
+	\includegraphics[width=12cm]{../images/SE2Transform_signature}
+	\caption{SE(2) signature}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=12cm]{../images/E2Transform_signature}
+	\caption{E(2) signature}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=12cm]{../images/SA2Transform_signature}
+	\caption{SA(2) signature}
+\end{figure}
+\begin{figure}
+	\includegraphics[width=12cm]{../images/A2Transform_signature}
+	\caption{A(2) signature}
+\end{figure}
 
 \subsection{Hat tip to practicality: smoothing for E(2) and subgroups thereof}
 Allows these groups to be used on real (i.e. not particularly

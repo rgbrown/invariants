@@ -16,11 +16,11 @@ for i = 1:N % order
     start = ((i - 1)*i)/2;
     for j = 1:i
         if j == 1
-            derivs{k} = simplify(diff(derivs{start + j}, x));
-            derivs{k+1} = simplify(diff(derivs{start + j}, y));
+            derivs{k} = (diff(derivs{start + j}, x));
+            derivs{k+1} = (diff(derivs{start + j}, y));
             k = k + 1;
         else
-            derivs{k} = simplify(diff(derivs{start + j}, y));
+            derivs{k} = (diff(derivs{start + j}, y));
         end
         k = k + 1;
     end
