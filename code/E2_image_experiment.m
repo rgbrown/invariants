@@ -2,11 +2,11 @@
 % In this script, we show how the E(2) signature can be applied to real
 % images by first using presmoothing by a Gaussian filter, a process which
 % is itself Euclidean-invariant
-
+addpath('signatures', 'transforms')
 
 
 %% Load test image and set up coordinates
-F = double(imread('images/kiwi.jpg')) / 255;
+F = double(imread('kiwi.jpg')) / 255;
 if size(F, 3) == 3
     F = rgb2gray(F);
 end
@@ -16,7 +16,30 @@ x = linspace(-1, 1, nx);
 y = linspace(-1, 1, ny);
 dx = 2 / (nx - 1);
 dy = 2 / (ny - 1);
-imshow(F)
+%imshow(F)
+
+interpolate = true;
+if interpolate
+    nxf = 6000;
+    nyf = 6000;
+    [X, Y] = meshgrid(x, y);
+    xf = linspace(-1, 1, nxf);
+    yf = linspace(-1, 1, nyf);
+    dxf = 2 / (nxf - 1);
+    dyf = 2 / (nyf - 1);
+    [Xf, Yf] = meshgrid(xf, yf);
+    Ff = interp2(X, Y, F, Xf, Yf, 'cubic');
+    F = Ff;
+    X = Xf;
+    Y = Yf;
+    x = xf;
+    y = yf;
+    nx = nxf;
+    ny = nyf;
+    dx = dxf;
+    dy = dyf;
+end
+% Interpolate onto a finer mesh
 
 %% Define a Euclidean transformation
 theta = 1.1; 
@@ -26,21 +49,24 @@ ty = 0.2;
 tform = E2Transform(theta, determinant, tx, ty);
 
 %% Transform our image
-Fp = tform.forward_image(F, x, y);
+Fp = tform.forward(F, x, y);
 Fp(isnan(Fp)) = 0;
 imshow(Fp);
 
 %% Set up the truncated Gaussian filter machinery
-[X_filter, Y_filter] = meshgrid(x, y);
+x_filt = (-500:500)*dx;
+y_filt = (-500:500)*dy;
+
+[X_filter, Y_filter] = meshgrid(x_filt, y_filt);
 normalise = @(x) x / sum(x(:));
-makefilter = @(sigma) normalise(exp(-(X_filter.^2 + Y_filter.^2) ./ (2*sigma^2)));
+makefilter = @(sigma) normalise(exp(-(abs(X_filter).^2 + abs(Y_filter).^2) ./ (2*sigma^2)));
 
 K = makefilter(0.01);
 F_smooth = conv_fft2(F, K, 'same');
 imshow(F_smooth)
 
 %% Now perform the experiments
-sigma_vals = linspace(0.01, 0.1, 9);
+sigma_vals = linspace(0.001, 0.02, 9);
 n = numel(sigma_vals);
 sig = cell(1, n);
 sigp = cell(1, n);
