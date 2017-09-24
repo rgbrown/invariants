@@ -6,9 +6,14 @@ write_images = false;
 %% Set up the function
 % We create a symbolic and a numeric version of the function, for future
 % reference.
-
+%f(x, y) = 0.01*(x - 1.5).^3 -0.02*(x - 1.5).^2.*(y + 1) + ...
+ %   0.03*(x - 1.5)*(y + 1).^2 - 0.015*(y + 1).^3 + 0.9;
 %f(x, y) = exp(-2*x.^2 - 4.*sin((y + 0.5*x.^2)).^2);
-f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
+%f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
+f(x, y) = 0.5 - 0.2*x - 0.3*y - 0.05*x.^2 + 0.03*x.*y + 0.04*y.^2 + ...
+    0.03*y.^3 +0.001*x.^3 - 0.0015*x.^2.*y + 0.002*x.*y.^2 - 0.0005*y.^3;
+
+
 f_numeric = matlabFunction(f);
 
 xlim = [-1, 1];
