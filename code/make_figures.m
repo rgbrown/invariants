@@ -51,7 +51,7 @@ print(2, '-r200', '-dpng', strcat('images/', class(tform), '_signature.png'))
 % Visualise transformation
 close all
 tform = E2Transform(1, -1, 0.1, -0.2);
-group_experiment(f, tform, @E2_signature, 'scanlines', {Xscan, Yscan});
+group_experiment(f, tform, @E2_signature,  'scanlines', {Xscan, Yscan});
 
 
 %% SE(2)

@@ -9,6 +9,11 @@ surf(I0, I1, I2, 'facecolor', params.facecolor, ...
     'facealpha', params.facealpha);
 camlight()
 h = gca();
+cameratoolbar();
+set(gca, 'fontsize', 16, 'TickLabelInterpreter', 'latex')
+xlabel('$I_1$', 'interpreter', 'latex')
+ylabel('$I_2$', 'interpreter', 'latex')
+zlabel('$I_3$', 'interpreter', 'latex')
 end
 
 function params = parse_inputs(varargin)

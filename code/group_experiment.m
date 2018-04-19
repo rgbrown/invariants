@@ -56,7 +56,7 @@ visualise();
             [X0, X1, X2] = sig_map(X, Y);
             figure(2)
             hold on
-            plot3(X0, X1, X2, 'y');
+            plot3(X0, X1, X2, params.scanparams{:});
         end
     end
 
@@ -74,6 +74,7 @@ p = inputParser();
 p.addParameter('xlim', [-1, 1]);
 p.addParameter('ylim', [-1, 1]);
 p.addParameter('scanlines', {});
+p.addParameter('scanparams', {'y', 'linewidth', 2});
 p.addParameter('tlim', [-1, 1]);
 p.addParameter('nt', 1000);
 p.parse(varargin{:})
