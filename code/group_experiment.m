@@ -35,7 +35,6 @@ visualise();
         figure(2)
         clf
         draw_signature(sig_map, 'xlim', xlim, 'ylim', ylim);
-        axis off
         figure(3)
         clf
         draw_signature(sig_map, 'xlim', xlim, 'ylim', ylim, 'facealpha', 0.5);
