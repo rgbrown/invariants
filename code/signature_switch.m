@@ -1,4 +1,4 @@
-function out = signature_switch(f, sig_fun, order, varargin)
+function out = signature_switch(f, sig_fun, order, group, varargin)
 if isnumeric(f)
     switch numel(varargin)
         case 0
@@ -16,5 +16,5 @@ if isnumeric(f)
     derivatives = compute_derivatives(f, order, hx, hy);
     out = sig_fun(derivatives); 
 else
-    out = Signature(f, sig_fun, order);
+    out = Signature(f, sig_fun, order, group);
 end
