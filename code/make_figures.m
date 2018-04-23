@@ -14,50 +14,34 @@ f(x, y) = 0.5 - 0.2*x - 0.3*y - 0.05*x.^2 + 0.03*x.*y + 0.04*y.^2 + ...
     0.03*y.^3 +0.001*x.^3 - 0.0015*x.^2.*y + 0.002*x.*y.^2 - 0.0005*y.^3;
 
 
-f_numeric = matlabFunction(f);
-
-xlim = [-1, 1];
-ylim = [-1, 1];
-
-draw_image(f_numeric, 'xlim', xlim, 'ylim', ylim);
-
-% Set up scan lines
-nlines = 21;
-xscan = linspace(-1, 1, nlines);
-yscan = linspace(-1, 1, nlines); 
-nscan = 1000;
-t = linspace(-1, 1, nscan);
-Xscan = zeros(nscan, 2*nlines);
-Yscan = zeros(size(Xscan));
-for i = 1:nlines
-    Xscan(:, i) = t;
-    Yscan(:, i) = yscan(i);
-end
-for i = 1:numel(xscan)
-    Xscan(:, i + nlines) = xscan(i);
-    Yscan(:, i + nlines) = t;
-end
-
-
 %% Write signature picture
-% Run one of the blocks below, manually position signature image (Fig 2)
-% for lighting, and then execute this block
-axis off
-print(1, '-r200', '-dpng', strcat('images/', class(tform), '_transform.png'))
-print(2, '-r200', '-dpng', strcat('images/', class(tform), '_signature.png'))
+groups = {'E2', 'SE2', 'A2', 'Mobius', 'PSL3R', 'SA2'};
+for i = 1:numel(groups)
+    load(strcat('images/', groups{i}, '_signature.mat'));
+    clf
+    sig.draw();
+    print('-dpng', '-r200', strcat('images/', groups{i}, '_signature.png'));
+end
 
+%% Save signature to file
+% Run one of the blocks below, manually position signature image and
+% lighting, then this will save it as a .mat file in images/
+sig.save_camera();
+save(strcat('images/', sig.group, '_signature.mat'), 'sig');
 
 %% E(2)
 % Visualise transformation
 close all
 tform = E2Transform(1, -1, 0.1, -0.2);
-group_experiment(f, tform, @E2_signature,  'scanlines', {Xscan, Yscan});
-
+sig = E2_signature(f);
+sig.draw()
 
 %% SE(2)
 close all
 tform = SE2Transform(1, 0.1, -0.2);
-group_experiment(f, tform, @SE2_signature, 'scanlines', {Xscan, Yscan});
+sig = SE2_signature(f);
+sig.draw()
+% group_experiment(f, tform, @SE2_signature, 'scanlines', {Xscan, Yscan});
 
 %% SA(2)
 close all
@@ -65,21 +49,29 @@ A = [0.7, 1.1;
     -0.6, 0.8];
 A = A / sqrt(det(A));
 tform = SA2Transform(A(1,1), A(1,2), A(2,1), A(2,2), 0.1, -0.2);
-group_experiment(f, tform, @SA2_signature, 'scanlines', {Xscan, Yscan});
+sig = SA2_signature(f);
+sig.draw()
+%group_experiment(f, tform, @SA2_signature, 'scanlines', {Xscan, Yscan});
 
 %% A(2)
 close all
 tform = A2Transform(0.7, 1.1, -0.6, 0.8, 0.1, -0.2);
-group_experiment(f, tform, @A2_signature, 'scanlines', {Xscan, Yscan});
+sig = A2_signature(f);
+sig.draw()
+%group_experiment(f, tform, @A2_signature, 'scanlines', {Xscan, Yscan});
 
 %% Mobius
 close all
 tform = MobiusTransform(1.1, 0.2, 0.1, 0.2);
-group_experiment(f, tform, @Mobius_signature, 'scanlines', {Xscan, Yscan});
+sig = Mobius_signature(f);
+sig.draw()
+%group_experiment(f, tform, @Mobius_signature, 'scanlines', {Xscan, Yscan});
 %tform = MobiusTransform(1, 0, 0, 0);
 
 %% PSL(3, R)
 close all
 tform = PSL3RTransform(1, 0.1, 0.05, 0.8, 0.2, -0.1);
-group_experiment(f, tform, @PSL3R_signature, 'scanlines', {Xscan, Yscan});
+sig = PSL3R_signature(f);
+sig.draw();
+%group_experiment(f, tform, @PSL3R_signature, 'scanlines', {Xscan, Yscan});
 
