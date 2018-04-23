@@ -1,6 +1,6 @@
 function out = A2_signature(f, varargin)
 derivative_order = 3;
-group = A2;
+group = 'A2';
 out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
