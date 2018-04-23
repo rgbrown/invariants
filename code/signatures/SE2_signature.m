@@ -1,6 +1,6 @@
 function out = SE2_signature(f, varargin)
 derivative_order = 2;
-group = SE2;
+group = 'SE2';
 out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy] = derivs{:};
