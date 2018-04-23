@@ -1,6 +1,7 @@
 function out = Mobius_signature(f, varargin)
 derivative_order = 3;
-out = signature_switch(f, @evaluate, derivative_order, varargin{:});
+group = 'Mobius';
+out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
         

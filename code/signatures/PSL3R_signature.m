@@ -1,6 +1,7 @@
 function out = PSL3R_signature(f, varargin)
 derivative_order = 3;
-out = signature_switch(f, @evaluate, derivative_order, varargin{:});
+group = 'PSL3R';
+out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
         
