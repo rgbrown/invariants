@@ -9,11 +9,6 @@ fp = f(xp, yp);
 sig = sigfun(f);
 sigp = sigfun(fp);
 
-% Need to create the (x,y) |-> (I0, I1, I2) mapping for the signature and
-% its corresponding signature of transformed function
-sig_map = @(x, y) create_sig_mapping(x, y, sig);
-sigp_map = @(x, y) create_sig_mapping(x, y, sigp);
-
 % Numerical image and transformed image functions
 f_map = matlabFunction(f);
 fp_map = matlabFunction(fp);
@@ -23,8 +18,6 @@ ylim = params.ylim;
 
 fscan = ~isempty(params.scanlines);
 visualise();
-
-
     function visualise()
         figure(1)
         clf
@@ -34,12 +27,12 @@ visualise();
         draw_image(fp_map, 'xlim', xlim, 'ylim', ylim);
         figure(2)
         clf
-        draw_signature(sig_map, 'xlim', xlim, 'ylim', ylim);
+        draw_signature(@sig.evaluate, 'xlim', xlim, 'ylim', ylim);
         figure(3)
         clf
-        draw_signature(sig_map, 'xlim', xlim, 'ylim', ylim, 'facealpha', 0.5);
+        draw_signature(@sig.evaluate, 'xlim', xlim, 'ylim', ylim, 'facealpha', 0.5);
         hold on
-        draw_signature(sigp_map, 'xlim', xlim, 'ylim', ylim, ...
+        draw_signature(@sigp.evaluate, 'xlim', xlim, 'ylim', ylim, ...
             'facecolor', 'red', 'facealpha', 0.5);  
         axis off
         if fscan

@@ -15,7 +15,7 @@ f(x, y) = 0.5 - 0.2*x - 0.3*y - 0.05*x.^2 + 0.03*x.*y + 0.04*y.^2 + ...
 
 
 %% Write signature picture
-groups = {'E2', 'SE2', 'A2', 'Mobius', 'PSL3R', 'SA2'};
+groups = {'E2', 'SE2', 'A2', 'Mobius', 'PSL3R', 'SA2', 'Sim2'};
 for i = 1:numel(groups)
     load(strcat('images/', groups{i}, '_signature.mat'));
     clf
