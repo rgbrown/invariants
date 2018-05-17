@@ -1,7 +1,7 @@
 \documentclass[11pt]{article}
 \usepackage{amsmath, amssymb}
+\usepackage{geometry}
 \usepackage{graphicx}
-
 \begin{document}
 
 \section{Introduction}
@@ -21,7 +21,7 @@ would not overwhelm the smaller terms. The function is depicted as a
 greyscale image in Figure~\ref{fig:function}
 \begin{figure}
   \centering
-  \includegraphics[width=10cm]{figures/function}
+  \includegraphics[width=12cm]{figures/function}
   \caption{The test function used in this document, from
   Eq.~\eqref{eq:function}.}\label{fig:function}
 \end{figure}
@@ -34,7 +34,7 @@ mapped to the signature surface to help understand what the signature looks
 like locally.
 \begin{figure}
   \centering
-  \includegraphics[width=10cm]{figures/function_scanlines}
+  \includegraphics[width=12cm]{figures/function_scanlines}
   \caption{The test function used in this document, from
   Eq.~\eqref{eq:function} with a grid of lines
 overlaid.}\label{fig:function_scanlines}
@@ -44,9 +44,10 @@ overlaid.}\label{fig:function_scanlines}
 \section{The transformation groups}
 
 \subsection{Sim(2)}
-For $\text{Sim}(2)$, we use the signature $(I_0, I_1, I_2)$, defined by
+For $\text{Sim}(2)$, we use the signature $(I_1, I_2, I_3)$, defined by
 \begin{equation}\label{eq:sim2sig}
-  I_i = \frac{f}{\sqrt{J_1^2 + J_2^2 + J_3^2}} J_i,
+    I_i = \frac{f}{\sqrt{J_1^2 + J_2^2 + J_3^2}} J_i, \qquad i \in \{1, 2,
+    3\}
 \end{equation}
 where
 \begin{equation*}
@@ -59,7 +60,7 @@ where
 The signature is visualised in Fig.~\ref{fig:sim2signature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/Sim2_signature}
+    \includegraphics[width=12cm]{figures/Sim2_signature}
     \caption{$\text{Sim}(2)$ signature}
     \label{fig:sim2signature}
 \end{figure}
@@ -76,7 +77,7 @@ For $SE(2)$, we use the signature
 The signature is visualised below in Fig.~\ref{fig:se2signature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/SE2_signature}
+    \includegraphics[width=12cm]{figures/SE2_signature}
   \caption{$SE(2)$ signature}
   \label{fig:se2signature}
 \end{figure}
@@ -94,7 +95,7 @@ For $E(2)$, we use the signature
 The signature is visualised in Fig.~\ref{fig:e2signature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/E2_signature}
+    \includegraphics[width=12cm]{figures/E2_signature}
   \caption{$E(2)$ signature}
   \label{fig:e2signature}
 \end{figure}
@@ -111,7 +112,7 @@ For $SA(2)$, we use the signature
 The signature is visualised in Fig.~\ref{fig:sa2signature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/SA2_signature}
+    \includegraphics[width=12cm]{figures/SA2_signature}
   \caption{$SA(2)$ signature}
   \label{fig:sa2signature}
 \end{figure}
@@ -136,7 +137,7 @@ where
 The signature is visualised in Fig.~\ref{fig:a2signature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/A2_signature}
+    \includegraphics[width=12cm]{figures/A2_signature}
   \caption{$A(2)$ signature}
   \label{fig:a2signature}
 \end{figure}
@@ -179,17 +180,48 @@ where
 The signature is visualised in Fig.~\ref{fig:mobiussignature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/mobius_signature}
+    \includegraphics[width=12cm]{figures/mobius_signature}
     \caption{$\text{M{\"o}bius}$ signature}
   \label{fig:mobiussignature}
 \end{figure}
 
-
-
-
+\subsection{$PSL(3, \mathbb{R})$}
+For $PSL(3, \mathbb{R})$, we use the signature
+\begin{equation}\label{eq:psl3rsig}
+  \begin{split}
+    I_1 &= \frac{f}{\gamma}D^6 \\
+    I_2 &= \frac{f}{\gamma}P_4^3\\
+    I_3 &= \frac{f}{\gamma}(E^2- 12DP_5)^2
+  \end{split}
+\end{equation}
+where
+\begin{equation*}
+  \begin{split}
+    C &= f_{xx}f_{yy} - f_{xy}^2 \\
+    D &= f_y^2f_{xx} - 2f_xf_yf_{xy} + f_x^2f_{yy} \\
+    E &= f_{xxx}f_y^3 - 3f_{xxy}f_xf_y^2 + 3f_{xyy}f_x^2f_y - f_{yyy}f_x^3
+    \\
+    \gamma &= \sqrt{D^{12} + P_4^6 + (E^2 - 12DP_5)^4} \\
+    Q_4 &= 4f_xf_{xy}^2f_{xyy} - f_x^2f_{xyy}^2 - 2f_{yyy}f_xf_{xy}f_{xx} +
+    \\
+    & 2f_{yy}f_xf_{xyy}f_{xx} - 6f_yf_{xy}f_{xyy}f_{xx} + \\
+    & 2f_yf_{yyy}f_{xx}^2 + f_{yyy}f_x^2f_{xxy} - 6f_{yy}f_xf_{xy}f_{xxy} + \\ 
+    & 4f_yf_{xy}^2f_{xxy} + f_yf_xf_{xyy}f_{xxy} + 2f_yf_{yy}f_{xx}f_{xxy} - \\
+    & f_y^2f_{xxy}^2 + 2f_{yy}^2f_xf_{xxx} - f_yf_{yyy}f_xf_{xxx} \\
+    & -2f_yf_{yy}f_{xy}f_{xxx} + f_y^2f_{xyy}f_{xxx} \\
+    P_5 &= f_{yyy}f_x^3f_{xy} - f_{yy}f_x^2f_{xy}^2 + 2f_yf_xf_{xy}^3 - \\
+    & f_{yy}f_x^3f_{xyy} - f_yf_x^2f_{xy}f_{xyy} + f_{yy}^2f_x^2f_{xx} - \\
+    & f_yf_{yyy}f_x^2f_{xx} - 2f_yf_{yy}f_xf_{xy}f_{xx} - \\
+    & f_y^2f_{xy}^2f_{xx} + 2f_y^2f_xf_{xyy}f_{xx} + f_y^2f_{yy}f_{xx}^2 + \\
+    & 2f_yf_{yy}f_x^2f_{xxy} - f_y^2f_xf_{xy}f_{xxy} - f_y^3f_{xx}f_{xxy} - \\
+    & f_y^2f_{yy}f_xf_{xxx} + f_y^3f_{xy}f_{xxx} \\
+    P_4 &= -4C^2 + Q_4 
+  \end{split}
+\end{equation*}
+The signature is visualised in Fig.~\ref{fig:psl3rsignature}
 \begin{figure}
   \centering
-    \includegraphics[width=10cm]{figures/PSL3R_signature}
+    \includegraphics[width=12cm]{figures/PSL3R_signature}
     \caption{$PSL(3, \mathbb{R})$ signature}
   \label{fig:psl3rsignature}
 \end{figure}
