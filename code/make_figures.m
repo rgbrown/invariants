@@ -13,7 +13,6 @@ write_images = false;
 f(x, y) = 0.5 - 0.2*x - 0.3*y - 0.05*x.^2 + 0.03*x.*y + 0.04*y.^2 + ...
     0.03*y.^3 +0.001*x.^3 - 0.0015*x.^2.*y + 0.002*x.*y.^2 - 0.0005*y.^3;
 
-
 %% Write signature picture
 groups = {'E2', 'SE2', 'A2', 'Mobius', 'PSL3R', 'SA2', 'Sim2'};
 for i = 1:numel(groups)

@@ -89,6 +89,10 @@ classdef Signature < handle
             imagesc(x, y, obj.fn_numeric(X, Y), params.clim);
             axis image
             colormap(params.cmap);
+            set(gca, 'fontsize', 16, 'TickLabelInterpreter', 'latex')
+            colorbar('TickLabelInterpreter', 'latex')
+            xlabel('$x$', 'interpreter', 'latex')
+            ylabel('$y$', 'interpreter', 'latex')
             if params.showscanlines
                 hold on
                 xscan = linspace(params.xlim(1), params.xlim(2), params.nlines);
@@ -108,6 +112,7 @@ classdef Signature < handle
                         t*params.ylim(1) + (1 - t)*params.ylim(2);
                 end 
                 plot(Xscan, Yscan, params.scanparams{:})
+             
             end
         end
         
