@@ -8,16 +8,25 @@ classdef Signature < handle
         derivatives
         derivatives_matlab
         camera_info
+        tform
     end
     methods
         function obj = Signature(fn, sig_fn, order, group, varargin)
+            params = parseinputs(varargin{:});
             syms x y
             assert(isa(fn, 'sym') || isa(fn, 'symfun'));
             obj.derivative_order = order;
             obj.signature_fn = sig_fn;
-            obj.fn = fn;
-            obj.fn_numeric = matlabFunction(fn, 'Vars', [x y]);
-            obj.derivatives = compute_derivatives(fn, order);  
+            if ~isempty(params.tform)
+                obj.tform = params.tform;
+                [xp, yp] = obj.tform.reverse(x, y);
+                obj.fn = fn(xp, yp);
+            else
+                obj.fn = fn;
+                obj.tform = [];
+            end
+            obj.fn_numeric = matlabFunction(obj.fn, 'Vars', [x y]);
+            obj.derivatives = compute_derivatives(obj.fn, order);  
             obj.derivatives_matlab = cellfun(@(f) ...
                 matlabFunction(f, 'Vars', [x y]), ...
                 obj.derivatives, 'UniformOutput', false);
@@ -111,9 +120,13 @@ classdef Signature < handle
                     Yscan(:, i + params.nlines) = ...
                         t*params.ylim(1) + (1 - t)*params.ylim(2);
                 end 
+                if ~isempty(obj.tform)
+                    [Xscan, Yscan] = obj.tform.forward(Xscan, Yscan);
+                end
                 plot(Xscan, Yscan, params.scanparams{:})
-             
             end
+            set(gca, 'xlim', params.xlim);
+            set(gca, 'ylim', params.ylim);
         end
         
         function save_camera(obj, varargin)
@@ -127,6 +140,13 @@ classdef Signature < handle
             obj.camera_info.loadFromAxes();
         end
     end
+end
+
+function params = parseinputs(varargin)
+p = inputParser();
+p.addParameter('tform', []);
+p.parse(varargin{:});
+params = p.Results;
 end
 
 function params = draw_parameters(varargin)

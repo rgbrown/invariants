@@ -21,17 +21,20 @@ visualise();
     function visualise()
         figure(1)
         clf
-        subplot(1,2,1)
+        sig.draw_image('showscanlines', fscan);
+        figure(2)
+        sigp.draw_image('showscanlines', false);
         draw_image(f_map, 'xlim', xlim, 'ylim', ylim);
         subplot(1,2,2)
         draw_image(fp_map, 'xlim', xlim, 'ylim', ylim);
         figure(2)
         clf
-        draw_signature(@sig.evaluate, 'xlim', xlim, 'ylim', ylim);
+        sig.draw();
         figure(3)
         clf
-        draw_signature(@sig.evaluate, 'xlim', xlim, 'ylim', ylim, 'facealpha', 0.5);
+        sig.draw('facealpha', 0.5);
         hold on
+        sigp.draw('facecolor', 'red', 'facealpha', 0.5);
         draw_signature(@sigp.evaluate, 'xlim', xlim, 'ylim', ylim, ...
             'facecolor', 'red', 'facealpha', 0.5);  
         axis off

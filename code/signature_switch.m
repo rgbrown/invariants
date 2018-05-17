@@ -16,5 +16,5 @@ if isnumeric(f)
     derivatives = compute_derivatives(f, order, hx, hy);
     out = sig_fun(derivatives); 
 else
-    out = Signature(f, sig_fun, order, group);
+    out = Signature(f, sig_fun, order, group, varargin{:});
 end
