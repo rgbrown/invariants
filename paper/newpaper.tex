@@ -1,0 +1,84 @@
+\documentclass{article}
+\date{\today}
+\title{Working title}
+\author{Not-working authors}
+
+\begin{document}
+\maketitle
+\abstract{ }
+\section{Introduction}
+Shapes/objects/images can be acted on by simple transformations that change
+their appearance. We want to recognise the objects or identify the set of
+transformations. If the set is a group, then we can seek to either identify
+the group or solve the equivalence problem by
+\begin{enumerate}
+    \item Registration, or
+    \item Invariance.
+\end{enumerate}
+The first is commonly studied but is computationally expensive and prone to
+local minima. If you're not interested in the actual transformation it is
+therefore to be avoided. Here we'll consider invariance. There are many
+choices of type e.g. Fourier, integral, or differential invariants. The
+last set are cheap to compute and have nice theoretical properties but are
+not robust to noise. However, we'll use them anyway. This paper is a
+tutorial on differential invariants for planar Lie groups (e.g.
+Euclidean, affine, projective) since they are relatively simple, useful,
+and relevant to images. We'll use these to demonstrate the methods of
+constructing and using differential invariant signatures. Note that this
+reduces the recognition problem to recognising higher-dimensional
+differential invariant signatures. We'll mention some approaches to this.
+See the companion paper for an implementation.
+
+\subsection{Tutorial on differential invariants / differential geometry}
+\subsubsection{Differential geometry stuff}
+\begin{description}
+    \item[Completeness]
+    \item[Invariant]
+    \item[joint invariant and weight]
+    \item[transvectant]
+    \item[generic functions]
+    \item[differential invariant order]
+    \item[transitive]
+    \item[free]
+    \item[effective]
+    \item[group prolongation]
+\end{description}
+
+\subsubsection{Construction of signatures}
+Including dealing with projection to deal with scalings
+Signatures are higher dimensional objects 
+Completeness vs practicality
+
+Will include Translation as basic example.
+
+\section{Classical Invariant Theory}
+\subsection{Description of method}
+\subsection{Groups}
+\begin{itemize}
+    \item $SE(2)$
+    \item $E(2)$
+    \item $Sim(2)$
+    \item $SA(2)$
+    \item $A(2)$
+\end{itemize}
+
+\section{The Moving Frame Method}
+\subsection{Description of method}
+\subsection{Groups}
+\begin{itemize}
+    \item M\"obius
+    \item Projective
+\end{itemize}
+
+\subsection{Diffeomorphism groups}
+Diff then Diff vol and Diff conf. No invariants -> there are some.
+
+\section{Experiments}
+Effects of noise
+\subsection{Example signatures}
+\subsection{`Spot the group'}
+
+\section{Discussion and Conclusions}
+\subsection{Colour images}
+\subsection{Number of invariants}
+\end{document}
