@@ -1,4 +1,8 @@
 function T = transvectant(Q, R, r)
+%TRANSVECTANT(Q, R, r)
+%   Make r-th order transvectant (Q, R)^{(r)}
+%
+%   Q and R are symbolic functions of two variables
 syms x_a y_a x_b y_b x y
 % Q, R come in as expressions, nothing we can do about this. This line
 % forces them back to being functions
