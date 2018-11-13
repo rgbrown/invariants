@@ -1,11 +1,11 @@
 
-(1) Use the transvectants to get the full set of invariants up to A(2) 
+RB (1) Use the transvectants to get the full set of invariants up to A(2) 
     manipulate the matlab output
     look into basis argument from Olver to explain choice from this
 
-(2) Verify Robert's calculations for the moving frame
+SM (2) Verify Robert's calculations for the moving frame
 
-(3) Experiments
+SM (3) Experiments
     Break the explanation into 2 -> short version for paper 1, long for paper 2
     Noise experiment
     Spot the group experiment
