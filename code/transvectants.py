@@ -4,26 +4,34 @@ from sympy.core.function import UndefinedFunction, Function
 
 def tensor_product(funcs):
     n = len(funcs)
-    x = symbols('x0:{}'.format(n))
-    y = symbols('y0:{}'.format(n))
+    x = Symbol('x')
+    y = Symbol('y')
+    xa = symbols('x0:{}'.format(n))
+    ya = symbols('y0:{}'.format(n))
     Q = 1
     for i in range(n):
-        Q *= funcs[i](x[i], y[i])
+        Q *= funcs[i].subs([[x, xa[i]], [y, ya[i]]])
     return Q 
 
 def omega_process(Q, i, j, n):
-    x = symbols('x0:{}'.format(n))
-    y = symbols('y0:{}'.format(n))
-    return diff(Q, x[i], y[j]) - diff(Q, x[j], y[i])
+    xa = symbols('x0:{}'.format(n))
+    ya = symbols('y0:{}'.format(n))
+    return diff(Q, xa[i], ya[j]) - diff(Q, xa[j], ya[i])
 
 def trace(Q, n):
-    x = symbols('x0:{}'.format(n))
-    y = symbols('y0:{}'.format(n))
-    xx = Symbol('x')
-    yy = Symbol('y')
-    replacements = [(x[i], xx) for i in range(n)] + [(y[i], yy) for i in
+    xa = symbols('x0:{}'.format(n))
+    ya = symbols('y0:{}'.format(n))
+    x = Symbol('x')
+    y = Symbol('y')
+    replacements = [(xa[i], x) for i in range(n)] + [(ya[i], y) for i in
             range(n)]
     return Q.subs(replacements)
+
+def transvectant(f, g, r):
+    Q = tensor_product((f, g))
+    for k in range(r):
+        Q = omega_process(Q, 0, 1, 2)
+    return simplify(trace(Q, 2))
 
 def partial_transvectant(funcs, pairs):
     n = len(funcs)
@@ -58,3 +66,6 @@ def print_my_latex(expr):
     any settings.
     """
     print(MyLatexPrinter().doprint(expr))
+    
+def my_latex(expr):
+    return MyLatexPrinter().doprint(expr)
