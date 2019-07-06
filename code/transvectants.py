@@ -55,10 +55,10 @@ class MyLatexPrinter(LatexPrinter):
         # expressions then use self._print() instead of str() or latex().
         # See the example of nested modulo below in the custom printing
         # method section.
-        print('boob')
         return "{}_{{{}}}".format(
             self._print(Symbol(function.func.__name__)),
-                        ''.join(self._print(i) for i in vars))
+                        ''.join(''.join(self._print(a[0]) for i in
+                            range(a[1])) for a in vars))
 
 
 def print_my_latex(expr):
