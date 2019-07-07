@@ -40,7 +40,7 @@ def partial_transvectant(funcs, pairs):
         Q = omega_process(Q, pair[0], pair[1], n)
     return simplify(trace(Q, n))
     
-# The following code comes from the pretty pritn module documentation for
+# The following code comes from the pretty print module documentation for
 # Sympy
 class MyLatexPrinter(LatexPrinter):
     """Print derivative of a function of symbols in a shorter form.
@@ -55,6 +55,10 @@ class MyLatexPrinter(LatexPrinter):
         # expressions then use self._print() instead of str() or latex().
         # See the example of nested modulo below in the custom printing
         # method section.
+
+
+        # TODO: look at the variables method of the derivative for a
+        # cleaner way of extracting the derivatives list
         return "{}_{{{}}}".format(
             self._print(Symbol(function.func.__name__)),
                         ''.join(''.join(self._print(a[0]) for i in
