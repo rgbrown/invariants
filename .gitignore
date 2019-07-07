@@ -73,4 +73,5 @@ target/
 
 # Temporary stuff
 matlab/html/
+code/.ipynb_checkpoints/
 *.asv
