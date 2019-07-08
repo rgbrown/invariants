@@ -1,7 +1,9 @@
 \documentclass[review,onefignum,onetabnum]{siamonline171218}
-\usepackage{amsfonts,graphicx}
+\usepackage{amsmath,amsfonts,graphicx}
 \def\R{\mathbb{R}}
 \usepackage{xcolor}
+\usepackage{todonotes}
+\usepackage{tikz}
 
 \date{\today}
 \title{Working title}
@@ -21,6 +23,8 @@
 \end{AMS}
 
 \section{Introduction}
+\todo[inline]{This is a start. To be completed later.}
+
 Shapes/objects/images can be acted on by simple transformations that change
 their appearance. We want to recognise the objects or identify the set of
 transformations. If the set is a group, then we can seek to either identify
@@ -51,10 +55,10 @@ One way to compute invariants is to compare the action of group elements on sepa
 Following the treatment in~\cite{OlverCIT}, this leads to Cayley's Omega Process~\cite{Cayley}. We will demonstrate this for the affine group $A(2)$ and its subgroup $SA(2)$. 
 
 
-Consider $\mathbf{x}_i \ in \mathbb{R}^2, i=1,2$, so that $mathbf{x}_i$ can be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$.  Now consider applying an affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i_ \mapsto A \mathbf{x}_i + b$ where $A \in GL(2,\mathbb{R}$ and $b \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by:
+Consider $\mathbf{x}_i \ in \mathbb{R}^2, i=1,2$, so that $mathbf{x}_i$ can be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$.  Now consider applying an affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i \mapsto A \mathbf{x}_i + b$ where $A \in GL(2,\mathbb{R}$ and $b \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by:
 
 \begin{equation}
-\Omega_{ij} = \left| \begin{array}{cc} \frac{\partial}{\partial x_i} & \frac{\partial}{\partial y_i} \\ \frac{\partial}{\partial x_j} & \frac{\partial}{\partial y_j} & \right| = \frac{\partial^2}{\partial x_i \partial y_j} \frac{\partial^2}{\partial x_j \partial y_i}.
+\Omega_{ij} = \begin{vmatrix} \frac{\partial}{\partial x_i} & \frac{\partial}{\partial y_i} \\ \frac{\partial}{\partial x_j} & \frac{\partial}{\partial y_j} \end{vmatrix}  = \frac{\partial^2}{\partial x_i \partial y_j} - \frac{\partial^2}{\partial x_j \partial y_i}.
 \end{equation}
 
 Under the above affine transformation, $\Omega_{ij} \mapsto \det A^{-1} \Omega_{ij}$. Note that $\det A^{-1}$ has no dependence on the coordinates. 
@@ -79,14 +83,158 @@ This can be generalised to $n$ functions and $r-$th order~\cite{Olver} as:
 \mbox{tr} \left( \Pi_{k=1}^r \Omega_{i_k j_k} \right) f_1(x_1, y_1) f_2(x_2, y_2), \ldots f_n (x_n, y_n)
 \end{equation}
 
-Under this formula we end with a factor $\det A^{-r}$ in place of $\det A^{-1}$ that we saw previously. $r$ is referred to as the weight of the partial transvectant. It can also be useful to consider the total number of derivatives computed, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 6.
+Under this formula we end with a factor $\det A^{-r}$ in place of $\det A^{-1}$ that we saw previously. $r$ is referred to as the weight of the partial transvectant. It can also be useful to consider the maximum number of derivatives computed, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2.
 For the current case it is sufficient to consider $n$ copies of the same function $f$.
 
 This formula can be applied to generate partial transvectants, as we will now show for the action of two groups: $A(2)$ itself, and its subgroup $SA(2)$. 
 
+\todo[inline]{Start here... write out some bits.}
+
 Then computations.
 
 Then the graphs and the weights.
+
+\centering
+\begin{tabular}{cccc}
+Degree & Weight & Diagram & Invariant \\
+\hline
+2 & 2 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (-0.5,0) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0.5,0) {2};
+    \draw[-] (1) to [out=30,in=150] (2);
+    \draw[-] (1) to [out=-30,in=-150] (2);
+\end{tikzpicture}
+& $fxx$ \\
+
+2 & 2 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,0.866) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.5,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (0.5,0) {3};
+    \draw[-] (1) to (2);
+    \draw[-] (1) to (3);
+\end{tikzpicture}
+& $fxx$ \\
+
+3 & 3 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,0.866) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.5,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (0.5,0) {3};
+    \draw[-] (1) to [out=-150,in=90] (2);
+    \draw[-] (1) to [out=-90,in=30] (2);
+    \draw[-] (1) to (3);
+\end{tikzpicture}
+& $fxx$ \\
+
+3 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,0.866) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.5,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (0.5,0) {3};
+    \draw[-] (1) to [out=-150,in=90] (2);
+    \draw[-] (1) to [out=-90,in=30] (2);
+    \draw[-] (1) to (3);
+    \draw[-] (2) to (3);
+\end{tikzpicture}
+& $fxx$ \\
+
+%=====
+3 & 3 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (1,0) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (1,1) {4};
+    \draw[-] (1) to (2);
+    \draw[-] (1) to (3);
+    \draw[-] (1) to (4);
+\end{tikzpicture}
+& $fxx$ \\
+
+3 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (1,0) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (1,1) {4};
+    \draw[-] (1) to [out=-120,in=120] (2);
+    \draw[-] (1) to [out=-60,in=60] (2);
+    \draw[-] (2) to (3);
+    \draw[-] (3) to (4);
+\end{tikzpicture}
+& $fxx$ \\
+
+2 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (1,0) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (1,1) {4};
+    \draw[-] (1) to (2);
+    \draw[-] (2) to (3);
+    \draw[-] (3) to (4);
+    \draw[-] (4) to (1);
+\end{tikzpicture}
+& $fxx$ \\
+
+3 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (1,0) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (1,1) {4};
+    \draw[-] (1) to [out=-120,in=120] (2);
+    \draw[-] (1) to [out=-60,in=60] (2);
+    \draw[-] (2) to (3);
+    \draw[-] (1) to (4);
+\end{tikzpicture}
+& $fxx$ \\
+
+% =========
+2 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
+    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
+    \draw[-] (1) to (2);
+    \draw[-] (2) to (3);
+    \draw[-] (3) to (4);
+    \draw[-] (4) to (5);
+\end{tikzpicture}
+& $fxx$ \\
+
+3 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
+    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
+    \draw[-] (1) to (2);
+    \draw[-] (1) to (3);
+    \draw[-] (1) to (4);
+    \draw[-] (4) to (5);
+\end{tikzpicture}
+& $fxx$ \\
+
+4 & 4 &
+\begin{tikzpicture}
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
+    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
+    \draw[-] (1) to (2);
+    \draw[-] (1) to (3);
+    \draw[-] (1) to (4);
+    \draw[-] (1) to (5);
+\end{tikzpicture}
+& $fxx$ \\
+\end{tabular}
 
 Discussion of singularities. 
 
@@ -96,6 +244,7 @@ And the signatures.
 
 \section{Differential invariants through moving frames}
 
+\todo[inline]{Intro to model bit above. Steal equations from dispaper. TBC}
 Cartan developed the moving frame to compute invariants.
 
 Then computations.
@@ -108,7 +257,23 @@ And the signatures.
 
 \section{Extension to larger groups, role of colour, etc.}
 
-\section{Use in practice; noise, singularities}
+\todo[inline]{Largely discursive? Except conformal.}
 
+\section{Use in practice; noise, singularities}
+ \todo[inline]{Experimental}
+
+\section{Algorithms}
+ This will go in paper 2, but let's start in here.
+
+\todo[inline]{Pseudocode for the matlab experimental code}
+\todo[inline]{Something about computing transvectants?}
+
+
+\section{Experiments}
+
+\todo[inline]{Signature examples}
+\todo[inline]{Noise}
+\todo[inline]{Spot the group}
+\todo[inline]{Example on bits of images}
 
 \end{document}
