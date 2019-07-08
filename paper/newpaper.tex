@@ -1,11 +1,25 @@
-\documentclass{article}
+\documentclass[review,onefignum,onetabnum]{siamonline171218}
+\usepackage{amsfonts,graphicx}
+\def\R{\mathbb{R}}
+\usepackage{xcolor}
+
 \date{\today}
 \title{Working title}
 \author{Not-working authors}
 
 \begin{document}
 \maketitle
-\abstract{ }
+\begin{abstract}
+\end{abstract}
+
+% REQUIRED
+\begin{keywords}
+\end{keywords}
+
+% REQUIRED
+\begin{AMS}
+\end{AMS}
+
 \section{Introduction}
 Shapes/objects/images can be acted on by simple transformations that change
 their appearance. We want to recognise the objects or identify the set of
@@ -29,56 +43,72 @@ reduces the recognition problem to recognising higher-dimensional
 differential invariant signatures. We'll mention some approaches to this.
 See the companion paper for an implementation.
 
-\subsection{Tutorial on differential invariants / differential geometry}
-\subsubsection{Differential geometry stuff}
-\begin{description}
-    \item[Completeness]
-    \item[Invariant]
-    \item[joint invariant and weight]
-    \item[transvectant]
-    \item[generic functions]
-    \item[differential invariant order]
-    \item[transitive]
-    \item[free]
-    \item[effective]
-    \item[group prolongation]
-\end{description}
 
-\subsubsection{Construction of signatures}
-Including dealing with projection to deal with scalings
-Signatures are higher dimensional objects 
-Completeness vs practicality
+\section{Differential invariants through transvectants}
 
-Will include Translation as basic example.
+One way to compute invariants is to compare the action of group elements on separate copies of the underlying space. For images, this is typically $\mathbb{R}^2$; colour images in $\mathbb{R}^{2k}$ will be considered in Section~\ref{sec:aaah}. 
 
-\section{Classical Invariant Theory}
-\subsection{Description of method}
-\subsection{Groups}
-\begin{itemize}
-    \item $SE(2)$
-    \item $E(2)$
-    \item $Sim(2)$
-    \item $SA(2)$
-    \item $A(2)$
-\end{itemize}
+Following the treatment in~\cite{OlverCIT}, this leads to Cayley's Omega Process~\cite{Cayley}. We will demonstrate this for the affine group $A(2)$ and its subgroup $SA(2)$. 
 
-\section{The Moving Frame Method}
-\subsection{Description of method}
-\subsection{Groups}
-\begin{itemize}
-    \item M\"obius
-    \item Projective
-\end{itemize}
 
-\subsection{Diffeomorphism groups}
-Diff then Diff vol and Diff conf. No invariants -> there are some.
+Consider $\mathbf{x}_i \ in \mathbb{R}^2, i=1,2$, so that $mathbf{x}_i$ can be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$.  Now consider applying an affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i_ \mapsto A \mathbf{x}_i + b$ where $A \in GL(2,\mathbb{R}$ and $b \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by:
 
-\section{Experiments}
-Effects of noise
-\subsection{Example signatures}
-\subsection{`Spot the group'}
+\begin{equation}
+\Omega_{ij} = \left| \begin{array}{cc} \frac{\partial}{\partial x_i} & \frac{\partial}{\partial y_i} \\ \frac{\partial}{\partial x_j} & \frac{\partial}{\partial y_j} & \right| = \frac{\partial^2}{\partial x_i \partial y_j} \frac{\partial^2}{\partial x_j \partial y_i}.
+\end{equation}
 
-\section{Discussion and Conclusions}
-\subsection{Colour images}
-\subsection{Number of invariants}
+Under the above affine transformation, $\Omega_{ij} \mapsto \det A^{-1} \Omega_{ij}$. Note that $\det A^{-1}$ has no dependence on the coordinates. 
+
+The Omega Process can be applied to pairs of smooth functions as follows:
+
+\begin{equation}
+\Omega_{ij} f(x_i, y_i) g(x_j, y_j) = ...
+\end{equation}
+
+Identifying $x_i = x_j = x, y_i = y_j = y$ gives us functions of $x$ and $y$ that only vary by a scaling factor of $\det A^{-1}$ when $\mathbf{x}$ is mapped by an affine transformation. This matches the definition of a first-order partial transvectant of two functions:
+
+\begin{equation}
+\mbox{tr} \Omega_{ij} f(x_i, y_i) g(x_j, y_j),
+\end{equation}
+
+\noindent where $mbox{tr}$  is the operator that identifies the coordinates of each function $x_i = x_j = x, y_i = y_j = y$.
+
+This can be generalised to $n$ functions and $r-$th order~\cite{Olver} as:
+
+\begin{equation}
+\mbox{tr} \left( \Pi_{k=1}^r \Omega_{i_k j_k} \right) f_1(x_1, y_1) f_2(x_2, y_2), \ldots f_n (x_n, y_n)
+\end{equation}
+
+Under this formula we end with a factor $\det A^{-r}$ in place of $\det A^{-1}$ that we saw previously. $r$ is referred to as the weight of the partial transvectant. It can also be useful to consider the total number of derivatives computed, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 6.
+For the current case it is sufficient to consider $n$ copies of the same function $f$.
+
+This formula can be applied to generate partial transvectants, as we will now show for the action of two groups: $A(2)$ itself, and its subgroup $SA(2)$. 
+
+Then computations.
+
+Then the graphs and the weights.
+
+Discussion of singularities. 
+
+And then a list of explicit invariants by group.
+
+And the signatures.
+
+\section{Differential invariants through moving frames}
+
+Cartan developed the moving frame to compute invariants.
+
+Then computations.
+
+Then the graphs and the weights.
+
+And then a list of explicit invariants by group.
+
+And the signatures.
+
+\section{Extension to larger groups, role of colour, etc.}
+
+\section{Use in practice; noise, singularities}
+
+
 \end{document}
