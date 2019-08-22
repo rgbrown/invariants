@@ -58,8 +58,14 @@ A transformation $\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) = (
 set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$. 
 A signature set is complete for $f$ if it determines $f$ up to transformations from $G$, i.e. if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies there exists a transformation $\varphi\in G$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$.
 
-An algorithm to compute invariants and determine complete signature sets is described in \cite{olver2001}. First, the
-entire set of invariants is computed using the method of moving frames. Second, determine the differential invariant order $s$ of $f$. Then the signature set of a maximal set of functionally independent invariants of order $s+1$ is complete. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants. 
+An algorithm to compute invariants and determine complete signature sets is
+described in \cite{olver2001}. First, the entire set of invariants is
+computed using the method of moving frames. Second, determine the
+differential invariant order $s$ of $f$ \todo[inline]{we need to define the differential invariant order}. Then the signature set of a maximal
+set of functionally independent invariants of order $s+1$ is complete. A
+third step is possible, in which the dimension of the signature set is
+reduced by eliminating those invariants whose values can be computed from the
+values of derivatives of some subset of the invariants.
 
 While we follow this approach in general, in specific cases we have computed invariants using other techniques
 including the invariant tensor theorem and classical invariant theory. We shall see that this yields insights into the relationships between the different groups. We develop our approach through examples of progressively more complicated groups.
@@ -71,6 +77,8 @@ derivatives -> noise is not
 signatures, dimensions, orders
 
 Is this helpful? 
+\todo[inline]{Yes, this is helpful but not quite correct yet - $SE(2)$ is missing, and we need edges from $\text{Diff}_{\text{vol}}$ to the special affine and Euclidean groups}
+\todo[inline]{Other notes: should our projective group be $PGL(3, \mathbb{R})$ rather than $PSL(3, \mathbb{R})$? or am I confused?}
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[node distance=1.5cm]
