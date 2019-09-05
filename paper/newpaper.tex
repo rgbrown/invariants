@@ -92,36 +92,36 @@ derivatives -> noise is not
 
 signatures, dimensions, orders
 
-Is this helpful? 
-\todo[inline]{Yes, this is helpful but not quite correct yet - $SE(2)$ is missing, and we need edges from $\text{Diff}_{\text{vol}}$ to the special affine and Euclidean groups}
-\todo[inline]{Other notes: should our projective group be $PGL(3, \mathbb{R})$ rather than $PSL(3, \mathbb{R})$? or am I confused?}
 \begin{figure}
 \begin{center}
-\begin{tikzpicture}[node distance=1.5cm]
+\begin{tikzpicture}[node distance=2cm]
 \node(C1) [] {Diff};
 \node(C2) [below left of=C1] {$\mathrm{Diff}_{\mathrm{vol}}$};
 \node(C3) [below right of=C1] {$\mathrm{Diff}_{\mathrm{con}}$};
-\node(A1) [below right of=C3]                          {$PSL(2,\mathbb{C})$};
-\node(B1)    [below of=C2]    {$PSL(3,\mathbb{R})$};
+\node(B1)    [below of=C1]    {$PSL(3,\mathbb{R})$};
+\node(A1) [below of=C3]                          {$PSL(2,\mathbb{C})$};
 \node(B2)   [below of=B1]              {$A(2)$};
-\node(A2)       [below left of=A1]          {Sim$(2)$};
-\node(A3)      [right of=A2]              {$PSL(2,\mathbb{R})$};
-\node(B3)   [below of=B2]            {$SA(2)$};
+\node(A2)       [below right of=B2]          {Sim$(2)$};
+%\node(A3)      [right of=A2]              {$PSL(2,\mathbb{R})$};
+\node(B3)   [below left of=B2]            {$SA(2)$};
 \node(A4)      [below of=A2]            {$E(2)$};
-\node(A5) [below right of=A4]{Translation};
+\node(A6)      [below left of=A4]            {$SE(2)$};
+\node(A5) [below of=A6]{$T(2)$};
 
 \draw[thick,->] (C1) to  (C2);
 \draw[thick,->] (C1) to  (C3);
+\draw[thick,->] (C1) to  (B1);
+\draw[thick,->] (C2) to  (B3);
 %\draw[thick,->] (C1) to  (A2);
 \draw[thick,->] (C3) to  (A1);
 \draw[thick,->] (A1)   to (A2);
-\draw[thick,->] (A1)    to (A3);
 \draw[thick,->] (B1) to  (B2);
 \draw[thick,->] (B2) to  (B3);
+\draw[thick,->] (B2) to  (A2);
 \draw[thick,->] (A2) to  (A4);
-\draw[thick,->] (B3) to  (A4);
-\draw[thick,->] (A3) to  (A5);
-\draw[thick,->] (A4) to  (A5);
+\draw[thick,->] (B3) to  (A6);
+\draw[thick,->] (A4) to  (A6);
+\draw[thick,->] (A6) to  (A5);
 \end{tikzpicture}
 \end{center}
 \caption{The lattice of groups considered in this paper. The edges identify subgroups.}
@@ -335,12 +335,11 @@ E2:
 {\bf Aside 3. Role of the invariants} 
 All of the 2nd order differential invariants play known roles in geometric analysis:
 \begin{enumerate}
-\item $f_if_i=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
-\item $f_{ii}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
-\item $f_{ij}f_i f_j$ is the `infinity-Laplacian'; critical points of $\|\nabla f\|_{L^\infty}$ obey the PDE $f_{ij}f_i f_j=0$;
-\item
-$f_{ij}f_i f_j$ is also a Lagrangian density for $-2\det f_{ij}$, which arises in Monge--Amp\`ere equations and
-which can be written in terms of the final 2nd order invariant as $-2 \det f_{ij} = f_{ij}f_{ij}-f_{ii}^2$.
+\item $f_x^2 + f_y^2=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
+\item $f_{xx} + f_{yy}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
+\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is the `infinity-Laplacian'; 
+\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and
+can be written in terms of the final 2nd order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
 \end{enumerate}
 In addition, we shall see in later sections that functions of these invariants are invariants or
 relative invariants for many groups that contain $E(2)$, namely $Sim(2)$, $SA(2)$, $A(2)$, $PSL(3,\mathbb{R})$, $PSL(2,\mathbb{C})$, and the conformal group.
@@ -399,7 +398,7 @@ In order to construct differential invariants to the action of Lie group $\mathc
 \item Hence $F$ is made invariant by transforming it with a group action: $I(z) = F(g \cdot z) |_{g=\rho(z)}$.  
 \end{enumerate}
 
-Olver uses the group $SE(2)$ as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. We demonstrate the method with two groups: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
+Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. We demonstrate the method with two groups: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
 
 \subsection{The M\"{o}bius Group}
 
@@ -413,6 +412,7 @@ It is the smallest nonlinear planar group that contains $SE(2)$, and it is the s
 %Different shapes may be related by M\"obius transformations, as is explored by Petukhov \cite{petukhov1989non} for biological objects: in one example, the human skull grows approximately by M\"obius transformations.  Note also that Thompson \cite{thompson1942growth} famously deformed images of one species to match those of another, many of his examples using conformal mappings, and thus may be approximated (or even determined by) M\"obius transformations. Discussing this work, Milnor \cite{milnor2010growth}  argued that ``The geometrically simplest way to change the relative size of different body parts would be by a conformal transformation. It seems plausible that this simplest solution will often be the most efficient, so that natural selection tend to choose it.'' (Milnor was thinking of 3D conformal transformations, whose restriction to 2D is the M\"obius transformations.)
 
 The 0th order moving frame translates $z$ to $\beta$. We can therefore take $\beta=0$; we are also free to take $\delta=1$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. First we prolong the action to 3rd derivatives of $f$. There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
+\todo[inline]{General thm for this earlier...}
 
 The prolonged action is:
 \begin{equation}
@@ -467,17 +467,17 @@ M_{74}=-6 c a^2+12 b d a+6 b^2 c, \\
 The moving frame calculation now proceeds as follows.
 \begin{enumerate}
 \item The frame $\bar f_x=1$, $\bar f_y=0$ determines the group parameters
-$$ a = f_x/(f_i f_i),\quad b = f_y/(f_i f_i).$$
+$$ a = f_x/(f_x^2 + f_y^2),\quad b = f_y/(f_x^2 f_y^2).$$
 
-\item The frame $\bar f_{xyy}=\bar f_{yy}=0$ determines the group parameters
-$$ c = (2 f_xf_yf_{xyy} - f_{xx}f_y^2 - f_{yy}f_x^2)/(2 f_i f_i)^2$$
-$$ d = (f_{xyy}f_x^2 - f_x f_y f_{xx} - f_{xyy}f_y^2 - f_{yy} f_x f_y)/(2 f_i f_i)^2.$$
+\item The frame $\bar f_{xy}=\bar f_{yy}=0$ determines the group parameters
+$$ c = (2 f_xf_yf_{xyy} - f_{xx}f_y^2 - f_{yy}f_x^2)/(2 f_x^2 + f_y^2)^2$$
+$$ d = (f_{xy}f_x^2 - f_x f_y f_{xx} - f_{xy}f_y^2 - f_{yy} f_x f_y)/(2 f_x^2 + f_y^2)^2.$$
 
 \item The 2nd order invariant is then given by $\bar f_{xx}$ using Equation~(\ref{eqn:mobius}); it is 
-$$\bar f_{xx} = \frac{f_{ii}}{f_i f_i}.$$
+$$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 
 \item The four 3rd order invariants are then given by $\bar f_{xxx},\dots, \bar f_{yyy}$ using Equation~(\ref{eqn:mobius}). They are
-rational functions with numerators of degree 6 and denominators $(f_i f_i)^4$, and are relative invariants of weight 8.
+rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.
 \end{enumerate}
 
 %It is clear that there must be 2 syzygies between the relative invariants $J_1,\dots,J_4,K_1,\dots,K_4$.
