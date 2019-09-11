@@ -380,7 +380,7 @@ And the signatures.
 
 \section{Differential invariants through moving frames}
 
-The method of moving frames enables one to identify invariants under the action of groups of transformations. It has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}r.
+The method of moving frames enables one to identify invariants under the action of groups of transformations. It has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}.
 
 A right moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$. 
 
@@ -398,7 +398,51 @@ In order to construct differential invariants to the action of Lie group $\mathc
 \item Hence $F$ is made invariant by transforming it with a group action: $I(z) = F(g \cdot z) |_{g=\rho(z)}$.  
 \end{enumerate}
 
-Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. We demonstrate the method with two groups: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
+Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. As an example, we use it to compute invariants to $SE(2)$ on the plane, before moving on to two other planar Lie group examples: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
+
+\subsection{$SE(2)$}
+
+Ignoring translation, the action of $SE(2)$ is simply rotation by some angle $\theta$, i.e., 
+
+\begin{equation}
+\left( \begin{array}f_x \\ f_y \end{array} \right) = \left( \begin{array} \cos \theta & \sin \theta \\ - \sin \theta & \cos \theta \end{array} \right) \left( \begin{array} \bar f_{\bar x} \\ \bar f_{\bar y} \end{array} \right).
+\end{equation}
+
+Using $c$ for $\cos \theta$ and $s$ for $\sin \theta$ and prolonging the group to second order via the chain rule gives:
+
+\begin{equation}
+\arraycolsep=1.4pt
+\left(
+\begin{array}{c}
+  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} 
+ \end{array}
+ \right)
+ = 
+\left(
+\begin{array}{ccccc}
+ c & -s & 0 & 0 & 0 \\
+ s & c & 0 & 0 & 0 \\
+0 & 0 & c^2 & -2cs & s^2 \\
+0 & 0 & cs & c^2 - s^2 & -cs \\
+0 & 0 & s^2 & 2cs & c^2 \\
+\end{array}
+\right)\left(
+\begin{array}{c}
+f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} 
+ \end{array}
+ \right).
+\label{eqn:SE2}
+ \end{equation}
+
+As $SE(2)$ does not include scaling, lengths stay the same, and so an appropriate choice for first-order normalisation is $\bar f_x = \sqrt(f_x^2 + f_y^2),\:\: \bar f_y = 0$, which sets $c = f_x / \| \nabla f \|$, $s = - f_y / \| \nabla f \|$. This provides the invariant $I_1 = \nabla f$. As there are no more free parameters, the expressions for the second-order terms can be read off as:
+
+\begin{align}
+I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
+I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) \\
+I_4 &= f_x^2 f_{xx} - 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
+\end{align}
+
+However, summing $I_2$ and $I_4$ we can write the expression as $f_x^2 f_{xx} + f_y^2 f_{yy}$. Which is the product of 2 invariants in Einstein summation, but a pain in the arse any other way. But I can't see how else to get $f_{ii}$!
 
 \subsection{The M\"{o}bius Group}
 
