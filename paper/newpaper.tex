@@ -8,7 +8,7 @@
 
 \date{\today}
 \title{Differential invariant signatures for planar Lie group transformations of images}
-\author{Not-working authors}
+\author{Not-working authors }
 
 \begin{document}
 \maketitle
@@ -24,6 +24,7 @@
 \end{AMS}
 
 \section{Introduction}
+\todo[inline]{Examples to be numbered like theorems}
 \todo[inline]{This is a start. To be completed later.}
 
 Shapes/objects/images can be acted on by simple transformations that change
@@ -137,21 +138,25 @@ SE(2) is done via the moving frame by Olver in Ch 8 of CIT.
 
 One way to compute invariants is to compare the action of group elements on separate copies of the underlying space. For images, this is typically $\mathbb{R}^2$; colour images in $\mathbb{R}^{2k}$ will be considered in Section~\ref{sec:aaah}. 
 
-Following the treatment in~\cite{OlverCIT}, this leads to Cayley's Omega Process~\cite{Cayley}. We will demonstrate this for the affine group $A(2)$ and its subgroup $SA(2)$. 
+We will demonstrate this for the affine group $A(2)$ and its subgroup
+$SA(2)$ where, following the treatment in~\cite{OlverCIT}, this leads to
+Cayley's Omega Process~\cite{Cayley}. 
 
-
-Consider $\mathbf{x}_i \in \mathbb{R}^2, i=1,2$, so that $\mathbf{x}_i$ can be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$.  Now consider applying an affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i \mapsto A \mathbf{x}_i + b$ where $A \in GL(2,\mathbb{R}$ and $b \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by:
-
+Consider $\mathbf{x}_i \in \mathbb{R}^2, i=1,2$, so that $\mathbf{x}_i$ can
+be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$. Now consider applying the same affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i \mapsto A \mathbf{x}_i + b$ where $A \in GL(2,\mathbb{R}$ and $b \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by: 
 \begin{equation}
-\Omega_{ij} = \begin{vmatrix} \frac{\partial}{\partial x_i} & \frac{\partial}{\partial y_i} \\ \frac{\partial}{\partial x_j} & \frac{\partial}{\partial y_j} \end{vmatrix}  = \frac{\partial^2}{\partial x_i \partial y_j} - \frac{\partial^2}{\partial x_j \partial y_i}.
+\Omega_{ij} = \begin{vmatrix} \frac{\partial}{\partial x_i} &
+\frac{\partial}{\partial y_i} \\ \frac{\partial}{\partial x_j} &
+\frac{\partial}{\partial y_j} \end{vmatrix} = 
+\frac{\partial^2}{\partial x_i
+\partial y_j} - \frac{\partial^2}{\partial x_j \partial y_i}.
 \end{equation}
 
 Under the above affine transformation, $\Omega_{ij} \mapsto \det A^{-1} \Omega_{ij}$. Note that $\det A^{-1}$ has no dependence on the coordinates. 
-
-The Omega Process can be applied to pairs of smooth functions as follows:
+The Omega Process can be applied to pairs of smooth functions as follows, writing $\frac{\partial f}{\partial x}$ as $f_x$:
 
 \begin{equation}
-\Omega_{ij} f(x_i, y_i) g(x_j, y_j) = ...
+\Omega_{ij} f(x_i, y_i) g(x_j, y_j) = f_{x_i}g_{y_j} - f_{y_i}g_{x_j}
 \end{equation}
 
 Identifying $x_i = x_j = x, y_i = y_j = y$ gives us functions of $x$ and $y$ that only vary by a scaling factor of $\det A^{-1}$ when $\mathbf{x}$ is mapped by an affine transformation. This matches the definition of a first-order partial transvectant of two functions:
@@ -160,28 +165,58 @@ Identifying $x_i = x_j = x, y_i = y_j = y$ gives us functions of $x$ and $y$ tha
 \mbox{tr} \Omega_{ij} f(x_i, y_i) g(x_j, y_j),
 \end{equation}
 
-\noindent where $mbox{tr}$  is the operator that identifies the coordinates of each function $x_i = x_j = x, y_i = y_j = y$.
+\noindent where $\mbox{tr}$  is the operator that identifies the coordinates of each function $x_i = x_j = x, y_i = y_j = y$.
 
-This can be generalised to $n$ functions and $r-$th order~\cite{Olver} as:
+This can be generalised to $n$ functions $f^{(1)}(x_1, y_1), \ldots, f^{(n)}(x_n, y_n)$ and $r$-th order~\cite{Olver} to define a partial transvectant as:
 
 \begin{equation}
-\mbox{tr} \left( \Pi_{k=1}^r \Omega_{i_k j_k} \right) f_1(x_1, y_1) f_2(x_2, y_2), \ldots f_n (x_n, y_n)
+\mbox{tr} \left[\left( \Pi_{k=1}^r \Omega_{i_k j_k} \right) f^{(1)}(x_1, y_1)
+f^{(2)}(x_2, y_2), \ldots f^{(n)} (x_n, y_n)\right]
 \end{equation}
+where $i_k \neq j_k \in \{1, \ldots, n\}$.
 
-Under this formula we end with a factor $\det A^{-r}$ in place of $\det A^{-1}$ that we saw previously. $r$ is referred to as the weight of the partial transvectant. It can also be useful to consider the maximum number of derivatives computed, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2.
-For the current case it is sufficient to consider $n$ copies of the same function $f$.
+Under this formula we end with a factor $\det A^{-r}$ in place of $\det
+A^{-1}$ that we saw previously, when all $n$ copies of $\mathbb{R}^2$ are
+transformed by the same affine function $\mathbf{x} \mapsto A\mathbf{x} +
+\mathbf{b}$. $r$ is referred to as the weight of the partial
+transvectant. It can also be useful to consider the maximum order of
+derivative in the transvectant, which we term degree, e.g., $f_{xy}^2 f_x
+f_y$ has degree 2. Note also that the individual pairwise Omega processes commute.
 
-This formula can be applied to generate partial transvectants, as we will now show for the action of two groups: $A(2)$ itself, and its subgroup $SA(2)$. 
+For the current case it is sufficient to consider $n$ copies of the same
+function $f$. If we represent each copy (of $\mathbb{R}^2$) as a node on a
+undirected graph, and each Omega process $\Omega_{ij}$ as an edge joining
+nodes $i$ and $j$, a partial transvectant can be compactly represented in a
+graphical form. 
 
-\todo[inline]{Start here... write out some bits.}
-
-Then computations.
-
-Then the graphs and the weights.
-
-\begin{tabular}{cm{1cm}cm{10cm}}
+For example, consider a weight $2$ transvectant defined as
+\begin{align*}
+    \mbox{tr} &\left[(\Omega_{12}\Omega_{12}) f(x_1, y_1)f(x_2, y_2)\right] \\
+    &= \mbox{tr}\left[(\partial_{x_1 y_2} - \partial_{x_2y_1})(\partial_{x_1 y_2} -
+    \partial_{x_2y_1})f(x_1, y_1)f(x_2, y_2)\right]\\
+    &= \mbox{tr}\left[\left(\partial_{x_1 y_2} - \partial_{x_2 y_1}\right)\left(f_x(x_1, y_1)f_y(x_2, y_2) - f_y(x_1, y_1)f_x(x_2, y_2)\right)\right] \\
+    &= \mbox{tr}\left[f_{xx}(x_1, y_1)f_{yy}(x_2, y_2) - f_{xy}(x_1, y_1)f_{xy}(x_2, y_2)\right] \\
+    &= f_{xx}(x, y) f_{yy}(x, y) - f_{xy}(x, y)^2
+\end{align*}
+This is a degree $2$ partial transvectant as it involves derivatives of $f$
+up to second order, and can be represented graphically by the following
+diagram,
+\begin{center}
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (-0.5,0) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0.5,0) {2};
+    \draw[-] (1) to [out=30,in=150] (2);
+    \draw[-] (1) to [out=-30,in=-150] (2);
+\end{tikzpicture}
+\end{center}
+where the double edge between nodes $1$ and $2$ corresponds to the two copies of $\Omega_{12}$.
+Table~\ref{tab:transvectants} shows all possible nonzero partial
+transvectants of $A_2$ up to weight $4$ that can be generated in this way.
+Note that the weight is the number of edges in the graph.
+\begin{table}
 \centering
-Degree & Weight & Diagram & Invariant \\
+\begin{tabular}{cccp{11cm}}
+Degree & Weight & Diagram & Partial transvectant\\
 \hline
 2 & 2 &
 \begin{tikzpicture}[baseline=0]
@@ -326,6 +361,68 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
 \end{tikzpicture}
 & $\left(f_{x}\right)^{4} f_{yyyy} - 4 \left(f_{x}\right)^{3} f_{y} f_{xyyy} + 6 \left(f_{x}\right)^{2} \left(f_{y}\right)^{2} f_{xxyy} - 4 f_{x} \left(f_{y}\right)^{3} f_{xxxy} + f_{xxxx} \left(f_{y}\right)^{4}$ \\
 \end{tabular}
+\caption{Details and graphical representations of all partial transvectants up to weight $4$ of copies of a function $f$ under a transformation in $A(2)$.}
+\label{tab:transvectants}
+\end{table}
+
+
+\subsection{Signatures of $SA(2)$ and $A(2)$}
+Recall that invariants of a supergroup are automatically invariants of any of
+its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Table~\ref{tab:transvectants} are invariants of $SA(2)$ (as the determinant is $1$) but only up to scale factor ($\det A^{-r}$) of $A(2)$.
+
+Hence, we can form a signature for $SA(2)$ by choosing any combination of
+partial transvectants. We'll choose a signature with three components so that
+it can be visualised as a three-dimensional surface; note that this will not
+be complete and may well have a \emph{very large bad set}. For example, we can choose the function value together with the first two partial transvectants to form the signature
+\begin{equation*}
+    \left(f, f_{xx}f_{yy}-f_{xy}^2, f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2\right)
+\end{equation*}
+
+\subsubsection{Example}
+Consider as our image, the function $f(x, y) = 0.5 - 0.2x - 0.3y - 0.05x^2 +
+0.03xy + 0.04y^2 + 0.03y^3 +0.001x^3 - 0.0015x^2y + 0.002xy^2 - 0.0005y^3$
+defined on $[0, 1]\times[0, 1]$.
+\todo[inline]{remake figure with modified matrix. Also modify function so it has some features like a critical point}
+We'll subject our image to a special affine transformation:
+\begin{equation*}
+\mathbf{x} \mapsto \frac{1}{1.1}\begin{bmatrix} 0.6875 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
+\end{equation*}
+Fig.~\ref{fig:SA2} shows the function as a greyscale image, the transformed
+function, and the signatures of both the untransformed and transformed
+images.
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_SA2.png}
+\includegraphics[width=.45\textwidth]{Figs/SA2_signature.png}
+\caption{\todo[inline]{add extra crap} A sample $SA(2)$ Transform and 3D signature. Mention what's going on with the grid.}
+\label{fig:SA2}
+\end{figure}
+
+
+\subsubsection{Moving on to $A(2)$, \ldots}
+Using the same function as an example, 
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_A2.png}
+\includegraphics[width=.45\textwidth]{Figs/A2_signature.png}
+\caption{A sample $A(2)$ Transform and 3D signature.}
+\label{fig:A2}
+\end{figure}
+
+
+
+\todo[inline]{visual obstruction}
+
+
+
+
+
+
+
+
+
+
+
 
 Discussion of singularities. 
 
@@ -362,21 +459,7 @@ And the signatures.
 \label{fig:E2}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{Figs/f_transformed_SA2.png}
-\includegraphics[width=.45\textwidth]{Figs/SA2_signature.png}
-\caption{A sample $SA(2)$ Transform and 3D signature.}
-\label{fig:SA2}
-\end{figure}
 
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{Figs/f_transformed_A2.png}
-\includegraphics[width=.45\textwidth]{Figs/A2_signature.png}
-\caption{A sample $A(2)$ Transform and 3D signature.}
-\label{fig:A2}
-\end{figure}
 
 \section{Differential invariants through moving frames}
 
