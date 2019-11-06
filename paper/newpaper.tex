@@ -360,10 +360,50 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
     \draw[-] (1) to (5);
 \end{tikzpicture}
 & $\left(f_{x}\right)^{4} f_{yyyy} - 4 \left(f_{x}\right)^{3} f_{y} f_{xyyy} + 6 \left(f_{x}\right)^{2} \left(f_{y}\right)^{2} f_{xxyy} - 4 f_{x} \left(f_{y}\right)^{3} f_{xxxy} + f_{xxxx} \left(f_{y}\right)^{4}$ \\
+
+
+4 & 4 &
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (-0.5,0) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0.5,0) {2};
+    \draw[-] (1) to [out=30,in=150] (2);
+    \draw[-] (1) to [out=-30,in=-150] (2);
+    \draw[-] (1) to [out=10,in=170] (2);
+    \draw[-] (1) to [out=-10,in=-170] (2);
+\end{tikzpicture}
+& $f_{xxxx} f_{yyyy} - 4 f_{xyyy} f_{xxxy} + 3 f_{xxyy}^2$ \\
+
+
+4 & 4 &
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,0.866) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.5,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (0.5,0) {3};
+    \draw[-] (1) to [out=-150,in=90] (2);
+    \draw[-] (1) to [out=-90,in=30] (2);
+    \draw[-] (1) to [out=-90,in=150] (3);
+    \draw[-] (1) to [out=-30,in=90] (3);
+\end{tikzpicture}
+& $ f_{xx}^2 f_{yyyy} + 2 f_{xx} f_{yy} f_{xxyy} - 4 f_{xx} f_{xy} f_{xyyy} - 4 f_{yy} f_{xy} f_{xxxy} + 4 f_{xy}^2 f_{xxyy} + f_{xxxx} f_{yy}^2$ \\
+
+
+4 & 4 &
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,0.866) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.5,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (0.5,0) {3};
+    \draw[-] (1) to [out=-150,in=90] (2);
+    \draw[-] (1) to [out=-90,in=30] (2);
+    \draw[-] (1) to (2);
+    \draw[-] (1) to (3);
+\end{tikzpicture} 
+& $ f_{x} f_{xxx} f_{yyyy} - f_x f_{yyy} f_{xxxy} + 3 f_{x} f_{xyy} f_{xxyy} - 3 f_x f_{xyyy} f_{xxy} - f_{xxx} f_y f_{xyyy} + f_{xxxx} f_y f_{yyy} - 3 f_y f_{xyy} f_{xxxy} + 3 f_y f_{xxy} f_{xxyy}$ \\
 \end{tabular}
 \caption{Details and graphical representations of all partial transvectants up to weight $4$ of copies of a function $f$ under a transformation in $A(2)$.}
 \label{tab:transvectants}
 \end{table}
+
+\todo[inline]{Put into 2 tables: order 2 + products, order 3, rest order 4. Then explain a little bit.}
 
 
 \subsection{Signatures of $SA(2)$ and $A(2)$}
@@ -409,7 +449,44 @@ Using the same function as an example,
 \label{fig:A2}
 \end{figure}
 
+For $A(2)$ the weight of the partial transvectants prevents them from being invariants. They can be normalised by choosing only those where all components have the same weight and projecting them onto a unit hypersphere. Instead, we select ratios of partial transvectants. It is beneficial to choose the numerator and denominator so that they have different critical points, which can be achieved by adding together partial transvectants of the same weight as appropriate.
 
+====
+
+We consider as our image, the following function, defined on $[-1, 1]
+\times:
+[-1, 1]$
+\begin{equation}\label{eq:function}
+  \begin{split}
+    f(x, y) &= 0.5 - 0.2x - 0.3y - 0.05x^2 + 0.03xy + 0.04y^2 \\ 
+    &+ 0.03y^3 + 0.001x^3 - 0.0015x^2y + 0.002xy^2 - 0.0005y^3.
+  \end{split}
+\end{equation}
+This function was chosen to have no critical points, and to be
+predominantly linear, so that the higher order derivatives were not too
+large. This was predominantly so the higher order terms in the signatures
+would not overwhelm the smaller terms. The function is depicted as a
+greyscale image in Figure~\ref{fig:function}
+\begin{figure}
+  \centering
+  \includegraphics[width=12cm]{figures/function}
+  \caption{The test function used in this document, from
+  Eq.~\eqref{eq:function}.}\label{fig:function}
+\end{figure}
+
+We consider the signatures of this function under various transformation
+groups, as detailed throughout the main body of the paper and illustrate
+the signature in three dimensions. A grid is overlaid on the image of the
+function itself, as shown in Fig~\ref{fig:function_scanlines}. This grid is
+mapped to the signature surface to help understand what the signature looks
+like locally.
+\begin{figure}
+  \centering
+  \includegraphics[width=12cm]{figures/function_scanlines}
+  \caption{The test function used in this document, from
+  Eq.~\eqref{eq:function} with a grid of lines
+overlaid.}\label{fig:function_scanlines}
+\end{figure}
 
 \todo[inline]{visual obstruction}
 
@@ -427,19 +504,6 @@ Using the same function as an example,
 Discussion of singularities. 
 
 And then a list of explicit invariants by group.
-
-E2:
-{\bf Aside 3. Role of the invariants} 
-All of the 2nd order differential invariants play known roles in geometric analysis:
-\begin{enumerate}
-\item $f_x^2 + f_y^2=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
-\item $f_{xx} + f_{yy}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
-\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is the `infinity-Laplacian'; 
-\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and
-can be written in terms of the final 2nd order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
-\end{enumerate}
-In addition, we shall see in later sections that functions of these invariants are invariants or
-relative invariants for many groups that contain $E(2)$, namely $Sim(2)$, $SA(2)$, $A(2)$, $PSL(3,\mathbb{R})$, $PSL(2,\mathbb{C})$, and the conformal group.
 
 And the signatures.
 
@@ -485,7 +549,8 @@ Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering th
 
 \subsection{$SE(2)$}
 
-Ignoring translation, the action of $SE(2)$ is simply rotation by some angle $\theta$, i.e., 
+\todo[inline]{Make precise!}
+Ignoring translation, the action of $SE(2)$ on the first derivatives is simply rotation by some angle $\theta$, i.e., 
 
 \begin{equation}
 \left( \begin{array}{c} f_x \\ f_y \end{array} \right) = \left( \begin{array}{cc} \cos \theta & \sin \theta \\ - \sin \theta & \cos \theta \end{array} \right) \left( \begin{array}{c} \bar f_{\bar x} \\ \bar f_{\bar y} \end{array} \right).
@@ -522,10 +587,19 @@ As $SE(2)$ does not include scaling, lengths stay the same, and so an appropriat
 \begin{align}
 I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
 I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) \\
-I_4 &= f_x^2 f_{xx} - 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
+I_4 &= f_x^2 f_{xx} - 2 f_x f_y f_{xy} + f_y^2 f_{yy} 
 \end{align}
 
-However, summing $I_2$ and $I_4$ we can write the expression as $f_x^2 f_{xx} + f_y^2 f_{yy}$. Which is the product of 2 invariants in Einstein summation, but a pain in the arse any other way. But I can't see how else to get $f_{ii}$!
+\todo[inline]{Richard: Check if the summation and negation (!) of I2 and I4 are actually invariants.} Then we can write this bit. 
+I3 is Robert's one.}
+%However, summing $I_2$ and $I_4$ we can write the expression as $f_x^2 f_{xx} + f_y^2 f_{yy}$. Which is the product of 2 invariants in Einstein summation, but a pain in the arse any other way. But I can't see how else to get $f_{ii}$!
+
+\todo[inline]{E(2) is confusing. Robert did it by contraction, and got nice invariants. For the moving frame, the issue is that you have to consider one of the branches, since there is a reflection ambiguity. This is hacked in the PSL(3,R) case. Even then, it isn't clear that you can get the nice ones. The same issue stands for trying to extend SE(2) to E(2). 
+
+Question: is there an extension of transvectants (change of operator) that lets you get to it that way?
+
+However... we should do Sim(2) by adding a scaling to E(2), so we need it :(
+}
 
 \subsection{The M\"{o}bius Group}
 
@@ -825,6 +899,8 @@ Define diffeo here
 
 \subsection{Conformal Diffeomorphisms $\mathbf{Diff}_{\mathbf{con}}$}
 
+\todo[inline]{Richard to find the moving frame version!}
+
 The group of conformal diffeomorphisms is the subgroup of diffeomorphisms that are angle-preserving, i.e.,
 
 \begin{equation}
@@ -943,6 +1019,19 @@ $\mathrm{Diff}$ & -- & -- & 0 \\
 \caption{Number of derivatives of $f$ needed to construct a differential invariant signature of $f$ as a function of the group $G$ and the number of colours $k$ of $f$. The entry `--' indicates that there is no differential invariant signature in that case.}
 \end{center}
 \end{table}
+
+E2:
+{\bf Aside 3. Role of the invariants} 
+All of the 2nd order differential invariants play known roles in geometric analysis:
+\begin{enumerate}
+\item $f_x^2 + f_y^2=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
+\item $f_{xx} + f_{yy}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
+\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is the `infinity-Laplacian'; 
+\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and
+can be written in terms of the final 2nd order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
+\end{enumerate}
+In addition, we shall see in later sections that functions of these invariants are invariants or
+relative invariants for many groups that contain $E(2)$, namely $Sim(2)$, $SA(2)$, $A(2)$, $PSL(3,\mathbb{R})$, $PSL(2,\mathbb{C})$, and the conformal group.
 
 
 \end{document}
