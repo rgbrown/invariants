@@ -1,9 +1,9 @@
 classdef Signature < handle
     properties
-        fn
-        fn_numeric
-        group
-        signature_fn
+        fn                 % image function (symbolic)
+        fn_numeric         % image function (numeric)
+        group              % string: name of the group
+        signature_fn       % 
         derivative_order
         derivatives
         derivatives_matlab

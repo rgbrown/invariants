@@ -10,17 +10,29 @@ write_images = false;
  %   0.03*(x - 1.5)*(y + 1).^2 - 0.015*(y + 1).^3 + 0.9;
 %f(x, y) = exp(-2*x.^2 - 4.*sin((y + 0.5*x.^2)).^2);
 %f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
-f(x, y) = 0.5 - 0.2*x - 0.3*y - 0.05*x.^2 + 0.03*x.*y + 0.04*y.^2 + ...
-    0.03*y.^3 +0.001*x.^3 - 0.0015*x.^2.*y + 0.002*x.*y.^2 - 0.0005*y.^3;
+c = [0.5, -0.2, -0.3, -0.5, 0.03, -0.4, 0.001, -0.0015, 0.002, 0.03];
+foo = @(x, y, c) c(1) + c(2)*x + c(3)*y + ...
+    c(4)*x.^2 + c(5)*x.*y + c(6)*y.^2 + ...
+    c(7)*x.^3 + c(8)*x.^2.*y + c(9)*x.*y.^2 + c(10)*y.^3;
+
+f(x, y) = foo(x, y, c);
+f_numeric = matlabFunction(f);
 
 %% Plot and write image
-clf
 sig = E2_signature(f);
+
+figure(1)
+clf
 sig.draw_image('showscanlines', false)
-print('-dpng', '-r200', 'images/function.png')
+if write_images
+    print('-dpng', '-r200', 'images/function.png')
+end
+figure(2)
 clf
 sig.draw_image()
-print('-dpng', '-r200', 'images/function_scanlines.png')
+if write_images
+    print('-dpng', '-r200', 'images/function_scanlines.png')
+end
 
 %% Write signature picture
 groups = {'E2', 'SE2', 'A2', 'Mobius', 'PSL3R', 'SA2', 'Sim2'};
@@ -48,7 +60,7 @@ tform = E2Transform(1, -1, 0.1, -0.2);
 sig = E2_signature(f);
 [xp, yp] = tform.reverse(x, y);
 sigp = E2_signature(f, 'tform', tform);
-
+sig.draw()
 
 
 
@@ -71,7 +83,7 @@ tform = SA2Transform(A(1,1), A(1,2), A(2,1), A(2,2), 0.1, -0.2);
 sig = SA2_signature(f);
 [xp, yp] = tform.reverse(x, y);
 sigp = SA2_signature(f, 'tform', tform);
-sig.draw()
+sig.draw('scanparams', {'y', 'linewidth', 1})
 %group_experiment(f, tform, @SA2_signature, 'scanlines', {Xscan, Yscan});
 
 %% A(2)

@@ -15,6 +15,7 @@
 \begin{abstract}
 \end{abstract}
 
+
 % REQUIRED
 \begin{keywords}
 \end{keywords}
@@ -143,7 +144,7 @@ $SA(2)$ where, following the treatment in~\cite{OlverCIT}, this leads to
 Cayley's Omega Process~\cite{Cayley}. 
 
 Consider $\mathbf{x}_i \in \mathbb{R}^2, i=1,2$, so that $\mathbf{x}_i$ can
-be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$. Now consider applying the same affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i \mapsto A \mathbf{x}_i + b$ where $A \in GL(2,\mathbb{R}$ and $b \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by: 
+be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie in $\mathbb{R}^2 \times \mathbb{R}^2$. Now consider applying the same affine transformation to each $\mathbf{x}$ independently: $\mathbf{x}_i \mapsto A \mathbf{x}_i + \mathbf{b}$ where $A \in GL(2,\mathbb{R}$) and $\mathbf{b} \in \mathbb{R}^2$. Then the Omega Process is a second-order differential operator defined by: 
 \begin{equation}
 \Omega_{ij} = \begin{vmatrix} \frac{\partial}{\partial x_i} &
 \frac{\partial}{\partial y_i} \\ \frac{\partial}{\partial x_j} &
@@ -152,14 +153,19 @@ be written in coordinates as $(x_i, y_i)$. Then a pair of such $\mathbf{x}$ lie 
 \partial y_j} - \frac{\partial^2}{\partial x_j \partial y_i}.
 \end{equation}
 
-Under the above affine transformation, $\Omega_{ij} \mapsto \det A^{-1} \Omega_{ij}$. Note that $\det A^{-1}$ has no dependence on the coordinates. 
-The Omega Process can be applied to pairs of smooth functions as follows, writing $\frac{\partial f}{\partial x}$ as $f_x$:
+Under the above affine transformation, $\Omega_{ij} \mapsto (\det A)^{-1}
+\Omega_{ij}$. Note that $(\det A)^{-1}$ has no dependence on the coordinates.
+The Omega Process can be applied to pairs of smooth functions as follows,
+writing $\frac{\partial f}{\partial x}$ as $f_x$:
 
 \begin{equation}
-\Omega_{ij} f(x_i, y_i) g(x_j, y_j) = f_{x_i}g_{y_j} - f_{y_i}g_{x_j}
+\Omega_{ij} \left(f(x_i, y_i) g(x_j, y_j)\right) = f_{x_i}g_{y_j} - f_{y_i}g_{x_j}
 \end{equation}
 
-Identifying $x_i = x_j = x, y_i = y_j = y$ gives us functions of $x$ and $y$ that only vary by a scaling factor of $\det A^{-1}$ when $\mathbf{x}$ is mapped by an affine transformation. This matches the definition of a first-order partial transvectant of two functions:
+Identifying $x_i = x_j = x, y_i = y_j = y$ gives us functions of $x$ and $y$
+that only vary by a scaling factor of $(\det A)^{-1}$ when $\mathbf{x}$ is
+mapped by an affine transformation. This matches the definition of a
+first-order partial transvectant of two functions:
 
 \begin{equation}
 \mbox{tr} \Omega_{ij} f(x_i, y_i) g(x_j, y_j),
@@ -175,8 +181,8 @@ f^{(2)}(x_2, y_2), \ldots f^{(n)} (x_n, y_n)\right]
 \end{equation}
 where $i_k \neq j_k \in \{1, \ldots, n\}$.
 
-Under this formula we end with a factor $\det A^{-r}$ in place of $\det
-A^{-1}$ that we saw previously, when all $n$ copies of $\mathbb{R}^2$ are
+Under this formula we end with a factor $(\det A)^{-r}$ in place of $(\det
+A)^{-1}$ that we saw previously, when all $n$ copies of $\mathbb{R}^2$ are
 transformed by the same affine function $\mathbf{x} \mapsto A\mathbf{x} +
 \mathbf{b}$. $r$ is referred to as the weight of the partial
 transvectant. It can also be useful to consider the maximum order of
@@ -469,7 +475,7 @@ would not overwhelm the smaller terms. The function is depicted as a
 greyscale image in Figure~\ref{fig:function}
 \begin{figure}
   \centering
-  \includegraphics[width=12cm]{figures/function}
+  \includegraphics[width=12cm]{Figs/function}
   \caption{The test function used in this document, from
   Eq.~\eqref{eq:function}.}\label{fig:function}
 \end{figure}
@@ -482,7 +488,7 @@ mapped to the signature surface to help understand what the signature looks
 like locally.
 \begin{figure}
   \centering
-  \includegraphics[width=12cm]{figures/function_scanlines}
+  \includegraphics[width=12cm]{Figs/function_scanlines}
   \caption{The test function used in this document, from
   Eq.~\eqref{eq:function} with a grid of lines
 overlaid.}\label{fig:function_scanlines}
@@ -590,8 +596,8 @@ I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) \\
 I_4 &= f_x^2 f_{xx} - 2 f_x f_y f_{xy} + f_y^2 f_{yy} 
 \end{align}
 
-\todo[inline]{Richard: Check if the summation and negation (!) of I2 and I4 are actually invariants.} Then we can write this bit. 
-I3 is Robert's one.}
+\todo[inline]{Richard: Check if the summation and negation (!) of I2 and I4
+are actually invariants. Then we can write this bit. I3 is Robert's one.}
 %However, summing $I_2$ and $I_4$ we can write the expression as $f_x^2 f_{xx} + f_y^2 f_{yy}$. Which is the product of 2 invariants in Einstein summation, but a pain in the arse any other way. But I can't see how else to get $f_{ii}$!
 
 \todo[inline]{E(2) is confusing. Robert did it by contraction, and got nice invariants. For the moving frame, the issue is that you have to consider one of the branches, since there is a reflection ambiguity. This is hacked in the PSL(3,R) case. Even then, it isn't clear that you can get the nice ones. The same issue stands for trying to extend SE(2) to E(2). 
