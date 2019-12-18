@@ -63,6 +63,16 @@ class MyLatexPrinter(LatexPrinter):
             self._print(Symbol(function.func.__name__)),
                         ''.join(''.join(self._print(a[0]) for i in
                             range(a[1])) for a in vars))
+   
+    # This is an abomination
+    def _print_Subs(self, subs):
+        expr, old, new = subs.args
+        latex_expr = self._print(expr)
+        latex_old = (self._print(e) for e in old)
+        latex_new = (self._print(e) for e in new)
+        latex_subs = r'\\ '.join(
+            e[0] + '=' + e[1] for e in zip(latex_old, latex_new))
+        return r'%s' % (latex_expr)
 
 
 def print_my_latex(expr):
@@ -71,6 +81,7 @@ def print_my_latex(expr):
     any settings.
     """
     print(MyLatexPrinter().doprint(expr))
+   
     
 def my_latex(expr):
     return MyLatexPrinter().doprint(expr)
