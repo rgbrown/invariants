@@ -25,6 +25,13 @@
 \end{AMS}
 
 \section{Introduction}
+\todo[inline]{
+Richard: 
+
+Stephen:
+
+}
+
 \todo[inline]{Examples to be numbered like theorems}
 \todo[inline]{This is a start. To be completed later.}
 
@@ -89,10 +96,13 @@ While we follow this approach in general, in specific cases we have computed inv
 including the invariant tensor theorem and classical invariant theory. We shall see that this yields insights into the relationships between the different groups. We develop our approach through examples of progressively more complicated groups.
 ===
 
-local invariants -> occlusions OK
-derivatives -> noise is not
+\todo[inline]{Use T(2) as an example}
+
+local invariants: occlusions OK
+derivatives: noise is not
 
 signatures, dimensions, orders
+Bad set, completeness
 
 \begin{figure}
 \begin{center}
@@ -134,6 +144,16 @@ signatures, dimensions, orders
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 
 SE(2) is done via the moving frame by Olver in Ch 8 of CIT.
+
+\section{The Invariant Tensor Theorem}
+
+The new contraction mapping computation.
+
+E(2), Sim(2)
+
+Since this will be the first example, put the details of the image here. And remove one of the repeats below.
+
+3D and 4D signatures. 
 
 \section{Differential invariants through transvectants}
 
@@ -533,6 +553,9 @@ And the signatures.
 
 \section{Differential invariants through moving frames}
 
+
+\todo[inline]{This needs a friendly introduction, or at least a pointer to the notebooks}
+
 The method of moving frames enables one to identify invariants under the action of groups of transformations. It has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}.
 
 A right moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$. 
@@ -600,11 +623,7 @@ I_4 &= f_x^2 f_{xx} - 2 f_x f_y f_{xy} + f_y^2 f_{yy}
 are actually invariants. Then we can write this bit. I3 is Robert's one.}
 %However, summing $I_2$ and $I_4$ we can write the expression as $f_x^2 f_{xx} + f_y^2 f_{yy}$. Which is the product of 2 invariants in Einstein summation, but a pain in the arse any other way. But I can't see how else to get $f_{ii}$!
 
-\todo[inline]{E(2) is confusing. Robert did it by contraction, and got nice invariants. For the moving frame, the issue is that you have to consider one of the branches, since there is a reflection ambiguity. This is hacked in the PSL(3,R) case. Even then, it isn't clear that you can get the nice ones. The same issue stands for trying to extend SE(2) to E(2). 
-
-Question: is there an extension of transvectants (change of operator) that lets you get to it that way?
-
-However... we should do Sim(2) by adding a scaling to E(2), so we need it :(
+\todo[inline]{ Two things to note: (1) SE(2) has similar invars, (2) there is an issue in E(2) with the moving frame: reflection ambiguity. That's why we did it by contraction.
 }
 
 \subsection{The M\"{o}bius Group}
@@ -905,7 +924,7 @@ Define diffeo here
 
 \subsection{Conformal Diffeomorphisms $\mathbf{Diff}_{\mathbf{con}}$}
 
-\todo[inline]{Richard to find the moving frame version!}
+\todo[inline]{Put the moving frame version here}
 
 The group of conformal diffeomorphisms is the subgroup of diffeomorphisms that are angle-preserving, i.e.,
 
@@ -988,21 +1007,17 @@ In the full diffeomorphism group there are no differential invariants using 1 or
 \section{Use in practice; noise, singularities}
  \todo[inline]{Experimental}
 
-\section{Algorithms}
- This will go in paper 2, but let's start in here.
-
-\todo[inline]{Pseudocode for the matlab experimental code}
-\todo[inline]{Something about computing transvectants?}
-
-
-\section{Experiments}
+Some calculation detail
 
 \todo[inline]{Signature examples}
-\todo[inline]{Noise}
-\todo[inline]{Spot the group}
-\todo[inline]{Example on bits of images}
+\todo[inline]{Alien: Smoothing, noise}
+\todo[inline]{Spot the group?}
 
-\section{Discussion}
+\section{Conclusions}
+
+\todo[inline]{Number of derivatives}
+\item[inline]{Noise; integral invariants, Fourier}
+\todo[inline]{Is there a general theory - syzygy??}
 
 \begin{table}[h]
 \begin{center}
