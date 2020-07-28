@@ -7,15 +7,15 @@ write_images = false;
 % We create a symbolic and a numeric version of the function, for future
 % reference.
 %f(x, y) = 0.01*(x - 1.5).^3 -0.02*(x - 1.5).^2.*(y + 1) + ...
- %   0.03*(x - 1.5)*(y + 1).^2 - 0.015*(y + 1).^3 + 0.9;
-%f(x, y) = exp(-2*x.^2 - 4.*sin((y + 0.5*x.^2)).^2);
+%    0.03*(x - 1.5)*(y + 1).^2 - 0.015*(y + 1).^3 + 0.9;
+f(x, y) = exp(-2*x.^2 - 4.*sin((y + 0.5*x.^2)).^2);
 %f(x, y) = 0.6*(exp(-2*x.^2 - 0.5*x.*y - 4*y.^2) + 0.5 + 0.5*sin(2*(x + y)));
-c = [0.5, -0.2, -0.3, -0.5, 0.03, -0.4, 0.001, -0.0015, 0.002, 0.03];
-foo = @(x, y, c) c(1) + c(2)*x + c(3)*y + ...
-    c(4)*x.^2 + c(5)*x.*y + c(6)*y.^2 + ...
-    c(7)*x.^3 + c(8)*x.^2.*y + c(9)*x.*y.^2 + c(10)*y.^3;
+%c = [0.5, -0.2, -0.3, -0.5, 0.03, -0.4, 0.001, -0.0015, 0.002, 0.03];
+%foo = @(x, y, c) c(1) + c(2)*x + c(3)*y + ...
+%    c(4)*x.^2 + c(5)*x.*y + c(6)*y.^2 + ...
+%    c(7)*x.^3 + c(8)*x.^2.*y + c(9)*x.*y.^2 + c(10)*y.^3;
 
-f(x, y) = foo(x, y, c);
+%f(x, y) = foo(x, y, c);
 f_numeric = matlabFunction(f);
 
 %% Plot and write image
@@ -60,18 +60,21 @@ tform = E2Transform(1, -1, 0.1, -0.2);
 sig = E2_signature(f);
 [xp, yp] = tform.reverse(x, y);
 sigp = E2_signature(f, 'tform', tform);
-sig.draw()
-
+sig.draw('facecolor', 'blue', 'facealpha', 0.3, 'nx', 200, 'ny', 200, 'showscanlines', false)
+hold on
+sigp.draw('facecolor', 'red', 'facealpha', 0.3, 'nx', 200, 'ny', 200, 'showscanlines', false)
+hold off
 
 
 
 %% SE(2)
 close all
 tform = SE2Transform(1, 0.1, -0.2);
-sig = SE2_signature(f);
+sig = SE2_signature_new(f);
 [xp, yp] = tform.reverse(x, y);
-sigp = SE2_signature(f, 'tform', tform);
-sig.draw()
+sigp = SE2_signature_new(f, 'tform', tform);
+sig.draw('facecolor', 'blue', 'facealpha', 0.5, 'nx', 200, 'ny', 200)
+sigp.draw('facecolor', 'red', 'facealpha', 0.5, 'nx', 200, 'ny', 200)
 % group_experiment(f, tform, @SE2_signature, 'scanlines', {Xscan, Yscan});
 
 %% SA(2)
