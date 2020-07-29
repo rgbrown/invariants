@@ -15,6 +15,7 @@
 \begin{abstract}
 \end{abstract}
 
+h
 
 % REQUIRED
 \begin{keywords}
@@ -79,6 +80,24 @@ differential invariant is a local scalar function $I: J^{d} (\mathbb{R},
 \mathcal{M} ) \to \mathbb{R}$ that is invariant under the action of
 $\mathcal{G}$, i.e., $I(g(x,u^{(d)})) = I(x, u^{(d)}) \forall g \in
 \mathcal{G}$, where $J^{d}$ denotes the $d$-th order jet space.
+
+/subsection{Transformation notation}
+Most of the time we will work on grey-scale transformations of two-dimensional images. In this setting, we define the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$
+\begin{equation}\label{eq:transformation}
+  \mathbf{x} \mapsto \bar{\mathbf{x}} = \varphi(\mathbf{x})
+\end{equation}
+The transformed image is then defined to be
+\begin{equation}\label{eq:fbarequalsf}
+  \bar{f}(\bar{\mathbf{x}}) = (f\circ\varphi^{-1})(\bar{\mathbf{x}}) = f(\mathbf{x}).
+\end{equation}
+Derivatives of $\bar{f}$ and $f$ can be related by the chain rule, for example the first order derivatives are given by:
+\begin{equation}\label{eq:prolongation}
+  \begin{aligned}
+    f_x &= \bar{f}_{\bar{x}} \bar{x}_x + \bar{f}_{\bar{y}}\bar{y}_x \\
+    f_y &= \bar{f}_{\bar{x}} \bar{x}_y + \bar{f}_{\bar{y}}\bar{y}_y \\
+  \end{aligned}
+\end{equation}
+where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. It is often convenient to work with $\varphi^{-1}$ instead, which we will do in \S\ref{sec:movingframes}.
 
 ====
 Let $G$ be a (finite or infinite-dimensional) local planar transformation
@@ -567,7 +586,7 @@ And the signatures.
 
 
 
-\section{Differential invariants through moving frames}
+\section{Differential invariants through moving frames}\label{sec:movingframes}
 
 
 \todo[inline]{This needs a friendly introduction, or at least a pointer to the notebooks}
@@ -593,51 +612,74 @@ In order to construct differential invariants to the action of Lie group $\mathc
 Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. As an example, we use it to compute invariants to $SE(2)$ on the plane, before moving on to two other planar Lie group examples: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
 
 \subsection{$SE(2)$}
-
-\todo[inline]{Make precise!}
-Ignoring translation, the action of $SE(2)$ on the first derivatives is simply rotation by some angle $\theta$, i.e., 
-
+An element of the transformation group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as
+\begin{equation*}
+  \begin{aligned}
+    \bar{x} &= x\cos\theta  - y\sin\theta + t_x \\
+    \bar{y} &= x\sin\theta  + y\cos\theta + t_y.
+  \end{aligned}
+\end{equation*}
+Prolonging the group action up to second derivatives via the chain rule computations gives
 \begin{equation}
-\left( \begin{array}{c} f_x \\ f_y \end{array} \right) = \left( \begin{array}{cc} \cos \theta & \sin \theta \\ - \sin \theta & \cos \theta \end{array} \right) \left( \begin{array}{c} \bar f_{\bar x} \\ \bar f_{\bar y} \end{array} \right).
-\end{equation}
-
-Using $c$ for $\cos \theta$ and $s$ for $\sin \theta$ and prolonging the group to second order via the chain rule gives:
-
-\begin{equation}
-\arraycolsep=1.4pt
-\left(
-\begin{array}{c}
-  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} 
- \end{array}
- \right)
- = 
-\left(
-\begin{array}{ccccc}
+  \begin{bmatrix}
+  \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
+  \end{bmatrix}
+  \begin{bmatrix}
  c & -s & 0 & 0 & 0 \\
  s & c & 0 & 0 & 0 \\
 0 & 0 & c^2 & -2cs & s^2 \\
 0 & 0 & cs & c^2 - s^2 & -cs \\
 0 & 0 & s^2 & 2cs & c^2 \\
-\end{array}
-\right)\left(
-\begin{array}{c}
+  \end{bmatrix}
+  \begin{bmatrix}
 f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} 
- \end{array}
- \right).
+  \end{bmatrix}
 \label{eqn:SE2}
  \end{equation}
+where $c = \cos \theta$ and $s = \sin \theta$.
 
-As $SE(2)$ does not include scaling, lengths stay the same, and so an appropriate choice for first-order normalisation is $\bar f_x = \sqrt(f_x^2 + f_y^2),\:\: \bar f_y = 0$, which sets $c = f_x / \| \nabla f \|$, $s = - f_y / \| \nabla f \|$. This provides the invariant $I_1 = \nabla f$. As there are no more free parameters, the expressions for the second-order terms can be read off as:
-
+We normalise in two stages. First, we set $\bar{f}_{\bar{y}} = 0$. This determines $\theta$, giving $\cos\theta = f_x/\lVert \nabla f \rVert$ and $\sin\theta = -f_y / \lVert \nabla f \rVert$. We then choose $t_x = -x\cos\theta + y\sin\theta$ and $t_y = -x\sin\theta - y \cos\theta$ to make $\bar{x} = 0$ and $\bar{y} = 0$. These three normalisations fully specify the moving frame, and so the remaining transformed derivatives are invariants. Apart from squaring $I_1$, these can be read off as:
 \begin{align}
-I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
-I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) \\
-I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} 
+  I_0 &= f \\
+  I_1 &= f_x^2 + f_y^2 \\
+  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
+  I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) \\
+  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} 
 \end{align}
 
+\todo[inline]{c.f. transvectant formulae}
 
-\todo[inline]{ Two things to note: (1) SE(2) has similar invars, (2) there is an issue in E(2) with the moving frame: reflection ambiguity. That's why we did it by contraction.
-}
+\subsection{The Euclidean Group E(2)}
+An element of the Euclidean group $E(2)$ maps an element $(x, y)$ of $\mathbb{R}^2$ to $(\bar{x}, \bar{y}$ as 
+\begin{equation*}
+  \begin{aligned}
+    \bar{x} &=  x\varepsilon\cos\theta  - y\varepsilon\sin\theta + t_x \\
+    \bar{y} &= x\sin\theta  + y\cos\theta + t_y.
+  \end{aligned}
+\end{equation*}
+where $\varepsilon \in \{-1, 1\}$ and the remaining parameters are the same as for $SE(2)$. If $\varepsilon = 1$ it is a rigid transformation, and if $\varepsilon = -1$ it contains a reflection.
+
+This time, the group action is not free on $J^1$ (with elements of the form $(x, y, f, f_x, f_y)$) because there are two possible transformations that map to the normalised coordinates $(0, 0, \bar{f}, \bar{f}_{\bar{x}}, 0)$ where $\bar{f}_{\bar{x}} \ge 0$, one that reflects the gradient, and one that rotates. And first derivatives give no information about $\varepsilon$. 
+
+So, we prolong to second derivatives, giving
+\begin{equation}
+  \begin{bmatrix}
+  \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
+  \end{bmatrix}
+  \begin{bmatrix}
+ \varepsilon c & -\varepsilon s & 0 & 0 & 0 \\
+ s & c & 0 & 0 & 0 \\
+0 & 0 & c^2 & -2cs & s^2 \\
+0 & 0 & \varepsilon cs & \varepsilon(c^2 - s^2) & -\varepsilon cs \\
+0 & 0 & s^2 & 2cs & c^2 \\
+  \end{bmatrix}
+  \begin{bmatrix}
+f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} 
+  \end{bmatrix}
+\label{eqn:E2prolongation}
+ \end{equation}
+
+
 
 \subsection{The M\"{o}bius Group}
 
