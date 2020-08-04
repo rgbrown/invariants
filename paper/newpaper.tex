@@ -789,7 +789,7 @@ The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensiona
 
 We consider the 8-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., $$(x,y) \mapsto \left(\frac{a x + b y + j}{l + g x + h y}, \frac{c x + d y + k}{l+ g x + h y}\right).$$
 
-The 0th order moving frame translates $(x,y)$ to $(0,0)$. We can therefore take $j=k=0$; we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. First we prolong the action to 3rd derivatives of $f$. There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 3 invariants.
+The 0th order moving frame translates $(x,y)$ to $(0,0)$. We can therefore take $j=k=0$; we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. First we prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 3 invariants.
 
 The prolonged action is:
 \begin{equation}
@@ -822,63 +822,38 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{
  \right).
  \end{equation}
 
-First, recall from the analysis of the subgroup $A(2)$ that under $f\mapsto f\circ \phi$, $\phi\in A(2)$, we have 
+The affine group $A(2)$ is a subgroup of $\mathrm{PSL}(3,\R)$. In the analysis of that group, in Section~\ref{}, the invariant $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$ was identified. Under a general action of $\phi \in \mathrm{PSL}(3,\R)$, $D$ is a relative invariant (that is, the value is multiplied by a certain factor under group transformations):
 \begin{equation}
 \label{eq:D}
-D \mapsto (\det \phi')^2 D\circ \phi
+D \mapsto (\det \phi')^2 D\circ \phi.
 \end{equation}
-where $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$. 
 
-A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. From (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on the sign of $D$.
+Another invariant of $A(2)$ was 
 
-\begin{enumerate}
-\item The frame $\bar f_x = 1$  determines the group parameter $$a = (1-c f_y)/f_x.$$
-\item The frame $\bar f_y=  0$ determines the group parameter $$b = -d f_y/f_x.$$
-\item Substituting this choice of $a$ and $b$ and examining the dependencies of $f_{xx}$, $f_{xy}$, $f_{yy}$, and $f_{yyy}$ on the remaining group parameters allows them to be solved sequentially, as follows.
-\item We have $\bar f_{yy} = d^2 D/f_x^2$; therefore if $D>0$ we choose the frame
-$\bar f_{yy} = 1$ and $$d = f_x/D^{1/2}.$$
-\item The frame $\bar f_{yyy} = 0$ determines the group parameter
-$$ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D}.$$
-\item The frame $\bar f_{xyy}=0$ determines the group parameter
-$$ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}.$$
-\item The frame $\bar f_{xx}=0$ determines the group parameter
-$$ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$$
-\end{enumerate}
+\begin{equation}
+E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
+\end{equation}
 
-\todo[inline]{Need to get the Js from somewhere...}
-Having determined the frame, any function of the remaining derivatives $\bar f_{xxx}$, $\bar f_{xxy}$, and $\bar f_{yyy}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)$$
-because these all have denominators given by integer powers  of $D$, resolving the issue caused
-by the sign of $D$. Therefore,
-$$ (D^{18}, J_1^3, J_2^2, J_3^6)$$
-are all relative invariants of weight 36; so projecting any subset of them of them to a sphere
-yields a 3rd order invariant signature.
+%A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. 
+Both $D$ and $E$ will be useful quantities shortly, but note that, from (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on its sign. We begin by choosing the frames $\bar f_x = 1$ and $\bar f_y=  0$, which determine the group parameters $a = (1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that $\bar f_{yy} = d^2 D/f_x^2$. We assume that $D>0$ (if it is negative, relatively little changes in the following derivation) and choose the frame $\bar f_{yy} = 1$, so that $d = f_x/D^{1/2}.$
 
-However, these signatures can be simplified and made more robust, as follows.
+The frame $\bar f_{yyy} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{xyy}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{xx}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$
 
-The components of $J$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. More seriously, $J$ vanishes on generic images. This can be seen as follows. 
-Recall the $SA(2)$ invariant $E$ defined in \todo[inline]{somewhere}
+Having determined the frame, any function of the remaining derivatives $\bar f_{xxx}$, $\bar f_{xxy}$, and $\bar f_{yyy}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)$$, where (with $P_n$ denoting a polynomial of degree $n$):
+$$ J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5.$$
 
-%Let
-%$$ E := f_{222}f_1^3 - 3 f_{122}f_1 f_2^2 + 3 f_{112}f_1^2 f_2 - f_{111}f_2^3$$
-Then the components of $J$ have the structure
-$$ J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5$$
-where the $P_n$ are polynomials of degree $n$. Therefore $J=0$ when $D=E=0$, which 
-is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points.
+The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the issue caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36; so projecting any subset of them of them to a sphere yields a 3rd order invariant signature.
 
-The structure of () suggests considering the combination $J_1 - J_3^2$ which turns out to obey
+$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points.  However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which turns out to obey
 $$J_1 - J_3^2 = 144 D^4 P_4.$$
-Therefore, as $J_1/D^6$ and $J_3/D^3$ are invariant, so is $P_4/D^2$. 
-Moreover, {\em the numerator of this new invariant does not vanish at critical points.} 
-It has the structure
+
+As $J_1/D^6$ and $J_3/D^3$ are invariant, so is $P_4/D^2$. 
+Moreover, the numerator of this new invariant does not vanish at critical points.  It has the structure
 $$P_4 = -4(\det f_{ij})^2 + Q_4,$$
-where $Q_4$ is a polynomial of degree 4 that vanishes when $f_x=f_y=0$. In conclusion, the
-relative invariant of weight 12
+where $Q_4$ is a polynomial of degree 4 that vanishes when $f_x=f_y=0$. Hence, the relative invariant of weight 12
 $$ (D^6, P_4^3, (E^2-12D P_5)^2)$$
-can be projected to $S^2$ yielding a projective invariant of images that
-is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon for images.
-(One can check that $D=E=0\Rightarrow P_4=0$.) In particular, at critical points it tends to
-$$ (0, (2\det f_{ij})^6, 0)$$
-and hence critical points with $\det f_{ij}\ne 0$ have signature $(0,1,0)$.
+can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to
+$(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature $(0,1,0)$.
 
 For completeness we write out the invariants explicitly:
 
@@ -920,7 +895,7 @@ Including $J_2$ in addition provides a 4-dimensional signature set, but does not
 Further invariants can be found by noting that, for any planar transformation group and any two invariants
 $I^1$ and $I^2$, $\nabla I^1 \times \nabla I^2$ is a relative invariant of weight 1; that is,
 $$\nabla I^1 \times \nabla I^2\mapsto (\det \phi')(\nabla I^1 \times \nabla I^2).$$
-Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=1$0  4th order invariants.
+Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=10$ 4th order invariants.
 
 \begin{figure}
 \centering
