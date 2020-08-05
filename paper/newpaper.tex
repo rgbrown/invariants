@@ -252,7 +252,7 @@ diagram,
 \end{tikzpicture}
 \end{center}
 where the double edge between nodes $1$ and $2$ corresponds to the two copies of $\Omega_{12}$.
-Table~\ref{tab:transvectants} shows all possible nonzero partial
+Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} shows all possible nonzero partial
 transvectants of $A_2$ up to weight $4$ that can be generated in this way.
 Note that the weight is the number of edges in the graph.
 \begin{table}
@@ -388,7 +388,17 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
     \draw[-] (4) to (5);
 \end{tikzpicture}
 & $- \left(f_{x}\right)^{3} f_{yy} f_{xyy} + \left(f_{x}\right)^{3} f_{yyy} f_{xy} - \left(f_{x}\right)^{2} f_{xx} f_{y} f_{yyy} + 2 \left(f_{x}\right)^{2} f_{y} f_{yy} f_{xxy} - \left(f_{x}\right)^{2} f_{y} f_{xy} f_{xyy} + 2 f_{x} f_{xx} \left(f_{y}\right)^{2} f_{xyy} - f_{x} f_{xxx} \left(f_{y}\right)^{2} f_{yy} - f_{x} \left(f_{y}\right)^{2} f_{xy} f_{xxy} - f_{xx} \left(f_{y}\right)^{3} f_{xxy} + f_{xxx} \left(f_{y}\right)^{3} f_{xy}$ \\
+\end{tabular}
+\caption{Details and graphical representations of all partial transvectants up to degree $3$ of copies of a function $f$ under a transformation in $A(2)$.}
+\label{tab:transvectants1}
+\end{table}
 
+
+\begin{table}
+\centering
+\begin{tabular}{cccp{11cm}}
+Degree & Weight & Diagram & Partial transvectant\\
+\hline
 4 & 4 &
 \begin{tikzpicture}[baseline=0]
     \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
@@ -441,16 +451,15 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
 \end{tikzpicture} 
 & $ f_{x} f_{xxx} f_{yyyy} - f_x f_{yyy} f_{xxxy} + 3 f_{x} f_{xyy} f_{xxyy} - 3 f_x f_{xyyy} f_{xxy} - f_{xxx} f_y f_{xyyy} + f_{xxxx} f_y f_{yyy} - 3 f_y f_{xyy} f_{xxxy} + 3 f_y f_{xxy} f_{xxyy}$ \\
 \end{tabular}
-\caption{Details and graphical representations of all partial transvectants up to weight $4$ of copies of a function $f$ under a transformation in $A(2)$.}
-\label{tab:transvectants}
+\caption{Details and graphical representations of all partial transvectants of weight $4$ of copies of a function $f$ under a transformation in $A(2)$.}
+\label{tab:transvectants2}
 \end{table}
 
-\todo[inline]{Put into 2 tables: order 2 + products, order 3, rest order 4. Then explain a little bit.}
-
+\todo{Explain}
 
 \subsection{Signatures of $SA(2)$ and $A(2)$}
 Recall that invariants of a supergroup are automatically invariants of any of
-its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Table~\ref{tab:transvectants} are invariants of $SA(2)$ (as the determinant is $1$) but only up to scale factor ($\det A^{-r}$) of $A(2)$.
+its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$) but only up to scale factor ($\det A^{-r}$) of $A(2)$.
 
 Hence, we can form a signature for $SA(2)$ by choosing any combination of
 partial transvectants. We'll choose a signature with three components so that
