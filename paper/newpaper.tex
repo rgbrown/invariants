@@ -612,14 +612,14 @@ In order to construct differential invariants to the action of Lie group $\mathc
 Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. As an example, we use it to compute invariants to $SE(2)$ on the plane, before moving on to two other planar Lie group examples: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
 
 \subsection{$SE(2)$}
-An element of the transformation group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as
+An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as 
 \begin{equation*}
   \begin{aligned}
     \bar{x} &= x\cos\theta  - y\sin\theta + t_x \\
     \bar{y} &= x\sin\theta  + y\cos\theta + t_y.
   \end{aligned}
 \end{equation*}
-Prolonging the group action up to second derivatives via the chain rule computations gives
+Note that once $\theta$ has been fixed, it's always possible to choose $t_x$ and $t_y$ to ensure that $\bar{x} = \bar{y} = 0$. Prolonging the group action up to second derivatives via the chain rule gives
 \begin{equation}
   \begin{bmatrix}
   \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
@@ -633,18 +633,23 @@ Prolonging the group action up to second derivatives via the chain rule computat
   \end{bmatrix}
   \begin{bmatrix}
 f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} 
-  \end{bmatrix}
+  \end{bmatrix},
 \label{eqn:SE2}
  \end{equation}
-where $c = \cos \theta$ and $s = \sin \theta$.
+where $c = \cos \theta$ and $s = \sin \theta$. We are going to choose the
+moving frame to project a point in the jet space onto the submanifold
+$\bar{x} = 0$, $\bar{y} = 0$, $\bar{f}_{\bar{y}} = 0$, $\bar{f}_{\bar{x}} \ge
+0$. This can be thought of as rotating the image about $(\bar{x}, \bar{y})$
+so that the gradient is pointing in the positive $\bar{x}$-direction, and
+then translating to the origin to put it in canonical position.
 
-We normalise in two stages. First, we set $\bar{f}_{\bar{y}} = 0$. This determines $\theta$, giving $\cos\theta = f_x/\lVert \nabla f \rVert$ and $\sin\theta = -f_y / \lVert \nabla f \rVert$. We then choose $t_x = -x\cos\theta + y\sin\theta$ and $t_y = -x\sin\theta - y \cos\theta$ to make $\bar{x} = 0$ and $\bar{y} = 0$. These three normalisations fully specify the moving frame, and so the remaining transformed derivatives are invariants. Apart from squaring $I_1$, these can be read off as:
+This choice gives $\cos\theta = f_x / \lVert \nabla f \rVert$ and $\sin\theta = -f_y / \lVert \nabla f \rVert$, and then $t_x, t_y$ can be chosen as above. The remaining derivatives, transformed into canonical position, are therefore invariant and can be found by substituting in $c$ and $s$. Note we square $\bar{f}_{\bar{x}}$ for neatness.
 \begin{align}
   I_0 &= f \\
-  I_1 &= f_x^2 + f_y^2 \\
-  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} \\
-  I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) \\
-  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} 
+  I_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
+  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= \bar{f}_{\bar{x}\bar{x}}) \\
+  I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) &&(= \bar{f}_{\bar{x}\bar{y}})\\
+  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= \bar{f}_{\bar{y}\bar{y}})
 \end{align}
 
 \todo[inline]{c.f. transvectant formulae}
