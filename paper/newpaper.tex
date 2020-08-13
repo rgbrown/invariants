@@ -588,7 +588,6 @@ And the signatures.
 
 \section{Differential invariants through moving frames}\label{sec:movingframes}
 
-
 \todo[inline]{This needs a friendly introduction, or at least a pointer to the notebooks}
 
 The method of moving frames enables one to identify invariants under the action of groups of transformations. It has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}.
@@ -611,7 +610,7 @@ In order to construct differential invariants to the action of Lie group $\mathc
 
 Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. As an example, we use it to compute invariants to $SE(2)$ on the plane, before moving on to two other planar Lie group examples: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
 
-\subsection{$SE(2)$}
+\subsection{The Special Euclidean Group $SE(2)$}
 An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as 
 \begin{equation*}
   \begin{aligned}
@@ -619,11 +618,13 @@ An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of
     \bar{y} &= x\sin\theta  + y\cos\theta + t_y.
   \end{aligned}
 \end{equation*}
-Note that once $\theta$ has been fixed, it's always possible to choose $t_x$ and $t_y$ to ensure that $\bar{x} = \bar{y} = 0$. Prolonging the group action up to second derivatives via the chain rule gives
+We prolong the group action to form the jet space $J^2$ with coordinates $(x,
+y, f, f_x, f_y, f_{xx}, f_{xy}, f_{yy})$ via the chain rule. The
+transformation rule for the derivatives is given by
 \begin{equation}
   \begin{bmatrix}
   \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
-  \end{bmatrix}
+  \end{bmatrix} = 
   \begin{bmatrix}
  c & -s & 0 & 0 & 0 \\
  s & c & 0 & 0 & 0 \\
@@ -636,41 +637,68 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy}
   \end{bmatrix},
 \label{eqn:SE2}
  \end{equation}
-where $c = \cos \theta$ and $s = \sin \theta$. We are going to choose the
-moving frame to project a point in the jet space onto the submanifold
-$\bar{x} = 0$, $\bar{y} = 0$, $\bar{f}_{\bar{y}} = 0$, $\bar{f}_{\bar{x}} \ge
-0$. This can be thought of as rotating the image about $(\bar{x}, \bar{y})$
-so that the gradient is pointing in the positive $\bar{x}$-direction, and
-then translating to the origin to put it in canonical position.
+where $c = \cos \theta$ and $s = \sin \theta$. Because the group has three
+parameters, we choose the cross section of the group orbits to be $\bar{x}
+= 0, \bar{y} = 0, \bar{f}_{\bar{y}} = 0$. We also require that $\bar{f}_{x}
+> 0$ to uniquely define the moving frame. Note that the group action is
+locally free (away from critical points) when prolonged to $J^1$, however
+we prolonged to $J^2$ in order to compute invariants. points. The moving
+frame is then given by the prolonged Euclidean transformation that maps an
+element of  $J^2$ to this cross section. It can be thought of as rotating
+the image about that point so that its gradient is pointing in the positive
+$x$ direction, and then translating the image so the point is mapped to the
+origin. 
 
-This choice gives $\cos\theta = f_x / \lVert \nabla f \rVert$ and $\sin\theta = -f_y / \lVert \nabla f \rVert$, and then $t_x, t_y$ can be chosen as above. The remaining derivatives, transformed into canonical position, are therefore invariant and can be found by substituting in $c$ and $s$. Note we square $\bar{f}_{\bar{x}}$ for neatness.
-\begin{align}
+This choice of moving frame gives $\cos\theta = f_x/\lVert\nabla f\rVert$
+and $\sin\theta = -f_y/\lVert \nabla f \rVert$. The parameters $t_x, t_y$
+are then $t_x = -x\cos\theta + y\sin\theta$ and $t_y = -x\sin\theta -
+y\cos\theta$, however these have no effect on the derivatives, and will
+henceforth be ignored.
+
+The remaining elements not fixed by the cross section, $\bar{f}$,
+$\bar{f}_{\bar{x}}$, $\bar{f}_{\bar{x}\bar{x}}$,
+$\bar{f}_{\bar{x}\bar{y}}$, and $\bar{f}_{\bar{y}\bar{y}}$ are therefore
+all invariant. This gives the following set of invariants:
+\begin{equation}\label{eq:se2invariants}
+\begin{aligned}
   I_0 &= f \\
   I_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
-  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= \bar{f}_{\bar{x}\bar{x}}) \\
-  I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) &&(= \bar{f}_{\bar{x}\bar{y}})\\
-  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= \bar{f}_{\bar{y}\bar{y}})
-\end{align}
+  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= I_1\bar{f}_{\bar{x}\bar{x}}) \\
+  I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) &&(= I_1\bar{f}_{\bar{x}\bar{y}})\\
+  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}})
+\end{aligned}
+\end{equation}
+Note that we multiplied each of the second derivative invariants by $I_1$
+so that they would decay smoothly to zero at critical points.
 
 \todo[inline]{c.f. transvectant formulae}
 
 \subsection{The Euclidean Group E(2)}
-An element of the Euclidean group $E(2)$ maps an element $(x, y)$ of $\mathbb{R}^2$ to $(\bar{x}, \bar{y}$ as 
+An element of the Euclidean group $E(2)$ maps an element $(x, y)$ of
+$\mathbb{R}^2$ to $(\bar{x}, \bar{y})$ as 
 \begin{equation*}
   \begin{aligned}
     \bar{x} &=  x\varepsilon\cos\theta  - y\varepsilon\sin\theta + t_x \\
     \bar{y} &= x\sin\theta  + y\cos\theta + t_y.
   \end{aligned}
 \end{equation*}
-where $\varepsilon \in \{-1, 1\}$ and the remaining parameters are the same as for $SE(2)$. If $\varepsilon = 1$ it is a rigid transformation, and if $\varepsilon = -1$ it contains a reflection.
+where $\varepsilon \in \{-1, 1\}$ and the remaining parameters are the same
+as for $SE(2)$. If $\varepsilon = 1$ it is a rigid transformation, and if
+$\varepsilon = -1$ it contains a reflection.
 
-This time, the group action is not free on $J^1$ (with elements of the form $(x, y, f, f_x, f_y)$) because there are two possible transformations that map to the normalised coordinates $(0, 0, \bar{f}, \bar{f}_{\bar{x}}, 0)$ where $\bar{f}_{\bar{x}} \ge 0$, one that reflects the gradient, and one that rotates. And first derivatives give no information about $\varepsilon$. 
+This time, the group action is not free on $J^1$ (with elements of the form
+$(x, y, f, f_x, f_y)$) away from critical points because there are two
+possible transformations that map to the cross section $(0, 0, \bar{f},
+\bar{f}_{\bar{x}}, 0)$ where $\bar{f}_{\bar{x}} > 0$, one that reflects the
+gradient into the positive $x$ direction, and one that rotates. 
 
-So, we prolong to second derivatives, giving
+We again prolong the group action to $J^2$, but this time we expect to need
+to use a second derivative term to determine $\varepsilon$ for the moving
+frame. The derivative transformations are given by
 \begin{equation}
   \begin{bmatrix}
   \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
-  \end{bmatrix}
+  \end{bmatrix} = 
   \begin{bmatrix}
  \varepsilon c & -\varepsilon s & 0 & 0 & 0 \\
  s & c & 0 & 0 & 0 \\
@@ -680,9 +708,44 @@ So, we prolong to second derivatives, giving
   \end{bmatrix}
   \begin{bmatrix}
 f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} 
-  \end{bmatrix}
+  \end{bmatrix},
 \label{eqn:E2prolongation}
- \end{equation}
+\end{equation}
+where again $c = \cos\theta$ and $s = \sin\theta$.  
+
+We begin by choosing the same cross section as for $SE(2)$, namely $\bar{x} = 0,
+\bar{y} = 0, \bar{f}_{\bar{y}} = 0, \bar{f}_{\bar{x}} > 0$. This gives
+$\cos\theta = \varepsilon f_x / \lVert \nabla f \rVert$ and $\sin\theta =
+-\varepsilon f_y / \lVert \nabla f \rVert$. Under this transformation,
+regardless of whether $\varepsilon = 1$ or $\varepsilon = -1$, the
+derivative $\bar{f}_{\bar{x}} = \lVert \nabla f \rVert$. We need a second
+derivative term to resolve the choice of $\varepsilon$ for the moving
+frame. The only second derivative term in which $\varepsilon$ appears is
+the $\bar{f}_{\bar{x}\bar{y}}$ term. Substituting in for $\cos\theta,
+\sin\theta$, we see that
+\begin{equation*}
+    \bar{f}_{\bar{x}\bar{y}} = \frac{\varepsilon(f_xf_y(f_{yy} - f_{xx}) + (f_x^2 -
+    f_y^2)f_{xy})}{f_x^2 + f_y^2}
+\end{equation*}
+This suggests choosing $\varepsilon$ to make $\bar{f}_{\bar{x}\bar{y}} \ge
+0$. We can then list the invariants:
+\begin{equation}\label{eq:e2invariants}
+\begin{aligned}
+  I_0 &= f \\
+  I_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
+  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= I_1\bar{f}_{\bar{x}\bar{x}}) \\
+  I_3 &= \lvert f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2)\rvert
+  &&(= I_1\lvert \bar{f}_{\bar{x}\bar{y}}\rvert)\\
+  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}})
+\end{aligned}
+\end{equation}
+Notice that most, but not all of the $SE(2)$ invariants
+\eqref{eq:se2invariants} are also $E(2)$ invariants. We again multiply
+through the invariants by $I_1$ so that they decay smoothly at critical
+points.
+
+ 
+
 
 
 
