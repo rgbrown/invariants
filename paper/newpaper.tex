@@ -15,7 +15,6 @@
 \begin{abstract}
 \end{abstract}
 
-h
 
 % REQUIRED
 \begin{keywords}
@@ -81,7 +80,7 @@ differential invariant is a local scalar function $I: J^{d} (\mathbb{R},
 $\mathcal{G}$, i.e., $I(g(x,u^{(d)})) = I(x, u^{(d)}) \forall g \in
 \mathcal{G}$, where $J^{d}$ denotes the $d$-th order jet space.
 
-/subsection{Transformation notation}
+\subsection{Transformation notation}
 Most of the time we will work on grey-scale transformations of two-dimensional images. In this setting, we define the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$
 \begin{equation}\label{eq:transformation}
   \mathbf{x} \mapsto \bar{\mathbf{x}} = \varphi(\mathbf{x})
@@ -99,6 +98,7 @@ Derivatives of $\bar{f}$ and $f$ can be related by the chain rule, for example t
 \end{equation}
 where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. It is often convenient to work with $\varphi^{-1}$ instead, which we will do in \S\ref{sec:movingframes}.
 
+\subsection{Stuff from dispaper to tidy}
 ====
 Let $G$ be a (finite or infinite-dimensional) local planar transformation
 group.  A {\em $k$-colour image} is a triple $(f,\Omega,k)$ where
@@ -180,15 +180,38 @@ Bad set, completeness
 
 SE(2) is done via the moving frame by Olver in Ch 8 of CIT.
 
-\section{The Invariant Tensor Theorem}
+\section{Differential invariants of E(2) through tensor contraction}
+While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance, they are both the same thing. We use subscript indices exclusively, for this reason. 
 
-The new contraction mapping computation.
+In this setting, a Euclidean transformation acting on $\mathbb{R}^2$ is given
+by an expression of the form:
+\begin{equation*}
+  \bar{x}_i = a_{ij}x_j + b_j,
+\end{equation*}
+using the Einstein summation convention. The orthogonality condition is that $a_{ik}a_{jk} = a_{ki}a_{kj} = \delta_{ij}$.
 
-E(2), Sim(2)
+With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is a $2^p$-tuple of real numbers $C_{i_1\ldots i_p}$ whose components transform under a Euclidean transformation as
+\begin{equation*}
+  \bar{C}_{i_1\ldots i_p} = a_{i_1j_1}\cdots a_{i_pj_p} C_{j_1\ldots j_p}
+\end{equation*}
+and a $0$-tensor is a scalar, or invariant. 
 
-Since this will be the first example, put the details of the image here. And remove one of the repeats below.
+The main observation is that in this setting, the $n^\text{th}$ order partial derivative operator $\partial^n / \partial_{x_{i_1}} \cdots \partial_{x_{i_n}}$ formally transforms as an $n$-tensor. \todo[inline]{Cite Florack et al, 1993} Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial f / \partial_{i_1} \cdots \partial_{i_p}$ will give a Euclidean invariant.
 
-3D and 4D signatures. 
+For example, up to second derivatives, we have the following Euclidean invariants, expressed as tensor contractions:
+\begin{align*}
+  f &= f \\
+  f_if_i &= f_x^2 + f_y^2 \\
+  f_{ii} &= f_{xx}^2 + f_{yy}^2 \\
+  f_{ij} f_{ij} &= f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
+  f_i f_j f_{ij} &= f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
+\end{align*}
+
+While we can construct any number of invariants this way, there is no guarantee of functional independence of the constructed invariants. We will address this issue in Section~\ref{sec:movingframes} when we construct invariants of $E(2)$ and other groups using the method of moving frames.
+
+\todo[inline]{Expand to Sim(2)}
+\todo[inline]{Introduce image that we are going to use in subsequenct examples}
+\todo[inline]{Introduce signatures - 3D and 4D perhaps?}
 
 \section{Differential invariants through transvectants}
 
