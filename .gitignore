@@ -75,3 +75,7 @@ target/
 matlab/html/
 code/.ipynb_checkpoints/
 *.asv
+paper/newpaper.fdb_latexmk
+paper/newpaper.fls
+paper/newpaper.out
+paper/newpaper.thm
