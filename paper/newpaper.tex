@@ -73,6 +73,8 @@ reduces the recognition problem to recognising higher-dimensional
 differential invariant signatures. We'll mention some approaches to this.
 See the companion paper for an implementation.
 
+Some examples, plus mention Kendall shape. 
+
 The setting that we will consider is a transformation group $\mathcal{G}$
 acting on a manifold $\mathcal{M}$ of dimension $n$. A $d$-th order
 differential invariant is a local scalar function $I: J^{d} (\mathbb{R},
@@ -81,11 +83,11 @@ $\mathcal{G}$, i.e., $I(g(x,u^{(d)})) = I(x, u^{(d)}) \forall g \in
 \mathcal{G}$, where $J^{d}$ denotes the $d$-th order jet space.
 
 \subsection{Transformation notation}
-Most of the time we will work on grey-scale transformations of two-dimensional images. In this setting, we define the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$
+Most of the time we will work on grey-scale transformations of two-dimensional images. In this setting, we define the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$:
 \begin{equation}\label{eq:transformation}
   \mathbf{x} \mapsto \bar{\mathbf{x}} = \varphi(\mathbf{x})
 \end{equation}
-The transformed image is then defined to be
+The transformed image is then defined to be:
 \begin{equation}\label{eq:fbarequalsf}
   \bar{f}(\bar{\mathbf{x}}) = (f\circ\varphi^{-1})(\bar{\mathbf{x}}) = f(\mathbf{x}).
 \end{equation}
@@ -96,7 +98,9 @@ Derivatives of $\bar{f}$ and $f$ can be related by the chain rule, for example t
     f_y &= \bar{f}_{\bar{x}} \bar{x}_y + \bar{f}_{\bar{y}}\bar{y}_y \\
   \end{aligned}
 \end{equation}
-where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. It is often convenient to work with $\varphi^{-1}$ instead, which we will do in \S\ref{sec:movingframes}.
+where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. It is often convenient to work with $\varphi^{-1}$ instead, as in \S\ref{sec:movingframes}.
+
+Mention colour here.
 
 \subsection{Stuff from dispaper to tidy}
 ====
@@ -117,6 +121,31 @@ for $f$ if it determines $f$ up to transformations from $G$, i.e. if
 $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies
 there exists a transformation $\varphi\in G$ such that $\tilde f =
 \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$.
+
+Signatures
+
+Idea, some notation, then completeness, bad set, have not removed the recognition problem, just removed the group variation.
+
+---
+TEXT FROM OUR MOBIUS PAPER
+Calabi et al. [9] propose the use of differential invariant signatures for shape analysis, and further
+argue that these should be approximated in a group-invariant way. For example, for the Euclidean
+group, the signature is the shape (; s) regarded as a subset of R2. The claimed advantages
+of the approach are that the signature determines the shape; that it does not depend on the
+choice of initial point on the curve or on parameterization by arclength, and that its G-invariance
+makes it robust; and that it is based on a general procedure for arbitrary objects and groups.
+See [2, 4, 9, 18, 30, 35, 36] for further developments and applications of the invariant signature.
+Although the signature at first sight appears to be complete (e.g., Theorem 5.2 in [9]),
+a more detailed treatment (e.g., [17, 28]) highlights the fact that it is not complete on shapes
+that contain singular parts { straight and circular segments in the Euclidean case. For these
+parts, the signature reduces to a point. Thus, for shapes that have nearly straight or nearly
+circular segments, the signature cannot be robust. In addition, while the signature does not
+depend on the starting point or the parameterization, it takes values in a very complicated set,
+namely, the planar shapes. To compare the invariants of two shapes requires comparing two
+shapes. Essentially, the parameterization-dependence has only been deferred to a later stage
+of the analysis (unless one is content to compare shapes visually). One approach to this is to
+weight the signature, see [32] for more details.
+---
 
 An algorithm to compute invariants and determine complete signature sets is
 described in \cite{olver2001}. First, the entire set of invariants is
@@ -178,10 +207,8 @@ Bad set, completeness
 
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 
-SE(2) is done via the moving frame by Olver in Ch 8 of CIT.
-
-\section{Differential invariants of E(2) through tensor contraction}
-While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance, they are both the same thing. We use subscript indices exclusively, for this reason. 
+\section{Differential invariants of $E(2)$ through tensor contraction}
+While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance, as they are equivalent; we therefore use subscript indices exclusively.
 
 In this setting, a Euclidean transformation acting on $\mathbb{R}^2$ is given
 by an expression of the form:
@@ -190,7 +217,7 @@ by an expression of the form:
 \end{equation*}
 using the Einstein summation convention. The orthogonality condition is that $a_{ik}a_{jk} = a_{ki}a_{kj} = \delta_{ij}$.
 
-With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is a $2^p$-tuple of real numbers $C_{i_1\ldots i_p}$ whose components transform under a Euclidean transformation as
+With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is a $2^p$-tuple of real numbers $C_{i_1\ldots i_p}$ whose components transform under a Euclidean transformation as:
 \begin{equation*}
   \bar{C}_{i_1\ldots i_p} = a_{i_1j_1}\cdots a_{i_pj_p} C_{j_1\ldots j_p}
 \end{equation*}
@@ -210,7 +237,7 @@ For example, up to second derivatives, we have the following Euclidean invariant
 While we can construct any number of invariants this way, there is no guarantee of functional independence of the constructed invariants. We will address this issue in Section~\ref{sec:movingframes} when we construct invariants of $E(2)$ and other groups using the method of moving frames.
 
 \todo[inline]{Expand to Sim(2)}
-\todo[inline]{Introduce image that we are going to use in subsequenct examples}
+\todo[inline]{Introduce image that we are going to use in subsequent examples}
 \todo[inline]{Introduce signatures - 3D and 4D perhaps?}
 
 \section{Differential invariants through transvectants}
@@ -297,6 +324,7 @@ where the double edge between nodes $1$ and $2$ corresponds to the two copies of
 Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} shows all possible nonzero partial
 transvectants of $A_2$ up to weight $4$ that can be generated in this way.
 Note that the weight is the number of edges in the graph.
+
 \begin{table}
 \centering
 \begin{tabular}{cccp{11cm}}
@@ -321,6 +349,33 @@ Degree & Weight & Diagram & Partial transvectant\\
 \end{tikzpicture}
 & $\left(f_{x}\right)^{2} f_{yy} - 2 f_{x} f_{y} f_{xy} + f_{xx}
 \left(f_{y}\right)^{2}$ \\
+
+2 & 4 &
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (0,0) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (1,0) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (1,1) {4};
+    \draw[-] (1) to (2);
+    \draw[-] (2) to (3);
+    \draw[-] (3) to (4);
+    \draw[-] (4) to (1);
+\end{tikzpicture}
+& $2 \left(f_{xx}\right)^{2} \left(f_{yy}\right)^{2} - 4 f_{xx} f_{yy} \left(f_{xy}\right)^{2} + 2 \left(f_{xy}\right)^{4}$ \\
+
+2 & 4 &
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
+    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
+    \draw[-] (1) to (2);
+    \draw[-] (2) to (3);
+    \draw[-] (3) to (4);
+    \draw[-] (4) to (5);
+\end{tikzpicture}
+& $\left(f_{x}\right)^{2} f_{xx} \left(f_{yy}\right)^{2} - \left(f_{x}\right)^{2} f_{yy} \left(f_{xy}\right)^{2} - 2 f_{x} f_{xx} f_{y} f_{yy} f_{xy} + 2 f_{x} f_{y} \left(f_{xy}\right)^{3} + \left(f_{xx}\right)^{2} \left(f_{y}\right)^{2} f_{yy} - f_{xx} \left(f_{y}\right)^{2} \left(f_{xy}\right)^{2}$ \\
 
 3 & 3 &
 \begin{tikzpicture}[baseline=0]
@@ -376,19 +431,6 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
 \end{tikzpicture}
 & $- f_{x} f_{xx} f_{yy} f_{xyy} + f_{x} f_{xx} f_{yyy} f_{xy} - f_{x} f_{xxx} \left(f_{yy}\right)^{2} + 3 f_{x} f_{yy} f_{xy} f_{xxy} - 2 f_{x} \left(f_{xy}\right)^{2} f_{xyy} - \left(f_{xx}\right)^{2} f_{y} f_{yyy} - f_{xx} f_{y} f_{yy} f_{xxy} + 3 f_{xx} f_{y} f_{xy} f_{xyy} + f_{xxx} f_{y} f_{yy} f_{xy} - 2 f_{y} \left(f_{xy}\right)^{2} f_{xxy}$ \\
 
-2 & 4 &
-\begin{tikzpicture}[baseline=0]
-    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
-    \node[draw,circle,minimum size=0.2cm] (2) at (0,0) {2};
-    \node[draw,circle,minimum size=0.2cm] (3) at (1,0) {3};
-    \node[draw,circle,minimum size=0.2cm] (4) at (1,1) {4};
-    \draw[-] (1) to (2);
-    \draw[-] (2) to (3);
-    \draw[-] (3) to (4);
-    \draw[-] (4) to (1);
-\end{tikzpicture}
-& $2 \left(f_{xx}\right)^{2} \left(f_{yy}\right)^{2} - 4 f_{xx} f_{yy} \left(f_{xy}\right)^{2} + 2 \left(f_{xy}\right)^{4}$ \\
-
 3 & 4 &
 \begin{tikzpicture}[baseline=0]
     \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
@@ -403,20 +445,6 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
 & $2 \left(f_{x}\right)^{2} f_{yyy} f_{xxy} - 2 \left(f_{x}\right)^{2} \left(f_{xyy}\right)^{2} - 2 f_{x} f_{xxx} f_{y} f_{yyy} + 2 f_{x} f_{y} f_{xyy} f_{xxy} + 2 f_{xxx} \left(f_{y}\right)^{2} f_{xyy} - 2 \left(f_{y}\right)^{2} \left(f_{xxy}\right)^{2}$ \\
 
 % =========
-2 & 4 &
-\begin{tikzpicture}[baseline=0]
-    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
-    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
-    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
-    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
-    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
-    \draw[-] (1) to (2);
-    \draw[-] (2) to (3);
-    \draw[-] (3) to (4);
-    \draw[-] (4) to (5);
-\end{tikzpicture}
-& $\left(f_{x}\right)^{2} f_{xx} \left(f_{yy}\right)^{2} - \left(f_{x}\right)^{2} f_{yy} \left(f_{xy}\right)^{2} - 2 f_{x} f_{xx} f_{y} f_{yy} f_{xy} + 2 f_{x} f_{y} \left(f_{xy}\right)^{3} + \left(f_{xx}\right)^{2} \left(f_{y}\right)^{2} f_{yy} - f_{xx} \left(f_{y}\right)^{2} \left(f_{xy}\right)^{2}$ \\
-
 3 & 4 &
 \begin{tikzpicture}[baseline=0]
     \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
@@ -441,21 +469,6 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
 \begin{tabular}{cccp{11cm}}
 Degree & Weight & Diagram & Partial transvectant\\
 \hline
-4 & 4 &
-\begin{tikzpicture}[baseline=0]
-    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
-    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
-    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
-    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
-    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
-    \draw[-] (1) to (2);
-    \draw[-] (1) to (3);
-    \draw[-] (1) to (4);
-    \draw[-] (1) to (5);
-\end{tikzpicture}
-& $\left(f_{x}\right)^{4} f_{yyyy} - 4 \left(f_{x}\right)^{3} f_{y} f_{xyyy} + 6 \left(f_{x}\right)^{2} \left(f_{y}\right)^{2} f_{xxyy} - 4 f_{x} \left(f_{y}\right)^{3} f_{xxxy} + f_{xxxx} \left(f_{y}\right)^{4}$ \\
-
-
 4 & 4 &
 \begin{tikzpicture}[baseline=0]
     \node[draw,circle,minimum size=0.2cm] (1) at (-0.5,0) {1};
@@ -492,6 +505,20 @@ Degree & Weight & Diagram & Partial transvectant\\
     \draw[-] (1) to (3);
 \end{tikzpicture} 
 & $ f_{x} f_{xxx} f_{yyyy} - f_x f_{yyy} f_{xxxy} + 3 f_{x} f_{xyy} f_{xxyy} - 3 f_x f_{xyyy} f_{xxy} - f_{xxx} f_y f_{xyyy} + f_{xxxx} f_y f_{yyy} - 3 f_y f_{xyy} f_{xxxy} + 3 f_y f_{xxy} f_{xxyy}$ \\
+
+4 & 4 &
+\begin{tikzpicture}[baseline=0]
+    \node[draw,circle,minimum size=0.2cm] (1) at (0,1) {1};
+    \node[draw,circle,minimum size=0.2cm] (2) at (-0.9511,0.3090) {2};
+    \node[draw,circle,minimum size=0.2cm] (3) at (-0.5878,-.8090) {3};
+    \node[draw,circle,minimum size=0.2cm] (4) at (0.5878,-.8090) {4};
+    \node[draw,circle,minimum size=0.2cm] (5) at (0.9511,0.3090) {5};
+    \draw[-] (1) to (2);
+    \draw[-] (1) to (3);
+    \draw[-] (1) to (4);
+    \draw[-] (1) to (5);
+\end{tikzpicture}
+& $\left(f_{x}\right)^{4} f_{yyyy} - 4 \left(f_{x}\right)^{3} f_{y} f_{xyyy} + 6 \left(f_{x}\right)^{2} \left(f_{y}\right)^{2} f_{xxyy} - 4 f_{x} \left(f_{y}\right)^{3} f_{xxxy} + f_{xxxx} \left(f_{y}\right)^{4}$ \\
 \end{tabular}
 \caption{Details and graphical representations of all partial transvectants of weight $4$ of copies of a function $f$ under a transformation in $A(2)$.}
 \label{tab:transvectants2}
@@ -506,7 +533,7 @@ its subgroups. For example, invariants of $A(2)$ are automatically invariants of
 Hence, we can form a signature for $SA(2)$ by choosing any combination of
 partial transvectants. We'll choose a signature with three components so that
 it can be visualised as a three-dimensional surface; note that this will not
-be complete and may well have a \emph{very large bad set}. For example, we can choose the function value together with the first two partial transvectants to form the signature
+be complete and may well have a very large bad set. For example, we can choose the function value together with the first two partial transvectants to form the signature:
 \begin{equation*}
     \left(f, f_{xx}f_{yy}-f_{xy}^2, f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2\right)
 \end{equation*}
@@ -520,6 +547,7 @@ We'll subject our image to a special affine transformation:
 \begin{equation*}
 \mathbf{x} \mapsto \frac{1}{1.1}\begin{bmatrix} 0.6875 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
 \end{equation*}
+
 Fig.~\ref{fig:SA2} shows the function as a greyscale image, the transformed
 function, and the signatures of both the untransformed and transformed
 images.
@@ -621,6 +649,8 @@ And the signatures.
 \section{Differential invariants through moving frames}\label{sec:movingframes}
 
 \todo[inline]{This needs a friendly introduction, or at least a pointer to the notebooks}
+
+Idea is that it is the transformation back to the cross-section.
 
 The method of moving frames enables one to identify invariants under the action of groups of transformations. It has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}.
 
@@ -793,63 +823,89 @@ $$ \phi\colon \overline{\mathbb{C}} \to \overline{\mathbb{C}},\quad \phi(z) = \f
 \alpha\delta-\beta\gamma\ne 0.$$
 
 Identifying $\R^2$ with $\mathbb{C}$, the M\"obius group is a real 6-dimensional local Lie group acting on $\mathbb{R}^2$.
-It is the smallest nonlinear planar group that contains $SE(2)$, and it is the set of biholomorphic maps of the Riemann sphere; it also has direct applications in image processing since it arises in the {\em conformal camera} model of vision, in which scenes are projected radially onto a sphere \cite{lenz1990group,turski2004geometric}. 
+It is the smallest nonlinear planar group that contains $SE(2)$, and it also has direct applications in image processing since it arises in the {\em conformal camera} model of vision, in which scenes are projected radially onto a sphere \cite{lenz1990group,turski2004geometric}; it is also the set of biholomorphic maps of the Riemann sphere. 
 %Different shapes may be related by M\"obius transformations, as is explored by Petukhov \cite{petukhov1989non} for biological objects: in one example, the human skull grows approximately by M\"obius transformations.  Note also that Thompson \cite{thompson1942growth} famously deformed images of one species to match those of another, many of his examples using conformal mappings, and thus may be approximated (or even determined by) M\"obius transformations. Discussing this work, Milnor \cite{milnor2010growth}  argued that ``The geometrically simplest way to change the relative size of different body parts would be by a conformal transformation. It seems plausible that this simplest solution will often be the most efficient, so that natural selection tend to choose it.'' (Milnor was thinking of 3D conformal transformations, whose restriction to 2D is the M\"obius transformations.)
 
-The 0th order moving frame translates $z$ to $\beta$. We can therefore take $\beta=0$; we are also free to take $\delta=1$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. First we prolong the action to 3rd derivatives of $f$. There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
+We are free to take $\delta=1$. Then $\bar f = f$ means that $z$ is translated to $\beta$; we can therefore take $\beta=0$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. We prolong the action to 2nd derivatives of $f$, which is sufficient to allow the group to act freely. There are 5 derivatives of $f$ up to order 2, so there will be at least 1 invariant. In order to find further invariants the prolongation to 3rd derivatives is required, which will result in at least another four invariants. %There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
 \todo[inline]{General thm for this earlier...}
 
 The prolonged action is:
 \begin{equation}
 \arraycolsep=1.4pt
-\left(
+\left[
 \begin{array}{c}
-  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} \\ \bar f_{xxx} \\ \bar f_{xxy} \\ \bar f_{xyy} \\ \bar f_{yyy} 
+  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} 
  \end{array}
- \right)
+ \right]
  = 
-\left(
-\begin{array}{ccccccccc}
- a & b & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
- -b & a & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
- 2\mu & -2 \rho & a^2 & 2 a b & b^2 & 0 & 0 & 0 & 0 \\
- 2 \rho & 2\mu & -a b & a^2\!-b^2 & a b & 0 & 0 & 0 & 0 \\
- -2\mu & 2 \rho & b^2 & -2 a b & a^2 & 0 & 0 & 0 & 0 \\
- -6 (2 b c d+a \lambda) & 6 (2 a c d-b\lambda) & 6 a \mu &
-  M_{64}  & -6 b \rho & a^3 & 3 a^2 b & 3 a b^2 & b^3 \\
- -6 (2 a c d-b\lambda) & -6 (2 b c d+a \lambda) & M_{73}& M_{74} & 
- M_{75} & -a^2 b & a^3\!-2 a b^2 & 2
-   a^2 b\!-b^3 & a b^2 \\
- 6 (2 b c d+a \lambda) & -6 (2 a c d-b\lambda) & M_{83} & M_{84} & M_{85} & a b^2 & b^3\!-2
-   a^2 b & a^3\!-2 a b^2 & a^2 b \\
- 6 (2 a c d-b\lambda) & 6 (2 b c d+a \lambda) & 6 b \mu & 
-  M_{94} & 6 a \rho & -b^3 & 3 a b^2 & -3 a^2 b & a^3 \\
+\left[
+\begin{array}{ccccc}
+ a & b & 0 & 0 & 0 \\
+ -b & a & 0 & 0 & 0 \\
+ 2\mu & -2 \rho & a^2 & 2 a b & b^2 \\
+ 2 \rho & 2\mu & -a b & a^2\!-b^2 & a b \\
+ -2\mu & 2 \rho & b^2 & -2 a b & a^2 \\
 \end{array}
-\right)\left(
+\right]\left[
 \begin{array}{c}
-f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{yyy} 
+f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\
  \end{array}
- \right).
+ \right].
 \label{eqn:mobius}
  \end{equation}
- where
- \begin{equation*}
- \begin{array}{lll}
-M_{64}=-12abc+6d(a^2-b^2), & 
-M_{73}=4 d a^2+6 b c a-2 b^2 d, & 
-M_{74}=-6 c a^2+12 b d a+6 b^2 c, \\
- M_{75}=-2 d a^2-6 b c a+4 b^2 d, &
- M_{83}=2 c a^2-6 b d a-4 b^2 c, &
- M_{84}=6 (d a^2+2 b c a-b^2 d),\\
- M_{85}=-4 c a^2+6 b d a+2 b^2 c,& 
- M_{94}= -12a b d + 6c(a^2-b^2),\\
-\lambda=d^2-c^2, & 
-\mu = b d - a c, & 
-\rho = b c + a d.
-\end{array}
-\end{equation*}
 
-The moving frame calculation now proceeds as follows.
+\noindent where $\mu = b d - a c$ and $\rho = b c + a d$.
+
+%\begin{equation}
+%\arraycolsep=1.4pt
+%\left(
+%\begin{array}{c}
+  %\bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} \\ \bar f_{xxx} \\ \bar f_{xxy} \\ \bar f_{xyy} \\ \bar f_{yyy} 
+ %\end{array}
+ %\right)
+ %= 
+%\left(
+%\begin{array}{ccccccccc}
+ %a & b & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ %-b & a & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ %2\mu & -2 \rho & a^2 & 2 a b & b^2 & 0 & 0 & 0 & 0 \\
+ %2 \rho & 2\mu & -a b & a^2\!-b^2 & a b & 0 & 0 & 0 & 0 \\
+ %-2\mu & 2 \rho & b^2 & -2 a b & a^2 & 0 & 0 & 0 & 0 \\
+ %-6 (2 b c d+a \lambda) & 6 (2 a c d-b\lambda) & 6 a \mu &
+  %M_{64}  & -6 b \rho & a^3 & 3 a^2 b & 3 a b^2 & b^3 \\
+ %-6 (2 a c d-b\lambda) & -6 (2 b c d+a \lambda) & M_{73}& M_{74} & 
+ %M_{75} & -a^2 b & a^3\!-2 a b^2 & 2
+   %a^2 b\!-b^3 & a b^2 \\
+ %6 (2 b c d+a \lambda) & -6 (2 a c d-b\lambda) & M_{83} & M_{84} & M_{85} & a b^2 & b^3\!-2
+   %a^2 b & a^3\!-2 a b^2 & a^2 b \\
+ %6 (2 a c d-b\lambda) & 6 (2 b c d+a \lambda) & 6 b \mu & 
+  %M_{94} & 6 a \rho & -b^3 & 3 a b^2 & -3 a^2 b & a^3 \\
+%\end{array}
+%\right)\left(
+%\begin{array}{c}
+%f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{yyy} 
+ %\end{array}
+ %\right).
+%\label{eqn:mobius}
+ %\end{equation}
+ %where
+ %\begin{equation*}
+ %\begin{array}{lll}
+%M_{64}=-12abc+6d(a^2-b^2), & 
+%M_{73}=4 d a^2+6 b c a-2 b^2 d, & 
+%M_{74}=-6 c a^2+12 b d a+6 b^2 c, \\
+ %M_{75}=-2 d a^2-6 b c a+4 b^2 d, &
+ %M_{83}=2 c a^2-6 b d a-4 b^2 c, &
+ %M_{84}=6 (d a^2+2 b c a-b^2 d),\\
+ %M_{85}=-4 c a^2+6 b d a+2 b^2 c,& 
+ %M_{94}= -12a b d + 6c(a^2-b^2),\\
+%\lambda=d^2-c^2, & 
+%\mu = b d - a c, & 
+%\rho = b c + a d.
+%\end{array}
+%\end{equation*}
+
+The moving frame calculation is then:
 \begin{enumerate}
 \item The frame $\bar f_x=1$, $\bar f_y=0$ determines the group parameters
 $$ a = f_x/(f_x^2 + f_y^2),\quad b = f_y/(f_x^2 f_y^2).$$
@@ -860,9 +916,6 @@ $$ d = (f_{xy}f_x^2 - f_x f_y f_{xx} - f_{xy}f_y^2 - f_{yy} f_x f_y)/(2 f_x^2 + 
 
 \item The 2nd order invariant is then given by $\bar f_{xx}$ using Equation~(\ref{eqn:mobius}); it is 
 $$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
-
-\item The four 3rd order invariants are then given by $\bar f_{xxx},\dots, \bar f_{yyy}$ using Equation~(\ref{eqn:mobius}). They are
-rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.
 \end{enumerate}
 
 %It is clear that there must be 2 syzygies between the relative invariants $J_1,\dots,J_4,K_1,\dots,K_4$.
@@ -871,7 +924,8 @@ rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)
 %and
 %$$K_3=-K_1 +J_1 J_3 + 2 J_1^2 J_2^2.$$
 
-We want to work with polynomials, and so clear denominators. We choose to use $M_1 = f^4_{ii}$ and two of the four 3rd order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
+The four 3rd order invariants can be deduced from the moving frame. They are rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.
+We want to work with polynomials, and so clear denominators. We choose to use $M_1 = (f_{xx} + f_{yy})^4$ and two of the four 3rd order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
 $M_2=
 f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 + 
  f_y ^3 f_{yyy} f_x ^2 + \frac{3}{2} f_{yy}^2 f_x ^4 - 
@@ -900,13 +954,14 @@ f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 +
  f_y ^3 f_x ^2 f_{xxx}
 $
 
-The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{ii}=0$, a codimension 1 phenomenon for images. 
+The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
 
 %In previous work \cite{mobius}, two independent 3rd order M\"obius invariants were calculated
 %from the classical M\"obius geometry of curves. Namely, the M\"obius arclength 
 %of a curve is $\sqrt{|\kappa_s|}ds$, were $ds$ is Euclidean arclength. Under any conformal map $\phi$,
 %both $ds$ and $1/\|\nabla f\|$ scale by $|\phi'|$. The sign of $\kappa_s$ is also  invariant,
-%hence $\kappa_s/\|\nabla f\|^2$ is  invariant for any invariant curve. Calculating this invariant
+%hence $\kappa_s/\|\nabla f\|^2$ is  invariant for any invariant curve. 
+%Calculating this invariant
 %for the level sets of $f$ and for their orthogonal curves yields two invariants of $f$ that
 %we call $\lambda_t$ and $\lambda_n$, respectively. Writing 
 %them out in full and comparing to the invariants founds above shows that they are related very simply, by
@@ -935,19 +990,20 @@ The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensiona
 
 We consider the 8-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., $$(x,y) \mapsto \left(\frac{a x + b y + j}{l + g x + h y}, \frac{c x + d y + k}{l+ g x + h y}\right).$$
 
-The 0th order moving frame translates $(x,y)$ to $(0,0)$. We can therefore take $j=k=0$; we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. First we prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 3 invariants.
+Requiring that $\bar f = f$ again enables us to clear the translate coefficients, so $k=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
 
 The prolonged action is:
 \begin{equation}
 \arraycolsep=1.4pt
 \label{eq:prolong}
-\left(
+%\rotatebox{90}{$
+\left[
 \begin{array}{c}
   \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} \\ \bar f_{xxx} \\ \bar f_{xxy} \\ \bar f_{xyy} \\ \bar f_{yyy} 
  \end{array}
- \right)
+ \right]
  = 
-\left(
+\left[
 \begin{array}{ccccccccc}
  a & c & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
  b & d & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -961,11 +1017,11 @@ The prolonged action is:
    c h) & a b^2 & b (b c+2 a d) & d (2 b c+a d) & c d^2 \\
  6 b h^2 & 6 d h^2 & -6 b^2 h & -12 b d h & -6 d^2 h & b^3 & 3 b^2 d & 3 b d^2 & d^3 \\
 \end{array}
-\right)\left(
+\right]\left[
 \begin{array}{c}
 f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{yyy} 
  \end{array}
- \right).
+ \right].%$}
  \end{equation}
 
 The affine group $A(2)$ is a subgroup of $\mathrm{PSL}(3,\R)$. In the analysis of that group, in Section~\ref{}, the invariant $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$ was identified. Under a general action of $\phi \in \mathrm{PSL}(3,\R)$, $D$ is a relative invariant (that is, the value is multiplied by a certain factor under group transformations):
@@ -974,7 +1030,7 @@ The affine group $A(2)$ is a subgroup of $\mathrm{PSL}(3,\R)$. In the analysis o
 D \mapsto (\det \phi')^2 D\circ \phi.
 \end{equation}
 
-Another invariant of $A(2)$ was 
+Another invariant of $A(2)$ was:
 
 \begin{equation}
 E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
@@ -1001,7 +1057,7 @@ $$ (D^6, P_4^3, (E^2-12D P_5)^2)$$
 can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to
 $(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature $(0,1,0)$.
 
-For completeness we write out the invariants explicitly:
+For completeness we write out the invariant signature we use explicitly:
 
 $Q_4=4 f_x  f_{xy} ^2 f_{xyy}  - 
 f_x ^2 f_{xyy} ^2 - 
@@ -1113,13 +1169,12 @@ This can be confirmed by considering a small image patch with $f(x,y)=x.$ Let $v
 
 At nongeneric points, there can be invariants. For example, the area enclosed in any level set of $f$ is invariant. At minima or maxima of $f$, this will lead to invariants expressed in terms of the derivatives of $f$.
 
-\subsection{Colour}
+\subsection{Colour Images}
 
-Thus far we have only considered greyscale images. However, most images are three-channel colour (typically represented as RBG values), and multi-spectral images can have hundreds of channels of measurement. It then becomes natural to consider how to use this information in the computation of invariants. The hope is that by constructing invariants using different colour channels, fewer derivatives need to be computed. For $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$.
+Thus far we have only considered greyscale images. However, most images are three-channel colour (typically represented as RBG values), and multi-spectral images can have hundreds of channels of measurement. It then becomes natural to consider how to use this information in the computation of invariants. The hope is that by constructing invariants using different colour channels, fewer derivatives need to be computed. For $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. The situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so it there is correlation between them. This means that the invariant signature identified next are na\"ive, and should be viewed as best-case scenarios. We briefly sketch some possibilities for some of the groups that we have considered earlier.
 
 Note that for $k\ge 3$ the 3-dimensional signature $(f^1,f^2,f^3)$ is invariant under all local planar diffeomorphisms; a higher-dimensional signature, involving at least first derivatives, is therefore required.
 
-However, there is a complication, which is that the information in the channels is not independent: colour is built by the intensities in the three channels, and so it there is correlation between them. This means that the invariant signature identified next are na\"ive, and should be viewed as best-case scenarios. We briefly sketch some possibilities for some of the groups that we have considered earlier.
 
 Considering $E(2)$, for $k\ge 2$, first derivatives suffice. 
 For $SA(2)$,  we are seeking invariants of $k V_1 \oplus k V_2 \oplus \dots$. One can take transvectants of any components of $f$ to get invariants. For $k=2$ colours, there is only one  invariant formed from 1st derivatives, namely $((f^1)',(f^2)')_x = f^1_x f^2_y - f^1_y f^2_x$ (the Poisson bracket $\{f^1,f^2\}$). So again two derivatives are necessary, even for a 3-dimensional signature.
