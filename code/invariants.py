@@ -4,6 +4,7 @@ import skimage.color
 import skimage.transform
 from scipy import interpolate
 from sympy import symbols, diff
+import sympy
 
 class SpatialTransform:
     def __init__(self):
@@ -69,18 +70,14 @@ class NumericImage(ImageBase):
 
     def compute_derivatives(self, order):
         derivs = [self.F]
-        # Method is inefficient - involves calculating the same derivatives
-        # multiple times, but easy to code
+        i = 0; # start index for differentiating next order of derivative
+        # Method generates derivatives in the order f, fx, fy, fxx, fxy,
+        # fyy, fxxx, fxxy, fxyy, fyyy, etc, reusing previous derivatives
         for n in range(1, order + 1):
-            for i in range(n + 1):
-                D = self.F.copy()
-                # Do x derivatives
-                for _k in range(n - i):
-                    D = np.gradient(D, self.dx, axis=0, edge_order=2)
-                # Do y derivatives
-                for _k in range(i):
-                    D = np.gradient(D, self.dy, axis=1, edge_order=2)
-                derivs.append(D)
+            derivs.append(np.gradient(derivs[i], self.dx, axis=0, edge_order=2))
+            for k in range(n):
+                derivs.append(np.gradient(derivs[i+k], self.dy, axis=1, edge_order=2))
+            i += n
         return derivs
 
     def transform(self, tform):
@@ -100,7 +97,6 @@ class SymbolicImage(ImageBase):
         for n in range(1, order + 1):
             for i in range(n + 1):
                 derivs.append(diff(self.f, x, n-i, y, i))
-
         return derivs
 
     def transform(self, tform):
@@ -109,11 +105,22 @@ class SymbolicImage(ImageBase):
         fnew = self.f.subs([[x, xbar], [y, ybar]])
         return SymbolicImage(fnew)
 
+def A2_signature(f):
+    order = 3
+    group = 'A2'
+
+    f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy = f.compute_derivatives(order)
+
+    C = fxx*fyy - fxy**2
+    D = fy**2*fxx - 2*fx*fy*fxy + fx**2*fyy
+    E = fxxx*fy**3 - 3*fxxy*fx*fy**2 + 3*fxyy*fx**2*fy - fyyy*fx**3
+    denom = np.sqrt(C**6 + D**6 + E**4)
+    return (f*C**3/denom, f*D**3/denom, f*E**2/denom)
 
 if __name__ == "__main__":
     theta = np.pi/4
     tform = A2Transform(np.cos(theta), -np.sin(theta), np.sin(theta), np.cos(theta),3000,-1000)
-    I = plt.imread('images/close1.JPG')
+    I = plt.imread('../images/close1.JPG')
     I = skimage.color.rgb2grey(I)
     F = NumericImage(I, xlim=[-1.5, 1.5], ylim=[-1, 1])
     F2 = F.transform(tform)
@@ -123,11 +130,3 @@ if __name__ == "__main__":
     plt.imshow(I3, cmap='gray')
     plt.show()
     
-#    def forward_image(self, F, xlim=None, ylim=None):
-#        # For images, we treat the origin as being the centre of the image, just to make everything fit nicely
-#        ny, nx = F.shape
-#
-#        def inverse_map(cr):
-#            return np.vstack(self.reverse_coordinates(cr[:,0], cr[:,1])).T 
-#
-#        return warp(F, inverse_map)
