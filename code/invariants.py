@@ -105,6 +105,20 @@ class SymbolicImage(ImageBase):
         fnew = self.f.subs([[x, xbar], [y, ybar]])
         return SymbolicImage(fnew)
 
+def E2_signature(f):
+    order = 2
+    group = 'E2'
+    f, fx, fy, fxx, fxy, fyy = f.compute_derivatives(order)
+    I0 = f
+    I1 = fx*fx + fy*fy
+    I2 = fxx + fyy
+    I3 = fx**2*fxx +2*fx*fy*fxy + fy**2*fyy # SE2
+    I4 = fy**2*fxx -2*fx*fy*fxy + fx**2*fyy # SE2
+    I5 = (-fx*fy*(fxx - fyy) + (fx**2 - fy**2)*fxy) #SE2
+    I6 = fxx**2 + fyy**2 + 2*fxy**2
+    return (I1, I2, I6)
+
+
 def A2_signature(f):
     order = 3
     group = 'A2'
