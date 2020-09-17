@@ -17,6 +17,7 @@ D = F.compute_derivatives(2)
 s1, s2, s3 = invariants.E2_signature(F)
 
 surf = mlab.mesh(10*s1, s2, 100*s3, color=(0, 0, 1))
+mlab.show()
 
 
 

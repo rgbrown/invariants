@@ -16,6 +16,27 @@ class SpatialTransform:
     def reverse_coordinates(self, *argv):
         raise NotImplementedError
 
+class E2Transform(SpatialTransform):
+    def __init__(self, det, theta, tx, ty):
+        self.theta = theta
+        self.det = det
+        self.tx = tx
+        self.ty = ty
+        self.c = np.cos(theta)
+        self.s = np.sin(theta)
+
+    def forward_coordinates(self, x, y):
+        xnew = self.det*(self.c*x - self.s*y) + self.tx
+        ynew = self.s*x + self.c*y + self.ty
+        return (xnew, ynew)
+
+    def reverse_coordinates(self, x, y):
+        xnew = self.det*self.c*(x - self.tx) + self.s*(y - self.ty)
+        ynew = -self.det*self.s*(x - self.tx) + self.c*(y - self.ty)
+        return (xnew, ynew)
+
+
+
 class A2Transform(SpatialTransform):
     def __init__(self, a, b, c, d, tx, ty):
         self.a = a
@@ -102,8 +123,9 @@ class SymbolicImage(ImageBase):
     def transform(self, tform):
         x, y = symbols('x, y')
         xbar, ybar = tform.reverse_coordinates(x, y)
-        fnew = self.f.subs([[x, xbar], [y, ybar]])
+        fnew = self.f.subs([[x, xbar], [y, ybar]], simultaneous=True)
         return SymbolicImage(fnew)
+
 
 def E2_signature(f):
     order = 2
@@ -116,7 +138,7 @@ def E2_signature(f):
     I4 = fy**2*fxx -2*fx*fy*fxy + fx**2*fyy # SE2
     I5 = (-fx*fy*(fxx - fyy) + (fx**2 - fy**2)*fxy) #SE2
     I6 = fxx**2 + fyy**2 + 2*fxy**2
-    return (I1, I2, I6)
+    return (I0, I1, I2)
 
 
 def A2_signature(f):
