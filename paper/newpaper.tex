@@ -52,20 +52,34 @@ Count of derivatives and what to say
 \todo[inline]{Examples to be numbered like theorems}
 \todo[inline]{This is a start. To be completed later.}
 
-Shapes/objects/images can be acted on by simple transformations that change
-their appearance. We want to recognise the objects or identify the set of
-transformations. If the set is a group, then we can seek to either identify
-the group or solve the equivalence problem by
-\begin{enumerate}
-    \item Registration, or
-    \item Invariance.
-\end{enumerate}
-The first is commonly studied but is computationally expensive and prone to
-local minima. If you're not interested in the actual transformation it is
-therefore to be avoided. Here we'll consider invariance. There are many
-choices of type e.g. Fourier, integral, or differential invariants. The
-last set are cheap to compute and have nice theoretical properties but are
-not robust to noise. However, we'll use them anyway. This paper is a
+Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size. More generally, the appearance of a fixed object in a set of images can vary markedly depending upon such variables as change of pose and relative position to the camera, even though the object itself does not change. Such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
+
+It is natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects in denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. This could be done, for example, by transforming all objects to match a chosen target one by registration. Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here.
+
+Invariant signatures -- self-equivalences
+Different sorts of invariant, and their properties.
+local invariants: occlusions OK
+derivatives: noise is not
+
+have not removed the recognition problem, just removed the group variation.
+
+
+%Shapes/objects/images can be acted on by simple transformations that change
+%their appearance. We want to recognise the objects or identify the set of
+%transformations. If the set is a group, then we can seek to either identify
+%the group or solve the equivalence problem by
+%\begin{enumerate}
+    %\item Registration, or
+    %\item Invariance.
+%\end{enumerate}
+%The first is commonly studied but is computationally expensive and prone to
+%local minima. If you're not interested in the actual transformation it is
+%therefore to be avoided. Here we'll consider invariance. There are many
+%choices of type e.g. Fourier, integral, or differential invariants. The
+%last set are cheap to compute and have nice theoretical properties but are
+%not robust to noise. However, we'll use them anyway. 
+
+This paper is a
 tutorial on differential invariants for planar Lie groups (e.g.
 Euclidean, affine, projective) since they are relatively simple, useful,
 and relevant to images. We'll use these to demonstrate the methods of
@@ -74,19 +88,20 @@ reduces the recognition problem to recognising higher-dimensional
 differential invariant signatures. We'll mention some approaches to this.
 See the companion paper for an implementation.
 
-Some examples, plus mention Kendall shape. 
 
-The setting that we will consider is a transformation group $\mathcal{G}$
-acting on a manifold $\mathcal{M}$ of dimension $n$. A $d$-th order
-differential invariant is a local scalar function $I: J^{d} (\mathbb{R},
-\mathcal{M} ) \to \mathbb{R}$ that is invariant under the action of
-$\mathcal{G}$, i.e., $I(g(x,u^{(d)})) = I(x, u^{(d)}) \forall g \in
-\mathcal{G}$, where $J^{d}$ denotes the $d$-th order jet space.
+\subsection{Notation}
 
-\subsection{Transformation notation}
-Most of the time we will work on grey-scale transformations of two-dimensional images. In this setting, we define the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$:
+We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subset\R^n$ (typically, images are planar, so $n=2$), $1\le k\in\mathbb{Z}$ is the number of colour channels, and $f\colon\Omega\to\R^k$. The function $f$ will be taken to be as smooth as necessary. Consider a (finite or infinite-dimensional) local transformation group $\mathcal{G}$.  A transformation $\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) = (f\circ\varphi^{-1},\varphi(\Omega),k)$. For many of our examples we consider greyscale images, so $k=1$, but we discuss colour images in Section~\ref{sec:colour}. Also, since we work locally, we will usually omit the domain $\Omega$.
+
+In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$. This is known as the jet space, or jet bundle~\cite{OlverJets}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$). As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. 
+
+An $m$-dimensional signature set is the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e., the set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$.  A signature set is complete for $f$ if it determines $f$ up to transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$. Where the signature set is not complete, it is still desirable that the set of objects that are indistinguishable from other be as small as possible. Useful properties for invariants are discussed in detail in~\cite{UsMobius}. 
+
+NEED TO TALK ABOUT WHEN IT IS SINGULAR
+
+For the case of two-dimensional greyscale images it is often convenient to work in coordinates. In this case the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$ is given by:
 \begin{equation}\label{eq:transformation}
-  \mathbf{x} \mapsto \bar{\mathbf{x}} = \varphi(\mathbf{x})
+  \mathbf{x} \mapsto \bar{\mathbf{x}} = \varphi(\mathbf{x}).
 \end{equation}
 The transformed image is then defined to be:
 \begin{equation}\label{eq:fbarequalsf}
@@ -101,32 +116,7 @@ Derivatives of $\bar{f}$ and $f$ can be related by the chain rule, for example t
 \end{equation}
 where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. It is often convenient to work with $\varphi^{-1}$ instead, as in \S\ref{sec:movingframes}.
 
-Mention colour here.
-
-\subsection{Stuff from dispaper to tidy}
-====
-Let $G$ be a (finite or infinite-dimensional) local planar transformation
-group.  A {\em $k$-colour image} is a triple $(f,\Omega,k)$ where
-$\Omega\subset\R^2$, $1\le k\in\mathbb{Z}$, and $f\colon\Omega\to\R^k$. The
-function $f$ will be taken to be as smooth as necessary.  A transformation
-$\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) =
-(f\circ\varphi^{-1},\varphi(\Omega),k)$.  (As we work locally, we will
-usually omit the domain $\Omega$; if the number of colours $k$ is not
-given, we assume $k=1$.)  A differential invariant is an invariant of the
-prolonged action of $G$ on the derivatives of $f$, i.e., a function $I$ of
-the values of $f$ and its derivatives at a point such that $I(f)(x,y) =
-I(\varphi\cdot f)(\varphi(x,y))$. An {\em $m$-dimensional signature set} is
-the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e. the set
-$\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$.  A signature set is complete
-for $f$ if it determines $f$ up to transformations from $G$, i.e. if
-$\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies
-there exists a transformation $\varphi\in G$ such that $\tilde f =
-\varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$.
-
-Signatures
-
-Idea, some notation, then completeness, bad set, have not removed the recognition problem, just removed the group variation.
-
+\subsection{Relevant Literature}
 ---
 TEXT FROM OUR MOBIUS PAPER
 Calabi et al. [9] propose the use of differential invariant signatures for shape analysis, and further
@@ -148,6 +138,7 @@ of the analysis (unless one is content to compare shapes visually). One approach
 weight the signature, see [32] for more details.
 ---
 
+
 An algorithm to compute invariants and determine complete signature sets is
 described in \cite{olver2001}. First, the entire set of invariants is
 computed using the method of moving frames. Second, determine the
@@ -161,13 +152,9 @@ While we follow this approach in general, in specific cases we have computed inv
 including the invariant tensor theorem and classical invariant theory. We shall see that this yields insights into the relationships between the different groups. We develop our approach through examples of progressively more complicated groups.
 ===
 
+JUSTIFY THIS SET OF GROUPS
+
 \todo[inline]{Use T(2) as an example}
-
-local invariants: occlusions OK
-derivatives: noise is not
-
-signatures, dimensions, orders
-Bad set, completeness
 
 \begin{figure}
 \begin{center}
@@ -208,6 +195,43 @@ Bad set, completeness
 
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 
+We consider as our image, the following function, defined on $[-1, 1]
+\times:
+[-1, 1]$
+\begin{equation}\label{eq:function}
+  \begin{split}
+    f(x, y) &= 0.5 - 0.2x - 0.3y - 0.05x^2 + 0.03xy + 0.04y^2 \\ 
+    &+ 0.03y^3 + 0.001x^3 - 0.0015x^2y + 0.002xy^2 - 0.0005y^3.
+  \end{split}
+\end{equation}
+This function was chosen to have no critical points, and to be
+predominantly linear, so that the higher order derivatives were not too
+large. This was predominantly so the higher order terms in the signatures
+would not overwhelm the smaller terms. The function is depicted as a
+greyscale image in Figure~\ref{fig:function}
+\begin{figure}
+  \centering
+  \includegraphics[width=12cm]{Figs/function}
+  \caption{The test function used in this document, from
+  Eq.~\eqref{eq:function}.}\label{fig:function}
+\end{figure}
+
+We consider the signatures of this function under various transformation
+groups, as detailed throughout the main body of the paper and illustrate
+the signature in three dimensions. A grid is overlaid on the image of the
+function itself, as shown in Fig~\ref{fig:function_scanlines}. This grid is
+mapped to the signature surface to help understand what the signature looks
+like locally.
+\begin{figure}
+  \centering
+  \includegraphics[width=12cm]{Figs/function_scanlines}
+  \caption{The test function used in this document, from
+  Eq.~\eqref{eq:function} with a grid of lines
+overlaid.}\label{fig:function_scanlines}
+\end{figure}
+
+\todo[inline]{visual obstruction}
+
 \section{Differential invariants of $E(2)$ through tensor contraction}
 While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance, as they are equivalent; we therefore use subscript indices exclusively.
 
@@ -233,6 +257,7 @@ For example, up to second derivatives, we have the following Euclidean invariant
   f_{ii} &= f_{xx}^2 + f_{yy}^2 \\
   f_{ij} f_{ij} &= f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
   f_i f_j f_{ij} &= f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
+\label{eq:se2}
 \end{align*}
 
 While we can construct any number of invariants this way, there is no guarantee of functional independence of the constructed invariants. We will address this issue in Section~\ref{sec:movingframes} when we construct invariants of $E(2)$ and other groups using the method of moving frames.
@@ -243,7 +268,7 @@ While we can construct any number of invariants this way, there is no guarantee 
 
 \section{Differential invariants through transvectants}
 
-One way to compute invariants is to compare the action of group elements on separate copies of the underlying space. For images, this is typically $\mathbb{R}^2$; colour images in $\mathbb{R}^{2k}$ will be considered in Section~\ref{sec:aaah}. 
+Another way to compute invariants is to compare the action of group elements on separate copies of the underlying space (here, $\mathbb{R}^2$).
 
 We will demonstrate this for the affine group $A(2)$ and its subgroup
 $SA(2)$ where, following the treatment in~\cite{OlverCIT}, this leads to
@@ -265,7 +290,7 @@ The Omega Process can be applied to pairs of smooth functions as follows,
 writing $\frac{\partial f}{\partial x}$ as $f_x$:
 
 \begin{equation}
-\Omega_{ij} \left(f(x_i, y_i) g(x_j, y_j)\right) = f_{x_i}g_{y_j} - f_{y_i}g_{x_j}
+\Omega_{ij} \left(f(x_i, y_i) g(x_j, y_j)\right) = f_{x_i}g_{y_j} - f_{y_i}g_{x_j}.
 \end{equation}
 
 Identifying $x_i = x_j = x, y_i = y_j = y$ gives us functions of $x$ and $y$
@@ -283,7 +308,7 @@ This can be generalised to $n$ functions $f^{(1)}(x_1, y_1), \ldots, f^{(n)}(x_n
 
 \begin{equation}
 \mbox{tr} \left[\left( \Pi_{k=1}^r \Omega_{i_k j_k} \right) f^{(1)}(x_1, y_1)
-f^{(2)}(x_2, y_2), \ldots f^{(n)} (x_n, y_n)\right]
+f^{(2)}(x_2, y_2), \ldots f^{(n)} (x_n, y_n)\right],
 \end{equation}
 where $i_k \neq j_k \in \{1, \ldots, n\}$.
 
@@ -301,18 +326,18 @@ undirected graph, and each Omega process $\Omega_{ij}$ as an edge joining
 nodes $i$ and $j$, a partial transvectant can be compactly represented in a
 graphical form. 
 
-For example, consider a weight $2$ transvectant defined as
+For example, consider a weight $2$ transvectant defined as:
 \begin{align*}
     \mbox{tr} &\left[(\Omega_{12}\Omega_{12}) f(x_1, y_1)f(x_2, y_2)\right] \\
     &= \mbox{tr}\left[(\partial_{x_1 y_2} - \partial_{x_2y_1})(\partial_{x_1 y_2} -
     \partial_{x_2y_1})f(x_1, y_1)f(x_2, y_2)\right]\\
     &= \mbox{tr}\left[\left(\partial_{x_1 y_2} - \partial_{x_2 y_1}\right)\left(f_x(x_1, y_1)f_y(x_2, y_2) - f_y(x_1, y_1)f_x(x_2, y_2)\right)\right] \\
     &= \mbox{tr}\left[f_{xx}(x_1, y_1)f_{yy}(x_2, y_2) - f_{xy}(x_1, y_1)f_{xy}(x_2, y_2)\right] \\
-    &= f_{xx}(x, y) f_{yy}(x, y) - f_{xy}(x, y)^2
+    &= f_{xx}(x, y) f_{yy}(x, y) - f_{xy}(x, y)^2.
 \end{align*}
 This is a degree $2$ partial transvectant as it involves derivatives of $f$
 up to second order, and can be represented graphically by the following
-diagram,
+diagram:
 \begin{center}
 \begin{tikzpicture}[baseline=0]
     \node[draw,circle,minimum size=0.2cm] (1) at (-0.5,0) {1};
@@ -525,18 +550,18 @@ Degree & Weight & Diagram & Partial transvectant\\
 \label{tab:transvectants2}
 \end{table}
 
-\todo{Explain}
+\todo[inline]{Explain}
 
 \subsection{Signatures of $SA(2)$ and $A(2)$}
 Recall that invariants of a supergroup are automatically invariants of any of
-its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$) but only up to scale factor ($\det A^{-r}$) of $A(2)$.
+its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
 
 Hence, we can form a signature for $SA(2)$ by choosing any combination of
 partial transvectants. We'll choose a signature with three components so that
 it can be visualised as a three-dimensional surface; note that this will not
 be complete and may well have a very large bad set. For example, we can choose the function value together with the first two partial transvectants to form the signature:
 \begin{equation*}
-    \left(f, f_{xx}f_{yy}-f_{xy}^2, f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2\right)
+    \left(f, f_{xx}f_{yy}-f_{xy}^2, f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2\right).
 \end{equation*}
 
 \subsubsection{Example}
@@ -573,62 +598,6 @@ Using the same function as an example,
 
 For $A(2)$ the weight of the partial transvectants prevents them from being invariants. They can be normalised by choosing only those where all components have the same weight and projecting them onto a unit hypersphere. Instead, we select ratios of partial transvectants. It is beneficial to choose the numerator and denominator so that they have different critical points, which can be achieved by adding together partial transvectants of the same weight as appropriate.
 
-====
-
-We consider as our image, the following function, defined on $[-1, 1]
-\times:
-[-1, 1]$
-\begin{equation}\label{eq:function}
-  \begin{split}
-    f(x, y) &= 0.5 - 0.2x - 0.3y - 0.05x^2 + 0.03xy + 0.04y^2 \\ 
-    &+ 0.03y^3 + 0.001x^3 - 0.0015x^2y + 0.002xy^2 - 0.0005y^3.
-  \end{split}
-\end{equation}
-This function was chosen to have no critical points, and to be
-predominantly linear, so that the higher order derivatives were not too
-large. This was predominantly so the higher order terms in the signatures
-would not overwhelm the smaller terms. The function is depicted as a
-greyscale image in Figure~\ref{fig:function}
-\begin{figure}
-  \centering
-  \includegraphics[width=12cm]{Figs/function}
-  \caption{The test function used in this document, from
-  Eq.~\eqref{eq:function}.}\label{fig:function}
-\end{figure}
-
-We consider the signatures of this function under various transformation
-groups, as detailed throughout the main body of the paper and illustrate
-the signature in three dimensions. A grid is overlaid on the image of the
-function itself, as shown in Fig~\ref{fig:function_scanlines}. This grid is
-mapped to the signature surface to help understand what the signature looks
-like locally.
-\begin{figure}
-  \centering
-  \includegraphics[width=12cm]{Figs/function_scanlines}
-  \caption{The test function used in this document, from
-  Eq.~\eqref{eq:function} with a grid of lines
-overlaid.}\label{fig:function_scanlines}
-\end{figure}
-
-\todo[inline]{visual obstruction}
-
-
-
-
-
-
-
-
-
-
-
-
-Discussion of singularities. 
-
-And then a list of explicit invariants by group.
-
-And the signatures.
-
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{Figs/f_transformed_SE2.png}
@@ -645,36 +614,31 @@ And the signatures.
 \label{fig:E2}
 \end{figure}
 
-
-
 \section{Differential invariants through moving frames}\label{sec:movingframes}
 
-\todo[inline]{This needs a friendly introduction, or at least a pointer to the notebooks}
+So far the methods that we have seen to can construct differential invariants for particular groups are not directly generalisable. It is natural to ask if there is an algorithmic approach that will yield invariants more directly. The answer is a partial yes. There is a general method, based on Cartan's method of moving frames, that is generally applicable, but finding good solutions with it still requires some ingenuity in general. We introduce the method here and then demonstrate its use to find invariants to further groups.
 
-Idea is that it is the transformation back to the cross-section.
+A moving frame is a mapping into a group $\mathcal{G}$ that provides a frame of reference along a curve. Cartan's method of moving frames generalises the concept to a homogeneous space of a Lie group $\mathcal{G}$. When defined on the principal bundle it defines a $\mathcal{G}$-equivariant mapping, which enables one to identify invariants under the action of groups of transformations. The method of moving frames has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}.
 
-The method of moving frames enables one to identify invariants under the action of groups of transformations. It has a long history, as summarised in \cite{Olver14}; particularly noteworthy contributions are by Cartan~\cite{Cartan37} and Olver and co-authors; see~\cite{Olver14} for an overview, and note particularly for an application to~\cite{Calabi98}. The method is described in detail in~\cite{OlverCIT}.
-
-A right moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$. 
-
-In order to construct differential invariants to the action of Lie group $\mathcal{G}$ acting on manifold $\mathcal{M}$, the procedure can be summarised as follows:
+A (right-) moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$, where $z \in J^d$. The procedure to construct differential invariants to the action of Lie group $\mathcal{G}$ acting on manifold $\mathcal{M}$ using the method of moving frames is as follows:
 
 \begin{enumerate}
-\item Prolong the group action to the jet space of $n$-th order derivatives (using implicit differentiation): $F: J^n \to \mathbb{R}$. 
+\item Prolong the group action to the jet space of $d$-th order derivatives (using implicit differentiation): $F: J^d \to \mathbb{R}$. 
 \item Apply Cartan normalisation:
     \begin{enumerate}
-    \item Choose a local cross-section to the group orbits, i.e., a ($n - \dim \mathcal{G}$)-dimensional submanifold $\mathcal{K}$ that intersects transversally at most once with each orbit
-    \item $\mathcal{K}$ is specified by $\dim \mathcal{G}$ independent equations $Z_i (z) = c_i$, for $z \in J^n$,  and $Z_i$ scalar-valued functions and $c_i$ constants.
-    \item The right moving frame $g = \rho(z)$ is found by solving the normalisation questions $Z_i (g \cdot z) = c_i$ for the group parameters $g$ (in terms of $z$).
+    \item Choose a local cross-section to the group orbits, i.e., a ($d - \dim \mathcal{G}$)-dimensional submanifold $\mathcal{K}$ that intersects transversally at most once with each orbit
+    \item $\mathcal{K}$ is specified by $\dim \mathcal{G}$ independent equations $Z_i (z) = c_i$, for $z \in J^d$,  and $Z_i$ scalar-valued functions and $c_i$ constants.
+    \item The right moving frame $g = \rho(z)$ is found by solving the normalisation questions $Z_i (g \cdot z) = c_i$ for the group parameters $g$ (in terms of $z$). In other words, the moving frame is the transformation back to the cross-section.
     \end{enumerate}
 \item The differential invariants are not affected by the action of the group: $I(g \cdot z) = I(z) \: \forall z \in \mathrm{dom} I$, or equivalently, if it is constant on the orbits. 
 \item Hence $F$ is made invariant by transforming it with a group action: $I(z) = F(g \cdot z) |_{g=\rho(z)}$.  
 \end{enumerate}
 
-Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. As an example, we use it to compute invariants to $SE(2)$ on the plane, before moving on to two other planar Lie group examples: the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). 
+Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. We continue this example to compute invariants to $SE(2)$ on the plane, before moving on to other planar Lie group examples: $E(2)$, the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). Finally, we apply it to an infinite-dimensional pseudo-Lie group, the conformal diffeomorphisms.
 
 \subsection{The Special Euclidean Group $SE(2)$}
-An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as 
+
+An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as:
 \begin{equation*}
   \begin{aligned}
     \bar{x} &= x\cos\theta  - y\sin\theta + t_x \\
@@ -683,7 +647,7 @@ An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of
 \end{equation*}
 We prolong the group action to form the jet space $J^2$ with coordinates $(x,
 y, f, f_x, f_y, f_{xx}, f_{xy}, f_{yy})$ via the chain rule. The
-transformation rule for the derivatives is given by
+transformation rule for the derivatives is given by:
 \begin{equation}
   \begin{bmatrix}
   \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
@@ -728,7 +692,7 @@ all invariant. This gives the following set of invariants:
   I_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
   I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= I_1\bar{f}_{\bar{x}\bar{x}}) \\
   I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) &&(= I_1\bar{f}_{\bar{x}\bar{y}})\\
-  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}})
+  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}}).
 \end{aligned}
 \end{equation}
 Note that we multiplied each of the second derivative invariants by $I_1$
@@ -757,7 +721,7 @@ gradient into the positive $x$ direction, and one that rotates.
 
 We again prolong the group action to $J^2$, but this time we expect to need
 to use a second derivative term to determine $\varepsilon$ for the moving
-frame. The derivative transformations are given by
+frame. The derivative transformations are given by:
 \begin{equation}
   \begin{bmatrix}
   \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar{x}\bar{x}} \\ \bar f_{\bar{x}\bar{y}} \\ \bar f_{\bar{y}\bar{y}}
@@ -785,10 +749,10 @@ derivative $\bar{f}_{\bar{x}} = \lVert \nabla f \rVert$. We need a second
 derivative term to resolve the choice of $\varepsilon$ for the moving
 frame. The only second derivative term in which $\varepsilon$ appears is
 the $\bar{f}_{\bar{x}\bar{y}}$ term. Substituting in for $\cos\theta,
-\sin\theta$, we see that
+\sin\theta$, we see that:
 \begin{equation*}
     \bar{f}_{\bar{x}\bar{y}} = \frac{\varepsilon(f_xf_y(f_{yy} - f_{xx}) + (f_x^2 -
-    f_y^2)f_{xy})}{f_x^2 + f_y^2}
+    f_y^2)f_{xy})}{f_x^2 + f_y^2}.
 \end{equation*}
 This suggests choosing $\varepsilon$ to make $\bar{f}_{\bar{x}\bar{y}} \ge
 0$. We can then list the invariants:
@@ -799,7 +763,7 @@ This suggests choosing $\varepsilon$ to make $\bar{f}_{\bar{x}\bar{y}} \ge
   I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= I_1\bar{f}_{\bar{x}\bar{x}}) \\
   I_3 &= \lvert f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2)\rvert
   &&(= I_1\lvert \bar{f}_{\bar{x}\bar{y}}\rvert)\\
-  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}})
+  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}}).
 \end{aligned}
 \end{equation}
 Notice that most, but not all of the $SE(2)$ invariants
@@ -807,7 +771,7 @@ Notice that most, but not all of the $SE(2)$ invariants
 through the invariants by $I_1$ so that they decay smoothly at critical
 points.
 
-These invariants are a functionally independent, complete, set of polynomial differential invariants up to second derivatives. Note that the invariants found previously by tensor contraction can be expressed in terms of these:
+These invariants are a functionally independent, complete, set of polynomial differential invariants up to second derivatives. Note that the invariants found previously by tensor contraction (\cite{eq:se2}) can be expressed in terms of these:
 \begin{align*}
   f = f &= I_0 \\
   f_if_i = f_x^2 + f_y^2 &= I_1 \\
@@ -819,9 +783,11 @@ These invariants are a functionally independent, complete, set of polynomial dif
 \subsection{The M\"{o}bius Group}
 
 The M\"obius group $\mathrm{PSL}(2,\mathbb{C})$ acts on the Riemann sphere
-$\overline{\mathbb{C}} = \mathbb{C}\cup\infty$ by 
-$$ \phi\colon \overline{\mathbb{C}} \to \overline{\mathbb{C}},\quad \phi(z) = \frac{\alpha z + \beta}{\gamma z + \delta},\quad \alpha,\beta,\gamma,\delta\in\mathbb{C}, \quad
-\alpha\delta-\beta\gamma\ne 0.$$
+$\overline{\mathbb{C}} = \mathbb{C}\cup\infty$ by:
+\begin{equation} 
+\phi\colon \overline{\mathbb{C}} \to \overline{\mathbb{C}},\quad \phi(z) = \frac{\alpha z + \beta}{\gamma z + \delta},\quad \alpha,\beta,\gamma,\delta\in\mathbb{C}, \quad
+\alpha\delta-\beta\gamma\ne 0.
+\end{equation}
 
 Identifying $\R^2$ with $\mathbb{C}$, the M\"obius group is a real 6-dimensional local Lie group acting on $\mathbb{R}^2$.
 It is the smallest nonlinear planar group that contains $SE(2)$, and it also has direct applications in image processing since it arises in the {\em conformal camera} model of vision, in which scenes are projected radially onto a sphere \cite{lenz1990group,turski2004geometric}; it is also the set of biholomorphic maps of the Riemann sphere. 
@@ -915,7 +881,7 @@ $$ a = f_x/(f_x^2 + f_y^2),\quad b = f_y/(f_x^2 f_y^2).$$
 $$ c = (2 f_xf_yf_{xyy} - f_{xx}f_y^2 - f_{yy}f_x^2)/(2 f_x^2 + f_y^2)^2$$
 $$ d = (f_{xy}f_x^2 - f_x f_y f_{xx} - f_{xy}f_y^2 - f_{yy} f_x f_y)/(2 f_x^2 + f_y^2)^2.$$
 
-\item The 2nd order invariant is then given by $\bar f_{xx}$ using Equation~(\ref{eqn:mobius}); it is 
+\item The 2nd order invariant is then given by $\bar f_{xx}$ using Equation~(\ref{eqn:mobius}); it is:
 $$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 \end{enumerate}
 
@@ -952,7 +918,7 @@ f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 +
  9 f_y ^2 f_x ^2 f_{xy} f_{xx} + 
  3 f_y ^3 f_x  f_{xx}^2 + 3 f_y ^4 f_x  f_{xxy} + 
  3 f_y ^2 f_x ^3 f_{xxy} - f_y ^5 f_{xxx} - 
- f_y ^3 f_x ^2 f_{xxx}
+ f_y ^3 f_x ^2 f_{xxx}.
 $
 
 The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
@@ -989,10 +955,14 @@ The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensiona
 
 \subsection{The Projective Group}
 
-We consider the 8-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., $$(x,y) \mapsto \left(\frac{a x + b y + j}{l + g x + h y}, \frac{c x + d y + k}{l+ g x + h y}\right).$$
+We consider the 8-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., 
+\begin{equation}
+(x,y) \mapsto \left(\frac{a x + b y + j}{l + g x + h y}, \frac{c x + d y + k}{l+ g x + h y}\right).
+\end{equation}
 
-Requiring that $\bar f = f$ again enables us to clear the translate coefficients, so $k=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
+Requiring that $\bar f = f$ again enables us to clear the translation coefficients, so $k=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
 
+\todo[inline]{How to write this?}
 The prolonged action is:
 \begin{equation}
 \arraycolsep=1.4pt
@@ -1047,13 +1017,13 @@ $$ J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5.$$
 
 The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the issue caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36; so projecting any subset of them of them to a sphere yields a 3rd order invariant signature.
 
-$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points.  However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which turns out to obey
+$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points.  However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which turns out to obey:
 $$J_1 - J_3^2 = 144 D^4 P_4.$$
 
 As $J_1/D^6$ and $J_3/D^3$ are invariant, so is $P_4/D^2$. 
 Moreover, the numerator of this new invariant does not vanish at critical points.  It has the structure
 $$P_4 = -4(\det f_{ij})^2 + Q_4,$$
-where $Q_4$ is a polynomial of degree 4 that vanishes when $f_x=f_y=0$. Hence, the relative invariant of weight 12
+where $Q_4$ is a polynomial of degree 4 that vanishes when $f_x=f_y=0$. Hence, the relative invariant of weight 12:
 $$ (D^6, P_4^3, (E^2-12D P_5)^2)$$
 can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to
 $(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature $(0,1,0)$.
@@ -1074,7 +1044,7 @@ f_x ^2 f_{xyy} ^2 -
  f_{y} ^2 f_{xxy} ^2 + 
  2 f_{yy} ^2 f_x  f_{xxx}  - 
  f_{y}  f_{yyy}  f_x  f_{xxx}  - 
- 2 f_{y}  f_{yy}  f_{xy}  f_{xxx}  + f_{y} ^2 f_{xyy}  f_{xxx} $
+ 2 f_{y}  f_{yy}  f_{xy}  f_{xxx}  + f_{y} ^2 f_{xyy}  f_{xxx}, $
  
 $P_5=f_{yyy}  f_{x} ^3 f_{xy}  - 
 f_{yy}  f_{x} ^2 f_{xy} ^2 + 
@@ -1091,12 +1061,12 @@ f_{yy}  f_{x} ^2 f_{xy} ^2 +
  f_{y} ^2 f_{x}  f_{xy}  f_{xxy}  - 
  f_{y} ^3 f_{xx}  f_{xxy}  - 
  f_{y} ^2 f_{yy}  f_{x}  f_{xxx}  + 
- f_{y} ^3 f_{xy}  f_{xxx} $
+ f_{y} ^3 f_{xy}  f_{xxx}. $
  
 Including $J_2$ in addition provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.
  
 Further invariants can be found by noting that, for any planar transformation group and any two invariants
-$I^1$ and $I^2$, $\nabla I^1 \times \nabla I^2$ is a relative invariant of weight 1; that is,
+$I^1$ and $I^2$, $\nabla I^1 \times \nabla I^2$ is a relative invariant of weight 1; that is:
 $$\nabla I^1 \times \nabla I^2\mapsto (\det \phi')(\nabla I^1 \times \nabla I^2).$$
 Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=10$ 4th order invariants.
 
@@ -1107,11 +1077,6 @@ Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=
 \caption{A sample $PSL(3,\mathbb{R})$ Transform and 3D signature.}
 \label{fig:PSL3R}
 \end{figure}
-
-\section{Extension to larger groups, role of colour, etc.}
-\label{sec:aaah}
-
-Define diffeo here
 
 \subsection{Conformal Diffeomorphisms $\mathbf{Diff}_{\mathbf{con}}$}
 
@@ -1170,19 +1135,20 @@ This can be confirmed by considering a small image patch with $f(x,y)=x.$ Let $v
 
 At nongeneric points, there can be invariants. For example, the area enclosed in any level set of $f$ is invariant. At minima or maxima of $f$, this will lead to invariants expressed in terms of the derivatives of $f$.
 
-\subsection{Colour Images}
+\section{Colour Images}\label{sec:colour}
 
-Thus far we have only considered greyscale images. However, most images are three-channel colour (typically represented as RBG values), and multi-spectral images can have hundreds of channels of measurement. It then becomes natural to consider how to use this information in the computation of invariants. The hope is that by constructing invariants using different colour channels, fewer derivatives need to be computed. For $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. The situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so it there is correlation between them. This means that the invariant signature identified next are na\"ive, and should be viewed as best-case scenarios. We briefly sketch some possibilities for some of the groups that we have considered earlier.
+The formulation we provided in the introduction considered $k$ channels of information. However, thus far we have considered only greyscale images ($k=1$). However, most images are three-channel colour (typically represented as RBG values), and multi-spectral images can have hundreds of channels of measurement. It then becomes natural to consider how to use this information in the computation of invariants. The hope is that by constructing invariants using different colour channels, fewer derivatives need to be computed. For $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. 
+
+We briefly sketch some possibilities for some of the groups that we have considered earlier.  However, the situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so there is correlation between them. This means that the invariant signatures identified next are na\"ive, and should be viewed as best-case scenarios. 
 
 Note that for $k\ge 3$ the 3-dimensional signature $(f^1,f^2,f^3)$ is invariant under all local planar diffeomorphisms; a higher-dimensional signature, involving at least first derivatives, is therefore required.
-
 
 Considering $E(2)$, for $k\ge 2$, first derivatives suffice. 
 For $SA(2)$,  we are seeking invariants of $k V_1 \oplus k V_2 \oplus \dots$. One can take transvectants of any components of $f$ to get invariants. For $k=2$ colours, there is only one  invariant formed from 1st derivatives, namely $((f^1)',(f^2)')_x = f^1_x f^2_y - f^1_y f^2_x$ (the Poisson bracket $\{f^1,f^2\}$). So again two derivatives are necessary, even for a 3-dimensional signature.
 
-For $k\ge 3$ colours, a new phenomenon enters.  There are plenty of invariants formed from 1st derivatives, namely $\nabla f^i \times \nabla f^j$ for $i<j$. But these are all invariant under the bigger group $\mathrm{Diff}_{\mathrm{vol}}$ of local volume-preserving diffeomorphisms. So the Poisson brackets cannot form a complete invariant for $SA(2)$. Two derivatives are always needed no matter how many colours we have. The relation $SA(2)\subset \mathrm{Diff}_{\mathrm{vol}}$ acts an obstruction to $SA(2)$, an instance of the phenomenon of hidden symmetry.
+For $k\ge 3$ colours, a new phenomenon enters.  There are plenty of invariants formed from 1st derivatives, namely $\nabla f^i \times \nabla f^j$ for $i<j$. However, these are all invariant under the bigger group $\mathrm{Diff}_{\mathrm{vol}}$ of local volume-preserving diffeomorphisms, and so the Poisson brackets cannot form a complete invariant for $SA(2)$: two derivatives are always needed no matter how many colours we have. The relation $SA(2)\subset \mathrm{Diff}_{\mathrm{vol}}$ acts an obstruction to $SA(2)$, an instance of the phenomenon of hidden symmetry.
 
-The same problem occurs with $A(2)$. There are plenty of invariants formed from two derivatives: already 9 when $k=2$. However, as with $SA(2)$, we can never get away with one derivative because all the 1-derivative invariants,such as $\{f^1,f^2\}/\{f^1,f^3\}$ are also invariant under $\mathrm{Diff}_{\mathrm{vol}}$ (even though $A(2)$ is not even a subgroup of $\mathrm{Diff}_{\mathrm{vo}l}$).
+The same problem occurs with $A(2)$. There are plenty of invariants formed from two derivatives: already 9 when $k=2$. However, as with $SA(2)$, we can never get away with one derivative because all the 1-derivative invariants, such as $\{f^1,f^2\}/\{f^1,f^3\}$, are also invariant under $\mathrm{Diff}_{\mathrm{vol}}$ (even though $A(2)$ is not even a subgroup of $\mathrm{Diff}_{\mathrm{vo}l}$).
 
 Recall that M\"obius and conformal transformations cannot be distinguished by their action on second derivatives. Therefore at least 3 derivatives are needed, no matter how many colours we have. We can use, for example, the invariants arising from the curvature of the level sets of each colour. Replacing the relative invariant $\|\nabla f\|^2$ by $\sum_{j=1}^k \|\nabla f^j\|^2$, and $f_{ii}$ by $\sum_{j=1}^k (f^j_{ii})^2$, increases the codimension of the singular images from 1 to $3k-2$.
 
@@ -1227,7 +1193,7 @@ $\mathrm{Diff}_{\mathrm{con}}$ & 3 & 1 & 1 \\
 $\mathrm{Diff}$ & -- & -- & 0 \\
 \hline
 \end{tabular}
-\caption{Number of derivatives of $f$ needed to construct a differential invariant signature of $f$ as a function of the group $G$ and the number of colours $k$ of $f$. The entry `--' indicates that there is no differential invariant signature in that case.}
+\caption{Number of derivatives of $f$ needed to construct a differential invariant signature of $f$ as a function of the group $\mathcal{G}$ and the number of colours $k$ of $f$. The entry `--' indicates that there is no differential invariant signature in that case.}
 \end{center}
 \end{table}
 
