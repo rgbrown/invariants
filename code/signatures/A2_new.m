@@ -12,6 +12,6 @@ out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
         I6_2 = -fx.^3.*fyyy + 3*fx.^2.*fy.*fxyy - 3*fx.*fy.^2.*fxxy + ...
             fy.^3.*fxxx;
         
-        sig = {f, I4_2./I4_1, I6_2./I6_1};
+        sig = {f, I4_2./(I4_1 + I4_2), I6_2./(I6_1 + I6_2)};
     end
 end
