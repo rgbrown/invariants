@@ -54,7 +54,7 @@ Count of derivatives and what to say
 
 Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size. More generally, the appearance of a fixed object in a set of images can vary markedly depending upon such variables as change of pose and relative position to the camera, even though the object itself does not change. Such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
 
-It is natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects in denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. This could be done, for example, by transforming all objects to match a chosen target one by registration. Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here.
+It is natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects is denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. This could be done, for example, by transforming all objects to match a chosen target one by registration. Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here.
 
 Invariant signatures -- self-equivalences
 Different sorts of invariant, and their properties.
@@ -232,8 +232,8 @@ overlaid.}\label{fig:function_scanlines}
 
 \todo[inline]{visual obstruction}
 
-\section{Differential invariants of $E(2)$ through tensor contraction}
-While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance, as they are equivalent; we therefore use subscript indices exclusively.
+\section{Differential invariants of E(2) through tensor contraction}
+While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance as they are equivalent. We therefore use subscript indices exclusively.
 
 In this setting, a Euclidean transformation acting on $\mathbb{R}^2$ is given
 by an expression of the form:
@@ -248,13 +248,13 @@ With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is
 \end{equation*}
 and a $0$-tensor is a scalar, or invariant. 
 
-The main observation is that in this setting, the $n^\text{th}$ order partial derivative operator $\partial^n / \partial_{x_{i_1}} \cdots \partial_{x_{i_n}}$ formally transforms as an $n$-tensor. \todo[inline]{Cite Florack et al, 1993} Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial f / \partial_{i_1} \cdots \partial_{i_p}$ will give a Euclidean invariant.
+The main observation is that in this setting, the $n^\text{th}$ order partial derivative operator $\partial^n / \partial_{x_{i_1}}\cdots \partial_{x_{i_n}}$ formally transforms as an $n$-tensor. \todo[inline]{Cite Florack et al, 1993} Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial^p f / \partial_{x_{i_1}} \cdots \partial_{x_{i_p}}$ will give a Euclidean invariant.
 
 For example, up to second derivatives, we have the following Euclidean invariants, expressed as tensor contractions:
 \begin{align*}
   f &= f \\
   f_if_i &= f_x^2 + f_y^2 \\
-  f_{ii} &= f_{xx}^2 + f_{yy}^2 \\
+  f_{ii} &= f_{xx} + f_{yy} \\
   f_{ij} f_{ij} &= f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
   f_i f_j f_{ij} &= f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
 \label{eq:se2}
@@ -552,7 +552,7 @@ Degree & Weight & Diagram & Partial transvectant\\
 
 \todo[inline]{Explain}
 
-\subsection{Signatures of $SA(2)$ and $A(2)$}
+\subsection{Signatures of SA(2) and A(2)}
 Recall that invariants of a supergroup are automatically invariants of any of
 its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
 
@@ -586,7 +586,7 @@ images.
 \end{figure}
 
 
-\subsubsection{Moving on to $A(2)$, \ldots}
+\subsubsection{Moving on to A(2), \ldots}
 Using the same function as an example, 
 \begin{figure}
 \centering
@@ -636,7 +636,7 @@ A (right-) moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathc
 
 Olver uses the group $SE(2)$ on curves as an example~\cite{Olver}, recovering the Euclidean curvature as a second-order invariant. We continue this example to compute invariants to $SE(2)$ on the plane, before moving on to other planar Lie group examples: $E(2)$, the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). Finally, we apply it to an infinite-dimensional pseudo-Lie group, the conformal diffeomorphisms.
 
-\subsection{The Special Euclidean Group $SE(2)$}
+\subsection{The Special Euclidean Group SE(2)}
 
 An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as:
 \begin{equation*}
