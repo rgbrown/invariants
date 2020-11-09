@@ -52,16 +52,23 @@ Count of derivatives and what to say
 \todo[inline]{Examples to be numbered like theorems}
 \todo[inline]{This is a start. To be completed later.}
 
-Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size. More generally, the appearance of a fixed object in a set of images can vary markedly depending upon such variables as change of pose and relative position to the camera, even though the object itself does not change. Such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
+Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. More generally, the appearance of a fixed object in a set of images can vary markedly depending upon such variables as change of pose and relative position to the camera, even though the object itself does not change. This is even more noticeable in scenes that consist of multiple objects at different distances and orientations from the camera and any fixed background. The appearances of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the projective or affine groups, but they could also be conformal. Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
 
-It is natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects is denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. This could be done, for example, by transforming all objects to match a chosen target one by registration. Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here.
+For image recognition it is then natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects is denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target one by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. The question of how to compare invariant signatures is not considered further in this paper.
 
+Ideally an invariant signature would be complete, so that two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis. However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, where one object obscures some part of another. This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
+Olver et al. joint differential invars (aka semi-diff)
+MOMENTS
+
+
+
+When seeking 
 Invariant signatures -- self-equivalences
 Different sorts of invariant, and their properties.
 local invariants: occlusions OK
 derivatives: noise is not
 
-have not removed the recognition problem, just removed the group variation.
+not intensity transforms
 
 
 %Shapes/objects/images can be acted on by simple transformations that change
@@ -91,11 +98,11 @@ See the companion paper for an implementation.
 
 \subsection{Notation}
 
-We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subset\R^n$ (typically, images are planar, so $n=2$), $1\le k\in\mathbb{Z}$ is the number of colour channels, and $f\colon\Omega\to\R^k$. The function $f$ will be taken to be as smooth as necessary. Consider a (finite or infinite-dimensional) local transformation group $\mathcal{G}$.  A transformation $\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) = (f\circ\varphi^{-1},\varphi(\Omega),k)$. For many of our examples we consider greyscale images, so $k=1$, but we discuss colour images in Section~\ref{sec:colour}. Also, since we work locally, we will usually omit the domain $\Omega$.
+We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subset\R^n$ (typically, images are planar, so $n=2$), $1\le k\in\mathbb{Z}$ is the number of colour channels, and $f\colon\Omega\to\R^k$. The function $f$ will be taken to be as smooth as necessary. Consider a (finite or infinite-dimensional) local transformation group $\mathcal{G}$.  A transformation $\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) = (f\circ\varphi^{-1},\varphi(\Omega),k)$. For many of our examples we consider greyscale images, so $k=1$, although we will discuss colour images in Section~\ref{sec:colour}. Also, since we work locally, we will usually omit the domain $\Omega$.
 
 In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$. This is known as the jet space, or jet bundle~\cite{OlverJets}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$). As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. 
 
-An $m$-dimensional signature set is the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e., the set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$.  A signature set is complete for $f$ if it determines $f$ up to transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$. Where the signature set is not complete, it is still desirable that the set of objects that are indistinguishable from other be as small as possible. Useful properties for invariants are discussed in detail in~\cite{UsMobius}. 
+An $m$-dimensional signature set is the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e., the set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$.  A signature set is complete for $f$ if it determines $f$ up to transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$. 
 
 NEED TO TALK ABOUT WHEN IT IS SINGULAR
 
@@ -1091,38 +1098,51 @@ The group of conformal diffeomorphisms is the subgroup of diffeomorphisms that a
 \noindent where $\angle(u, v)$ denotes the angle between tangent vectors
 $u$ and $v$ based at $x \in \mathbb{R}^2$, $\phi \in \textrm{Diff}$ and $D$
 represents the Jacobian. The group is infinite-dimensional, but still small
-enough that images have local differential invariants.
+enough that images have local differential invariants. 
 
-The M\"obius action is locally identical to the full conformal group up to and including second order. Therefore, there are no new conformal invariants, apart from the M\"obius ones, up to second order. Rather than applying the method of moving frames (which has been extended to Lie pseduo-groups in~\cite{}), we perform a direct calculation using the defining geometric properties of the conformal group.
+The conformal diffeomorphisms provides a particularly nice example of the moving frame method. Define $\psi^{-1}(\bar{z}) = a_0 + a_1 \bar{z} + a_2 \bar{z}^2 + \dots = z$ where $z=x+iy$ and $a_i\in \mathbb{C}$. (Clearly $a_0$ is simply the translation to the origin). Note that at derivative order $n$ two real group parameters enter: $Re(a_n)$ and $Im(a_n)$. There are $n+1$ independent derivatives of $f$ of order $n$, so there must be at least $n-1$ independent invariants at each order. Working in real and imaginary coordinates, $f(x,y) = g(\bar{x}, \bar{y})$ and the moving frame computation proceeds as follows:
 
-At second order, we first consider the action of conformal maps on the Euclidean invariants $f_i f_i$ and $f_{ii}$.
+At first order, $(a_1 + i b_i) (\bar{x} + i \bar{y}) = x + i y$. Then:
+\begin{align}
+g_{\bar{x}} &= f_x x_{\bar{x}} + f_y y_{\bar{x}} \\
+&= a_1 f_x + b_1 f_y \\
+g_{\bar{y}} &= f_x x_{\bar{y}} + f_y y_{\bar{y}} \\
+&= - b_1 f_x + 1_1 f_y 
+\end{align}
 
-Let $\psi := \varphi^{-1}$. For any diffeomorphism, the derivatives of $f$ transform as
-$$f_i \mapsto f_j \psi^j_i$$
-and
-$$f_{ij} \mapsto f_{kl} \psi^k_i\psi^l_j + f_{k}\psi^k_{ij}.$$
-Therefore the Laplacian of $f$ transforms as
-$$ f_{ii} \mapsto f_{kl} \psi^k_i \psi^l_i + f_k \psi^k_{ii}.$$
-When $\psi=u + i v$ is conformal, $\psi_{k,ii}=0$ because the components of conformal maps are harmonic functions,
-and the Cauchy-Riemann equations give $\psi_{k,i}\psi_{l,i} = (u_x^2 + u_y^2)\delta_{kl}$. Therefore,
-$$ f_{ii} \mapsto f_{ii}(u_x^2+u_y^2).$$
-Here $u_x^2+u_y^2=\det\psi^k_i$ is the local scaling factor of the transformation.
-Note also that
-$$f_i f_i \mapsto f_k f_l \psi_{k,i} \psi_{l,i} = f_k f_k (u_x^2 + u_y^2).$$
-That is, $f_{ii}$ and $f_i f_i$ are both relative invariants of weight 2, while $f_{ii}/(f_i f_i)$ is a conformal invariant, as we saw for the M\"obius group. By itself, it is not useful for images as it is singular at critical points of $f$.
+Choosing $g_{\bar{x}} = 1$ and $\g_{\bar{y}} = 0$ gives $a_1 = f_x / (f_x^2 + f_y^2), \:\: b_1 = f_y / (f_x^2 + f_y^2)$. The second order computations give three equations, setting $g_{\bar{x} \bar{x}} = \g_{\bar{x} \bar{y}} = 0$ means that $g_{\bar{y} \bar{y}}$ gives the sole second-order invariant $f_{xx} + f_{yy} / (f_x^2 + f_y^2)$, which we also saw for the M\"bius group.  
 
-At higher order,  representing $\psi(z) = a_0 + a_1 z + a_2 z^2 + \dots$ where $z=x+iy$ and $a_i\in \mathbb{C}$ shows that 2 real group parameters, $Re(a_n)$ and $Im(a_n)$, enter at order $n$. There are $n+1$ independent derivatives of $f$ of order $n$, so there must be at least $n-1$ independent invariants of order $n$. (For $n=2$, we have we have found the single invariant above.)
+At third order there are two more invariants, ***
 
-The transformation of 1st derivatives is more clearly written in complex variables as $$ f_x + i f_y \mapsto a_1 (f_x + i f_y).$$ Given any two real invariants $g,h$, the real and imaginary parts of $(g_x+i g_y)(h_x-i h_y)$ are relative invariants of weight 2. This generates the required two invariants of order 3. (We have repeated and confirmed this calculation using the method of moving frames.) Specifically, let $J_1 = f_i f_i$ and  $J_2 = f_{ii}$, so that  $g = J_2/J_1$ is invariant.  We want to work with polynomials, so we clear denominators and let $J_3+iJ_4 = J_1^2 (g_x + i g_y)  (f_x - i f_y)$. $J_3$ and $J_4$ are a differential polynomials of $f$ of degree 4 and order 3, and are relative invariants of weight 6. They can be written explicitly as functions of the basic invariants of $SE(2)$ as
-$$J_3 = f_k f_k f_{iij}f_j - 2 f_{ii} f_{jk} f_j f_k$$
-and (writing $a_i\times b_i$ for $a_1 b_2 - b_2 a_1$)
-$$ J_4 = f_k f_k f_{iij}\times f_j - 2 f_{ii} f_{jk} f_k\times f_j.$$
-Under conformal maps we have
-$$ (J_1,J_2,J_3,J_4) \mapsto (|a_1|^2 J_1, |a_1|^2 J_2, |a_1|^6 J_3,|a_1|^6 J_4).$$
+%However, we first note that the M\"obius action is locally identical to the full conformal group up to and including second order. Therefore, there are no new conformal invariants, apart from the M\"obius ones, up to second order. It is possible to identify some invariants via direct calculation using the defining geometric properties of the conformal group.
 
-Therefore, projecting $(J_1^3,J_2^3,J_3)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^2$. It is continuous at all $(x,y)$ such that $J_1$, $J_2$, and $J_3$ are not simultaneously equal to zero.  Now $J_1=0$ implies $f_1=f_2=0$, and $J_2=0$ implies $f_{ii}=0$, but these together imply $J_3=0$. Thus the signature set is discontinuous when $f_1=f_2=f_{ii}=0$, a codimension-1 phenomenon for images.
+%At second order, we first consider the action of conformal maps on the Euclidean invariants $f_i f_i$ and $f_{ii}$.
 
-Similarly, projecting $(J_1^3,J_2^3,J_3,J_4)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^3$. This is also singular when $f_1=f_2=f_{ii}=0$. These singularities are not removable. A typical image near a `bad' point takes the form $f = a(x^2-y^2) + b x y + c x^3 + d x^2 y + e x y^2 + g y^3$.  For such an $f$, $(J_1^3,J_2^3,J_3,J_4)=\mathcal{O}(x^6,x^3,x^3,x^3)$.  The cubic forms always change sign and do not generically lead to a well-defined direction as $(x,y)\to(0,0)$. 
+%Let $\psi := \varphi^{-1}$. For any diffeomorphism, the derivatives of $f$ transform as
+%$$f_i \mapsto f_j \psi^j_i$$
+%and
+%$$f_{ij} \mapsto f_{kl} \psi^k_i\psi^l_j + f_{k}\psi^k_{ij}.$$
+%Therefore the Laplacian of $f$ transforms as
+%$$ f_{ii} \mapsto f_{kl} \psi^k_i \psi^l_i + f_k \psi^k_{ii}.$$
+%When $\psi=u + i v$ is conformal, $\psi_{k,ii}=0$ because the components of conformal maps are harmonic functions,
+%and the Cauchy-Riemann equations give $\psi_{k,i}\psi_{l,i} = (u_x^2 + u_y^2)\delta_{kl}$. Therefore,
+%$$ f_{ii} \mapsto f_{ii}(u_x^2+u_y^2).$$
+%Here $u_x^2+u_y^2=\det\psi^k_i$ is the local scaling factor of the transformation.
+%Note also that
+%$$f_i f_i \mapsto f_k f_l \psi_{k,i} \psi_{l,i} = f_k f_k (u_x^2 + u_y^2).$$
+%That is, $f_{ii}$ and $f_i f_i$ are both relative invariants of weight 2, while $f_{ii}/(f_i f_i)$ is a conformal invariant, as we saw for the M\"obius group. By itself, it is not useful for images as it is singular at critical points of $f$.
+
+
+%The transformation of 1st derivatives is more clearly written in complex variables as $$ f_x + i f_y \mapsto a_1 (f_x + i f_y).$$ Given any two real invariants $g,h$, the real and imaginary parts of $(g_x+i g_y)(h_x-i h_y)$ are relative invariants of weight 2. This generates the required two invariants of order 3. (We have repeated and confirmed this calculation using the method of moving frames.) Specifically, let $J_1 = f_i f_i$ and  $J_2 = f_{ii}$, so that  $g = J_2/J_1$ is invariant.  We want to work with polynomials, so we clear denominators and let $J_3+iJ_4 = J_1^2 (g_x + i g_y)  (f_x - i f_y)$. $J_3$ and $J_4$ are a differential polynomials of $f$ of degree 4 and order 3, and are relative invariants of weight 6. They can be written explicitly as functions of the basic invariants of $SE(2)$ as
+%$$J_3 = f_k f_k f_{iij}f_j - 2 f_{ii} f_{jk} f_j f_k$$
+%and (writing $a_i\times b_i$ for $a_1 b_2 - b_2 a_1$)
+%$$ J_4 = f_k f_k f_{iij}\times f_j - 2 f_{ii} f_{jk} f_k\times f_j.$$
+%Under conformal maps we have
+%$$ (J_1,J_2,J_3,J_4) \mapsto (|a_1|^2 J_1, |a_1|^2 J_2, |a_1|^6 J_3,|a_1|^6 J_4).$$
+
+%Therefore, projecting $(J_1^3,J_2^3,J_3)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^2$. It is continuous at all $(x,y)$ such that $J_1$, $J_2$, and $J_3$ are not simultaneously equal to zero.  Now $J_1=0$ implies $f_1=f_2=0$, and $J_2=0$ implies $f_{ii}=0$, but these together imply $J_3=0$. Thus the signature set is discontinuous when $f_1=f_2=f_{ii}=0$, a codimension-1 phenomenon for images.
+
+%Similarly, projecting $(J_1^3,J_2^3,J_3,J_4)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^3$. This is also singular when $f_1=f_2=f_{ii}=0$. These singularities are not removable. A typical image near a `bad' point takes the form $f = a(x^2-y^2) + b x y + c x^3 + d x^2 y + e x y^2 + g y^3$.  For such an $f$, $(J_1^3,J_2^3,J_3,J_4)=\mathcal{O}(x^6,x^3,x^3,x^3)$.  The cubic forms always change sign and do not generically lead to a well-defined direction as $(x,y)\to(0,0)$. 
 
 \subsection{Volume-Preserving Diffeomorphisms $\mathbf{Diff_{vol}}$}
 
