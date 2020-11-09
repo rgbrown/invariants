@@ -1070,7 +1070,7 @@ f_{yy}  f_{x} ^2 f_{xy} ^2 +
  f_{y} ^2 f_{yy}  f_{x}  f_{xxx}  + 
  f_{y} ^3 f_{xy}  f_{xxx}. $
  
-Including $J_2$ in addition provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.
+Including $J_2$ in addition provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.%
  
 Further invariants can be found by noting that, for any planar transformation group and any two invariants
 $I^1$ and $I^2$, $\nabla I^1 \times \nabla I^2$ is a relative invariant of weight 1; that is:
@@ -1100,19 +1100,64 @@ $u$ and $v$ based at $x \in \mathbb{R}^2$, $\phi \in \textrm{Diff}$ and $D$
 represents the Jacobian. The group is infinite-dimensional, but still small
 enough that images have local differential invariants. 
 
-The conformal diffeomorphisms provides a particularly nice example of the moving frame method. Define $\psi^{-1}(\bar{z}) = a_0 + a_1 \bar{z} + a_2 \bar{z}^2 + \dots = z$ where $z=x+iy$ and $a_i\in \mathbb{C}$. (Clearly $a_0$ is simply the translation to the origin). Note that at derivative order $n$ two real group parameters enter: $Re(a_n)$ and $Im(a_n)$. There are $n+1$ independent derivatives of $f$ of order $n$, so there must be at least $n-1$ independent invariants at each order. Working in real and imaginary coordinates, $f(x,y) = g(\bar{x}, \bar{y})$ and the moving frame computation proceeds as follows:
+The conformal diffeomorphisms provides a particularly nice example of the
+moving frame method. Letting $z = x + iy$, let $\bar{z} = \psi(z)$ be a conformal
+mapping. It's convenient to work with the inverse transformation, so let
+\begin{equation*}
+    z = \psi^{-1}(\bar{z}) = c_0 + c_1 \bar{z} + c_2 \bar{z}^2 +
+    c_3\bar{z}^3 + \cdots
+\end{equation*}
+where $c_i = a_i + ib_i \in \mathbb{C}$.  Because the group is infinite
+dimensional, we need to work on the prolongation of $\psi$ to the jet space
+$J^\infty = \{x, y, f, f_x, f_y, \ldots\}$ including all of its
+derivatives. To make $\psi$ into a moving frame, we specify the
+cross-section and solve for parameters in stages. We begin with $\bar{x} =
+\bar{y} = 0$. This yeilds $c_0 = z$. To find $c_1 = a_1 + i b_1$ we need
+two constraints. Differentiating $f(x, y) = \bar{f}(\bar{x}, \bar{y})$ and
+substituting in our existing cross section constraints $\bar{x} = \bar{y} = 0$ gives
+\begin{align*}
+    \bar{f}_{\bar{x}} = f_x x_{\bar{x}} + f_y y_{\bar{x}} &= a_1 f_x + b_1
+    f_y, \\
+    \bar{f}_{\bar{y}} = f_x x_{\bar{y}} + f_y y_{\bar{y}} &= -b_1 f_x + a_1
+    f_y. 
+\end{align*}
+Note that $\bar{x} = \bar{y} = 0$ removes all higher order derivatives from
+the cross section equation. Adding two extra constraints to the cross
+section, $\bar{f}_{\bar{x}} = 1, \bar{f}_{\bar{y}} = 0$, this system is readily
+solved to give 
+\begin{equation*}
+    \begin{aligned}
+        a_1 &= f_x / (f_x^2 + f_y^2), &  b_1 &= f_y / (f_x^2 + f_y^2).
+    \end{aligned}
+\end{equation*}
+We then repeat the process, this time using the second derivative
+computations. This time, there are two new parameters, $a_2, b_2$, to solve
+for, but there are three derivatives. We use the cross section equations
+$\bar{f}_{\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{y}} = 0$ to solve for
+$a_2$ and $b_2$, the remaining derivative $\bar{f}_{\bar{y}\bar{y}}$ is then the
+sole second order invariant, which we also saw for the M\"obius group: 
+\begin{equation*}
+    \bar{f}_{\bar{y}\bar{y}} = \frac{f_{xx} + f_{yy}}{f_x^2 + f_y^2}.
+\end{equation*}
+Continuing in this way, at derivative order $n$ two real group parameters
+enter: $a_n$ and $b_n$. There are $n+1$ independent derivatives of $f$ of
+order $n$, so there must be $n-1$ new independent invariants at each order.
 
-At first order, $(a_1 + i b_i) (\bar{x} + i \bar{y}) = x + i y$. Then:
-\begin{align}
-g_{\bar{x}} &= f_x x_{\bar{x}} + f_y y_{\bar{x}} \\
-&= a_1 f_x + b_1 f_y \\
-g_{\bar{y}} &= f_x x_{\bar{y}} + f_y y_{\bar{y}} \\
-&= - b_1 f_x + 1_1 f_y 
-\end{align}
-
-Choosing $g_{\bar{x}} = 1$ and $\g_{\bar{y}} = 0$ gives $a_1 = f_x / (f_x^2 + f_y^2), \:\: b_1 = f_y / (f_x^2 + f_y^2)$. The second order computations give three equations, setting $g_{\bar{x} \bar{x}} = \g_{\bar{x} \bar{y}} = 0$ means that $g_{\bar{y} \bar{y}}$ gives the sole second-order invariant $f_{xx} + f_{yy} / (f_x^2 + f_y^2)$, which we also saw for the M\"bius group.  
-
-At third order there are two more invariants, ***
+At third order there are two more invariants, using the constraints
+$\bar{f}_{\bar{x}\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{x}\bar{y}} = 0$,
+the remaining derivatives are invariant:
+\begin{align*}
+    \bar{f}_{\bar{x}\bar{y}\bar{y}} &= \frac{f_y^3f_{yyy} + f_x^2f_yf_{yyy}
+            -2f_y^2f_{yy}^2 - 2f_{xx}f_y^2f_{yy} -
+            4f_xf_{xy}f_yf_{yy} - 2f_x^2 f_{xx}f_{yy} + f_{xxy}f_y^3 +
+            f_x^2 f_{xxy}f_y - 4 f_x f_{xy} f_{xx} f_y + f_x^3 f_{xxx} -
+        2f_x^2 f_{xx}^2 + f_x^3 f_{xyy}}{(f_x^2 + f_y^2)^3} \\
+        \bar{f}_{\bar{y}\bar{y}\bar{y}} &= \frac{f_xf_y^2f_{yyy} +
+        f_x^3f_{yyy} - 2f_x f_y f_{yy}^2 + 2f_{xy}f_y^2f_{yy} -
+    2f_x^2f_{xy}f_{yy} - f_{xxx}f_y^3 - f_{xyy}f_y^3 + f_xf_{xxy}f_y^2 +
+2f_{xy}f_{xx}f_y^2 - f_x^2 f_{xxx} f_y + 2f_xf_{xx}^2 f_y - f_x^2 f_{xyy}
+f_y + f_x^3 f_{xxy} - 2f_x^2 f_{xy} f_{xx} }{(f_x^2 + f_y^2)^3 }
+\end{align*}
 
 %However, we first note that the M\"obius action is locally identical to the full conformal group up to and including second order. Therefore, there are no new conformal invariants, apart from the M\"obius ones, up to second order. It is possible to identify some invariants via direct calculation using the defining geometric properties of the conformal group.
 
