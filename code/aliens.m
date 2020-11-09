@@ -1,22 +1,12 @@
-I1 = load_image('../images/fruit/view1c.png');
-I2 = load_image('../images/fruit/view3c.png');
-addpath packages
+I1 = load_image('images/view1.JPG');
+I2 = load_image('images/view2.JPG');
 addpath signatures
 I1 = I1/255;
 I2 = I2/255;
-I1(1, 1) = I1(1, 2);
-I2(end, end) = I2(end-1, end);
-x_filt = (-100:100);
-y_filt = (-100:100);
 
-[X_filter, Y_filter] = meshgrid(x_filt, y_filt);
-normalise = @(x) x / sum(x(:));
-makefilter = @(sigma) normalise(exp(-(abs(X_filter).^2 + abs(Y_filter).^2) ./ (2*sigma^2)));
-filt_radius = 20;
-K = makefilter(filt_radius);
-I1_smooth = conv_fft2(I1, K, 'valid');
-I2_smooth = conv_fft2(I2, K, 'valid');
-%%
+I1_smooth = gaussfilt(I1, 50);
+I2_smooth = gaussfilt(I2, 50);
+
 figure(1);
 clf
 subplot(1, 2, 1)
@@ -32,11 +22,11 @@ colormap(gray(65536));
 
 %%
 addpath('signatures');
-sigfun = @E2_signature;
-sig1 = sigfun(I1_smooth);
-sig2 = sigfun(I2_smooth);
+sigfun = @A2_signature;
+sig1 = sigfun(I1_smooth, 1e-1);
+sig2 = sigfun(I2_smooth, 1e-1);
 
-%%
+
 figure(2)
 clf
 surf(sig1{1}, sig1{2}, sig1{3}, 'facecolor', 'blue', 'edgecolor', 'none', 'facealpha', 0.5);
@@ -70,4 +60,13 @@ plot3(sig2{1}(i2,j2), sig2{2}(i2,j2), sig2{3}(i2,j2), 'g.', 'markersize', 24)
 
 
 
-%%
+function Is = gaussfilt(I, sigma)
+x = (-6*ceil(sigma)):(6*ceil(sigma));
+ker = 1/(sqrt(2*pi)*sigma)*exp(-x.^2/(2*sigma^2));
+ker = ker/sum(ker);
+nfilt = numel(ker);
+Is = filter(ker, 1, I, [], 1);
+Is(1:nfilt-1, :) = [];
+Is = filter(ker, 1, Is, [], 2);
+Is(:, 1:nfilt-1) = [];
+end

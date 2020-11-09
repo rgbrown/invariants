@@ -2,8 +2,8 @@ function out = signature_switch(f, sig_fun, order, group, varargin)
 if isnumeric(f)
     switch numel(varargin)
         case 0
-            hx = 1;
-            hy = 1;
+            hx = 2/max(size(f));
+            hy = hx;
         case 1
             hx = varargin{1};
             hy = varargin{1};

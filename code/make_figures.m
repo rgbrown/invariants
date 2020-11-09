@@ -37,6 +37,7 @@ signatures.PSL3R.sigfun = @PSL3R_signature;
 close all
 group = 'PSL3R';
 write_images = false;
+close all
 sig = generate_figures(f, signatures.(group), write_images);
 
 %% Save group=specific axes to file
