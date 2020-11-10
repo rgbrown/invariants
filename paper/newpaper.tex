@@ -808,7 +808,7 @@ The prolonged action is:
 \arraycolsep=1.4pt
 \left[
 \begin{array}{c}
-  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} 
+  \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar x \bar x} \\ \bar f_{\bar x \bar y} \\ \bar f_{\bar y \bar y} 
  \end{array}
  \right]
  = 
@@ -881,15 +881,15 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\
 
 The moving frame calculation is then:
 \begin{enumerate}
-\item The frame $\bar f_x=1$, $\bar f_y=0$ determines the group parameters
+\item The frame $\bar f_{\bar x}=1$, $\bar f_{\bar y}=0$ determines the group parameters:
 $$ a = f_x/(f_x^2 + f_y^2),\quad b = f_y/(f_x^2 f_y^2).$$
 
-\item The frame $\bar f_{xy}=\bar f_{yy}=0$ determines the group parameters
+\item The frame $\bar f_{\bar x \bar y}=\bar f_{\bar y \bar y}=0$ determines the next group parameters:
 $$ c = (2 f_xf_yf_{xyy} - f_{xx}f_y^2 - f_{yy}f_x^2)/(2 f_x^2 + f_y^2)^2$$
 $$ d = (f_{xy}f_x^2 - f_x f_y f_{xx} - f_{xy}f_y^2 - f_{yy} f_x f_y)/(2 f_x^2 + f_y^2)^2.$$
 
-\item The 2nd order invariant is then given by $\bar f_{xx}$ using Equation~(\ref{eqn:mobius}); it is:
-$$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
+\item The second-order invariant is then given by $\bar f_{\bar x \bar x}$ using Equation~(\ref{eqn:mobius}); it is:
+$$\bar f_{bar x \bar x} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 \end{enumerate}
 
 %It is clear that there must be 2 syzygies between the relative invariants $J_1,\dots,J_4,K_1,\dots,K_4$.
@@ -898,8 +898,7 @@ $$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 %and
 %$$K_3=-K_1 +J_1 J_3 + 2 J_1^2 J_2^2.$$
 
-The four 3rd order invariants can be deduced from the moving frame. They are rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.
-We want to work with polynomials, and so clear denominators. We choose to use $M_1 = (f_{xx} + f_{yy})^4$ and two of the four 3rd order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
+The four third-order invariants can be deduced from the moving frame. They are rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.  Clearing denominators so as to work with polynomials, we choose $M_1 = (f_{xx} + f_{yy})^4$ and two of the four third-order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
 $M_2=
 f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 + 
  f_y ^3 f_{yyy} f_x ^2 + \frac{3}{2} f_{yy}^2 f_x ^4 - 
@@ -928,7 +927,7 @@ f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 +
  f_y ^3 f_x ^2 f_{xxx}.
 $
 
-The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
+The image $f$ and these 3 relative invariants of weight 8 provide a three-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
 
 %In previous work \cite{mobius}, two independent 3rd order M\"obius invariants were calculated
 %from the classical M\"obius geometry of curves. Namely, the M\"obius arclength 
@@ -962,14 +961,13 @@ The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensiona
 
 \subsection{The Projective Group}
 
-We consider the 8-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., 
+We consider the eight-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., 
 \begin{equation}
 (x,y) \mapsto \left(\frac{a x + b y + j}{l + g x + h y}, \frac{c x + d y + k}{l+ g x + h y}\right).
 \end{equation}
 
-Requiring that $\bar f = f$ again enables us to clear the translation coefficients, so $k=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
+Requiring that $\bar f = f$ enables us to clear the translation coefficients, so $j=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
 
-\todo[inline]{How to write this?}
 The prolonged action is:
 \begin{equation}
 \arraycolsep=1.4pt
@@ -977,7 +975,7 @@ The prolonged action is:
 %\rotatebox{90}{$
 \left[
 \begin{array}{c}
-  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} \\ \bar f_{xxx} \\ \bar f_{xxy} \\ \bar f_{xyy} \\ \bar f_{yyy} 
+  \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar x \bar x} \\ \bar f_{\bar x \bar y} \\ \bar f_{\bar y \bar y} \\ \bar f_{\bar x \bar x \bar x} \\ \bar f_{\bar x \bar x \bar y} \\ \bar f_{\bar x \bar y \bar y} \\ \bar f_{ \bar y \bar y \bar y} 
  \end{array}
  \right]
  = 
@@ -989,10 +987,10 @@ The prolonged action is:
  -b g-a h & -d g-c h & a b & b c+a d & c d & 0 & 0 & 0 & 0 \\
  -2 b h & -2 d h & b^2 & 2 b d & d^2 & 0 & 0 & 0 & 0 \\
  6 a g^2 & 6 c g^2 & -6 a^2 g & -12 a c g & -6 c^2 g & a^3 & 3 a^2 c & 3 a c^2 & c^3 \\
- 2 g (b g+2 a h) & 2 g (d g+2 c h) & -2 a (2 b g+a h) & -4 (b c g+a d g+a c h) & -2 c (2 d
-   g+c h) & a^2 b & a (2 b c+a d) & c (b c+2 a d) & c^2 d \\
- 2 h (2 b g+a h) & 2 h (2 d g+c h) & -2 b (b g+2 a h) & -4 (b d g+b c h+a d h) & -2 d (d g+2
-   c h) & a b^2 & b (b c+2 a d) & d (2 b c+a d) & c d^2 \\
+ 2 g \alpha_1 & 2 g \beta_1 & -2 a \alpha_2 & -4 \delta_1 & -2 c \beta_2
+   & a^2 b & a \gamma_1 & c \gamma_1 & c^2 d \\
+ 2 h \alpha_2 & 2 h \beta_2 & -2 b \alpha_1 & -4 = \delta_2 & -2 d \beta_1
+   & a b^2 & b \gamma_1 & d \gamma_2 & c d^2 \\
  6 b h^2 & 6 d h^2 & -6 b^2 h & -12 b d h & -6 d^2 h & b^3 & 3 b^2 d & 3 b d^2 & d^3 \\
 \end{array}
 \right]\left[
@@ -1002,39 +1000,60 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{
  \right].%$}
  \end{equation}
 
-The affine group $A(2)$ is a subgroup of $\mathrm{PSL}(3,\R)$. In the analysis of that group, in Section~\ref{}, the invariant $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$ was identified. Under a general action of $\phi \in \mathrm{PSL}(3,\R)$, $D$ is a relative invariant (that is, the value is multiplied by a certain factor under group transformations):
+\noindent where $\alpha_1 = b g + 2 a h, \alpha_2 = 2 b g + a h$, $\beta_1 = d g + 2 c h, \beta_2 = 2 d g + c h$, $\gamma_1 = b c + 2 a d, \gamma_2= 2 b c + a d$, and $\delta_1 = (b c g+a d g+a c h), \delta_2 = (b d g+b c h+a d h)$.
+%\left[
+%\begin{array}{ccccccccc}
+ %a & c & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ %b & d & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ %-2 a g & -2 c g & a^2 & 2 a c & c^2 & 0 & 0 & 0 & 0 \\
+ %-b g-a h & -d g-c h & a b & b c+a d & c d & 0 & 0 & 0 & 0 \\
+ %-2 b h & -2 d h & b^2 & 2 b d & d^2 & 0 & 0 & 0 & 0 \\
+ %6 a g^2 & 6 c g^2 & -6 a^2 g & -12 a c g & -6 c^2 g & a^3 & 3 a^2 c & 3 a c^2 & c^3 \\
+ %2 g (b g+2 a h) & 2 g (d g+2 c h) & -2 a (2 b g+a h) & -4 (b c g+a d g+a c h) & -2 c (2 d
+   %g+c h) & a^2 b & a (2 b c+a d) & c (b c+2 a d) & c^2 d \\
+ %2 h (2 b g+a h) & 2 h (2 d g+c h) & -2 b (b g+2 a h) & -4 (b d g+b c h+a d h) & -2 d (d g+2
+   %c h) & a b^2 & b (b c+2 a d) & d (2 b c+a d) & c d^2 \\
+ %6 b h^2 & 6 d h^2 & -6 b^2 h & -12 b d h & -6 d^2 h & b^3 & 3 b^2 d & 3 b d^2 & d^3 \\
+%\end{array}
+%\right]
+
+%%A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. 
+%Both $D$ and $E$ will be useful quantities shortly, but note that, from (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on its sign. 
+
+We begin by choosing the frames $\bar f_{\bar x} = 1$ and $\bar f_{\bar y}=  0$, which determine the group parameters $a = (1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that $\bar f_{\bar y \bar y} = D d^2 / f_x^2$, where $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$. 
+
+Under a general action of $\phi \in \mathrm{PSL}(3,\R)$, $D$ is a relative invariant (that is, the value is multiplied by a certain factor under group transformations) of weight 2:
 \begin{equation}
 \label{eq:D}
 D \mapsto (\det \phi')^2 D\circ \phi.
 \end{equation}
 
-Another invariant of $A(2)$ was:
+It is also an invariant of $A(2)$, which is a subgroup of $\mathrm{PSL}(3,\R)$. Note that the sign of $D$ does not change. We assume that $D>0$ (if it is negative, relatively little changes in the following derivation) and choose the frame $\bar f_{ \bar y \bar y} = 1$, so that $d = f_x/D^{1/2}.$
 
-\begin{equation}
-E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
-\end{equation}
+The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{ \bar x \bar y \bar y}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{ \bar x \bar x}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$ In fact, the denominator of the expression for $h$ was another invariant of $A(2)$; we label it $E$ for convenience.
 
-%A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. 
-Both $D$ and $E$ will be useful quantities shortly, but note that, from (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on its sign. We begin by choosing the frames $\bar f_x = 1$ and $\bar f_y=  0$, which determine the group parameters $a = (1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that $\bar f_{yy} = d^2 D/f_x^2$. We assume that $D>0$ (if it is negative, relatively little changes in the following derivation) and choose the frame $\bar f_{yy} = 1$, so that $d = f_x/D^{1/2}.$
+%\begin{equation}
+%E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
+%\end{equation}
 
-The frame $\bar f_{yyy} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{xyy}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{xx}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$
-
-Having determined the frame, any function of the remaining derivatives $\bar f_{xxx}$, $\bar f_{xxy}$, and $\bar f_{yyy}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)$$, where (with $P_n$ denoting a polynomial of degree $n$):
+Having determined the frame, any function of the remaining derivatives $\bar f_{ \bar x \bar x \bar x}$, $\bar f_{ \bar x \bar x \bar y}$, and $\bar f_{ \bar y \bar y \bar y}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)$$, where (with $P_n$ denoting a polynomial of degree $n$):
 $$ J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5.$$
 
-The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the issue caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36; so projecting any subset of them of them to a sphere yields a 3rd order invariant signature.
+The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the ambiguity caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36, and so projecting any subset of them of them to a sphere yields a third-order invariant signature.
 
-$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points.  However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which turns out to obey:
+$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points. However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which obeys:
 $$J_1 - J_3^2 = 144 D^4 P_4.$$
 
 As $J_1/D^6$ and $J_3/D^3$ are invariant, so is $P_4/D^2$. 
-Moreover, the numerator of this new invariant does not vanish at critical points.  It has the structure
+Moreover, the numerator of this new invariant does not vanish at critical points.  It has the structure:
 $$P_4 = -4(\det f_{ij})^2 + Q_4,$$
 where $Q_4$ is a polynomial of degree 4 that vanishes when $f_x=f_y=0$. Hence, the relative invariant of weight 12:
 $$ (D^6, P_4^3, (E^2-12D P_5)^2)$$
-can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to
-$(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature $(0,1,0)$.
+can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to:
+$(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature value $(0,1,0)$.
+Including $J_2$ provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.
 
+\todo[inline]{Is this useful? Is it what we actually use? If so, fix the names...}
 For completeness we write out the invariant signature we use explicitly:
 
 $Q_4=4 f_x  f_{xy} ^2 f_{xyy}  - 
@@ -1070,12 +1089,10 @@ f_{yy}  f_{x} ^2 f_{xy} ^2 +
  f_{y} ^2 f_{yy}  f_{x}  f_{xxx}  + 
  f_{y} ^3 f_{xy}  f_{xxx}. $
  
-Including $J_2$ in addition provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.%
- 
 Further invariants can be found by noting that, for any planar transformation group and any two invariants
 $I^1$ and $I^2$, $\nabla I^1 \times \nabla I^2$ is a relative invariant of weight 1; that is:
 $$\nabla I^1 \times \nabla I^2\mapsto (\det \phi')(\nabla I^1 \times \nabla I^2).$$
-Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=10$ 4th order invariants.
+Applying this operation to $f$ and the four third-order invariants yields $5\cdot4/2=10$ fourth-order invariants.
 
 \begin{figure}
 \centering
@@ -1086,8 +1103,6 @@ Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=
 \end{figure}
 
 \subsection{Conformal Diffeomorphisms $\mathbf{Diff}_{\mathbf{con}}$}
-
-\todo[inline]{Put the moving frame version here}
 
 The group of conformal diffeomorphisms is the subgroup of diffeomorphisms that are angle-preserving, i.e.,
 
@@ -1178,16 +1193,19 @@ f_y + f_x^3 f_{xxy} - 2f_x^2 f_{xy} f_{xx} }{(f_x^2 + f_y^2)^3 }
 %That is, $f_{ii}$ and $f_i f_i$ are both relative invariants of weight 2, while $f_{ii}/(f_i f_i)$ is a conformal invariant, as we saw for the M\"obius group. By itself, it is not useful for images as it is singular at critical points of $f$.
 
 
-%The transformation of 1st derivatives is more clearly written in complex variables as $$ f_x + i f_y \mapsto a_1 (f_x + i f_y).$$ Given any two real invariants $g,h$, the real and imaginary parts of $(g_x+i g_y)(h_x-i h_y)$ are relative invariants of weight 2. This generates the required two invariants of order 3. (We have repeated and confirmed this calculation using the method of moving frames.) Specifically, let $J_1 = f_i f_i$ and  $J_2 = f_{ii}$, so that  $g = J_2/J_1$ is invariant.  We want to work with polynomials, so we clear denominators and let $J_3+iJ_4 = J_1^2 (g_x + i g_y)  (f_x - i f_y)$. $J_3$ and $J_4$ are a differential polynomials of $f$ of degree 4 and order 3, and are relative invariants of weight 6. They can be written explicitly as functions of the basic invariants of $SE(2)$ as
-%$$J_3 = f_k f_k f_{iij}f_j - 2 f_{ii} f_{jk} f_j f_k$$
-%and (writing $a_i\times b_i$ for $a_1 b_2 - b_2 a_1$)
-%$$ J_4 = f_k f_k f_{iij}\times f_j - 2 f_{ii} f_{jk} f_k\times f_j.$$
-%Under conformal maps we have
-%$$ (J_1,J_2,J_3,J_4) \mapsto (|a_1|^2 J_1, |a_1|^2 J_2, |a_1|^6 J_3,|a_1|^6 J_4).$$
+%The transformation of 1st derivatives is more clearly written in complex variables as $$ f_x + i f_y \mapsto a_1 (f_x + i f_y).$$ Given any two real invariants $g,h$, the real and imaginary parts of $(g_x+i g_y)(h_x-i h_y)$ are relative invariants of weight 2. This generates the required two invariants of order 3. (We have repeated and confirmed this calculation using the method of moving frames.) 
 
-%Therefore, projecting $(J_1^3,J_2^3,J_3)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^2$. It is continuous at all $(x,y)$ such that $J_1$, $J_2$, and $J_3$ are not simultaneously equal to zero.  Now $J_1=0$ implies $f_1=f_2=0$, and $J_2=0$ implies $f_{ii}=0$, but these together imply $J_3=0$. Thus the signature set is discontinuous when $f_1=f_2=f_{ii}=0$, a codimension-1 phenomenon for images.
+\todo[inline]{Fix up this bit to be correct and complete for what we do}
+Specifically, let $J_1 = f_i f_i$ and  $J_2 = f_{ii}$, so that  $g = J_2/J_1$ is invariant.  We want to work with polynomials, so we clear denominators and let $J_3+iJ_4 = J_1^2 (g_x + i g_y)  (f_x - i f_y)$. $J_3$ and $J_4$ are a differential polynomials of $f$ of degree 4 and order 3, and are relative invariants of weight 6. They can be written explicitly as functions of the basic invariants of $SE(2)$ as
+$$J_3 = f_k f_k f_{iij}f_j - 2 f_{ii} f_{jk} f_j f_k$$
+and (writing $a_i\times b_i$ for $a_1 b_2 - b_2 a_1$)
+$$ J_4 = f_k f_k f_{iij}\times f_j - 2 f_{ii} f_{jk} f_k\times f_j.$$
+Under conformal maps we have
+$$ (J_1,J_2,J_3,J_4) \mapsto (|a_1|^2 J_1, |a_1|^2 J_2, |a_1|^6 J_3,|a_1|^6 J_4).$$
 
-%Similarly, projecting $(J_1^3,J_2^3,J_3,J_4)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^3$. This is also singular when $f_1=f_2=f_{ii}=0$. These singularities are not removable. A typical image near a `bad' point takes the form $f = a(x^2-y^2) + b x y + c x^3 + d x^2 y + e x y^2 + g y^3$.  For such an $f$, $(J_1^3,J_2^3,J_3,J_4)=\mathcal{O}(x^6,x^3,x^3,x^3)$.  The cubic forms always change sign and do not generically lead to a well-defined direction as $(x,y)\to(0,0)$. 
+Therefore, projecting $(J_1^3,J_2^3,J_3)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^2$. It is continuous at all $(x,y)$ such that $J_1$, $J_2$, and $J_3$ are not simultaneously equal to zero.  Now $J_1=0$ implies $f_1=f_2=0$, and $J_2=0$ implies $f_{ii}=0$, but these together imply $J_3=0$. Thus the signature set is discontinuous when $f_1=f_2=f_{ii}=0$, a codimension-1 phenomenon for images.
+
+Similarly, projecting $(J_1^3,J_2^3,J_3,J_4)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^3$. This is also singular when $f_1=f_2=f_{ii}=0$. These singularities are not removable. A typical image near a `bad' point takes the form $f = a(x^2-y^2) + b x y + c x^3 + d x^2 y + e x y^2 + g y^3$.  For such an $f$, $(J_1^3,J_2^3,J_3,J_4)=\mathcal{O}(x^6,x^3,x^3,x^3)$.  The cubic forms always change sign and do not generically lead to a well-defined direction as $(x,y)\to(0,0)$. 
 
 \subsection{Volume-Preserving Diffeomorphisms $\mathbf{Diff_{vol}}$}
 
