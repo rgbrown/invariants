@@ -52,48 +52,43 @@ Count of derivatives and what to say
 \todo[inline]{Examples to be numbered like theorems}
 \todo[inline]{This is a start. To be completed later.}
 
-Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. More generally, the appearance of a fixed object in a set of images can vary markedly depending upon such variables as change of pose and relative position to the camera, even though the object itself does not change. This is even more noticeable in scenes that consist of multiple objects at different distances and orientations from the camera and any fixed background. The appearances of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the projective or affine groups, but they could also be conformal. Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
+%Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. 
+The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. %Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
 
-For image recognition it is then natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects is denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target one by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. The question of how to compare invariant signatures is not considered further in this paper.
+For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This reduces the recognition problem to recognising higher-dimensional invariant signatures. 
 
-Ideally an invariant signature would be complete, so that two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis. However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, where one object obscures some part of another. This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
+Something about signatures
+3. The signature must vary continuously with respect to the image, either for all smooth
+images or for all except a set of sufficiently high codimension. This is essential if the
+signature is to be used to detect similarity of images, but it fails for the rational
+invariants found in the literature.
+Invariant signatures -- self-equivalences
+
+
+The theory of invariants has a rich mathematical history~\cite{}. 
+
+However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, where one object obscures some part of another. This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
 Olver et al. joint differential invars (aka semi-diff)
 MOMENTS
 
-
-
-When seeking 
-Invariant signatures -- self-equivalences
-Different sorts of invariant, and their properties.
-local invariants: occlusions OK
 derivatives: noise is not
-
 not intensity transforms
 
+We consider a wide range of planar groups, both finite-dimensional Lie groups and infinite-dimensional pseudo-Lie ones; as we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups.
 
-%Shapes/objects/images can be acted on by simple transformations that change
-%their appearance. We want to recognise the objects or identify the set of
-%transformations. If the set is a group, then we can seek to either identify
-%the group or solve the equivalence problem by
-%\begin{enumerate}
-    %\item Registration, or
-    %\item Invariance.
-%\end{enumerate}
-%The first is commonly studied but is computationally expensive and prone to
-%local minima. If you're not interested in the actual transformation it is
-%therefore to be avoided. Here we'll consider invariance. There are many
-%choices of type e.g. Fourier, integral, or differential invariants. The
-%last set are cheap to compute and have nice theoretical properties but are
-%not robust to noise. However, we'll use them anyway. 
+Ideally, an invariant signature would be complete, so that the image is exactly determined up to a transformation, and two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. However, this often requires signatures in many dimensions, and potentially also more derivatives of the image. For many applications an incomplete signature is sufficient, and is what we consider here. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis.
 
-This paper is a
-tutorial on differential invariants for planar Lie groups (e.g.
+
+In this paper we provide a tutorial on differential invariants for planar Lie groups (e.g.
 Euclidean, affine, projective) since they are relatively simple, useful,
 and relevant to images. We'll use these to demonstrate the methods of
-constructing and using differential invariant signatures. Note that this
-reduces the recognition problem to recognising higher-dimensional
-differential invariant signatures. We'll mention some approaches to this.
-See the companion paper for an implementation.
+constructing and using differential invariant signatures. 
+
+
+Different sorts of invariant, and their properties.
+
+The question of how to compare invariant signatures is not considered further in this paper.
+
 
 
 \subsection{Notation}
@@ -144,6 +139,8 @@ shapes. Essentially, the parameterization-dependence has only been deferred to a
 of the analysis (unless one is content to compare shapes visually). One approach to this is to
 weight the signature, see [32] for more details.
 ---
+
+SURF and that kind of crap
 
 
 An algorithm to compute invariants and determine complete signature sets is
@@ -343,7 +340,7 @@ For example, consider a weight $2$ transvectant defined as:
     &= f_{xx}(x, y) f_{yy}(x, y) - f_{xy}(x, y)^2.
 \end{align*}
 This is a degree $2$ partial transvectant as it involves derivatives of $f$
-up to second order, and can be represented graphically by the following
+up to second-order, and can be represented graphically by the following
 diagram:
 \begin{center}
 \begin{tikzpicture}[baseline=0]
@@ -800,7 +797,7 @@ Identifying $\R^2$ with $\mathbb{C}$, the M\"obius group is a real 6-dimensional
 It is the smallest nonlinear planar group that contains $SE(2)$, and it also has direct applications in image processing since it arises in the {\em conformal camera} model of vision, in which scenes are projected radially onto a sphere \cite{lenz1990group,turski2004geometric}; it is also the set of biholomorphic maps of the Riemann sphere. 
 %Different shapes may be related by M\"obius transformations, as is explored by Petukhov \cite{petukhov1989non} for biological objects: in one example, the human skull grows approximately by M\"obius transformations.  Note also that Thompson \cite{thompson1942growth} famously deformed images of one species to match those of another, many of his examples using conformal mappings, and thus may be approximated (or even determined by) M\"obius transformations. Discussing this work, Milnor \cite{milnor2010growth}  argued that ``The geometrically simplest way to change the relative size of different body parts would be by a conformal transformation. It seems plausible that this simplest solution will often be the most efficient, so that natural selection tend to choose it.'' (Milnor was thinking of 3D conformal transformations, whose restriction to 2D is the M\"obius transformations.)
 
-We are free to take $\delta=1$. Then $\bar f = f$ means that $z$ is translated to $\beta$; we can therefore take $\beta=0$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. We prolong the action to 2nd derivatives of $f$, which is sufficient to allow the group to act freely. There are 5 derivatives of $f$ up to order 2, so there will be at least 1 invariant. In order to find further invariants the prolongation to 3rd derivatives is required, which will result in at least another four invariants. %There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
+We are free to take $\delta=1$. Then $\bar f = f$ means that $z$ is translated to $\beta$; we can therefore take $\beta=0$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. We prolong the action to second derivatives of $f$, which is sufficient to allow the group to act freely. There are 5 derivatives of $f$ up to order 2, so there will be at least 1 invariant. In order to find further invariants the prolongation to 3rd derivatives is required, which will result in at least another four invariants. %There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
 \todo[inline]{General thm for this earlier...}
 
 The prolonged action is:
@@ -1150,7 +1147,7 @@ computations. This time, there are two new parameters, $a_2, b_2$, to solve
 for, but there are three derivatives. We use the cross section equations
 $\bar{f}_{\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{y}} = 0$ to solve for
 $a_2$ and $b_2$, the remaining derivative $\bar{f}_{\bar{y}\bar{y}}$ is then the
-sole second order invariant, which we also saw for the M\"obius group: 
+sole second-order invariant, which we also saw for the M\"obius group: 
 \begin{equation*}
     \bar{f}_{\bar{y}\bar{y}} = \frac{f_{xx} + f_{yy}}{f_x^2 + f_y^2}.
 \end{equation*}
@@ -1220,28 +1217,32 @@ At nongeneric points, there can be invariants. For example, the area enclosed in
 
 \section{Colour Images}\label{sec:colour}
 
-The formulation we provided in the introduction considered $k$ channels of information. However, thus far we have considered only greyscale images ($k=1$). However, most images are three-channel colour (typically represented as RBG values), and multi-spectral images can have hundreds of channels of measurement. It then becomes natural to consider how to use this information in the computation of invariants. The hope is that by constructing invariants using different colour channels, fewer derivatives need to be computed. For $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. 
+The formulation we provided in the introduction considered $k$ channels of information. So far we have considered only greyscale images ($k=1$), but most real images are three-channel colour (RBG), and multi-spectral images can have hundreds of channels of measurement. It is therefore natural to consider whether this information is useful for the computation of invariants. 
 
-We briefly sketch some possibilities for some of the groups that we have considered earlier.  However, the situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so there is correlation between them. This means that the invariant signatures identified next are na\"ive, and should be viewed as best-case scenarios. 
+The hope is that by constructing invariants using different colour channels, fewer derivatives are needed: for $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. However, the situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so there is correlation between them. We briefly sketch some possibilities for some of the groups that we have considered earlier, but note that the correlation means that the invariant signatures identified next are na\"ive, and should be viewed as best-case scenarios. 
 
-Note that for $k\ge 3$ the 3-dimensional signature $(f^1,f^2,f^3)$ is invariant under all local planar diffeomorphisms; a higher-dimensional signature, involving at least first derivatives, is therefore required.
+\begin{description}
+\item[$E(2)$]
+Considering $E(2)$, for $k\ge 2$, first derivatives suffice. However, note that for $k\ge 3$ the three-dimensional signature $(f^1,f^2,f^3)$ is invariant under all local planar diffeomorphisms and so a higher-dimensional signature, involving at least first derivatives, is required.
+\item[$SA(2)$]
+For $SA(2)$, one can take transvectants of any components of $f$ to get invariants. For $k=2$ colours, there is only one  invariant formed from first derivatives, namely $((f^1)',(f^2)')_x = f^1_x f^2_y - f^1_y f^2_x$ (the Poisson bracket $\{f^1,f^2\}$). So again two derivatives are necessary, even for a 3-dimensional signature.
 
-Considering $E(2)$, for $k\ge 2$, first derivatives suffice. 
-For $SA(2)$,  we are seeking invariants of $k V_1 \oplus k V_2 \oplus \dots$. One can take transvectants of any components of $f$ to get invariants. For $k=2$ colours, there is only one  invariant formed from 1st derivatives, namely $((f^1)',(f^2)')_x = f^1_x f^2_y - f^1_y f^2_x$ (the Poisson bracket $\{f^1,f^2\}$). So again two derivatives are necessary, even for a 3-dimensional signature.
-
-For $k\ge 3$ colours, a new phenomenon enters.  There are plenty of invariants formed from 1st derivatives, namely $\nabla f^i \times \nabla f^j$ for $i<j$. However, these are all invariant under the bigger group $\mathrm{Diff}_{\mathrm{vol}}$ of local volume-preserving diffeomorphisms, and so the Poisson brackets cannot form a complete invariant for $SA(2)$: two derivatives are always needed no matter how many colours we have. The relation $SA(2)\subset \mathrm{Diff}_{\mathrm{vol}}$ acts an obstruction to $SA(2)$, an instance of the phenomenon of hidden symmetry.
-
-The same problem occurs with $A(2)$. There are plenty of invariants formed from two derivatives: already 9 when $k=2$. However, as with $SA(2)$, we can never get away with one derivative because all the 1-derivative invariants, such as $\{f^1,f^2\}/\{f^1,f^3\}$, are also invariant under $\mathrm{Diff}_{\mathrm{vol}}$ (even though $A(2)$ is not even a subgroup of $\mathrm{Diff}_{\mathrm{vo}l}$).
-
-Recall that M\"obius and conformal transformations cannot be distinguished by their action on second derivatives. Therefore at least 3 derivatives are needed, no matter how many colours we have. We can use, for example, the invariants arising from the curvature of the level sets of each colour. Replacing the relative invariant $\|\nabla f\|^2$ by $\sum_{j=1}^k \|\nabla f^j\|^2$, and $f_{ii}$ by $\sum_{j=1}^k (f^j_{ii})^2$, increases the codimension of the singular images from 1 to $3k-2$.
-
-In $PSL(3, \mathbb{R})$ for $2$-colour images, there are 3 second order relative invariants of weight 2, namely $(D_1,D_2,(\nabla f^1\times \nabla f^2)^2)$. Together with $(f^1,f^2)$, these yield a 4-dimensional $\mathbb{R}^2\times S^2$-valued signature using only 2nd derivatives. With $k>2$ colours there are many more 2nd order invariants; however, as the action of the projective group on 1st derivatives is indistinguishable from that of the full diffeomorphism group, it is not possible to have a 1st order signature that distinguishes projectively-related images from diffeomorphically-related ones.
-
-For the infinite-dimensional group $\mathrm{Diff}_{\mathrm{con}}$, first order signature sets are possible for $k \ge 2$ colours. They are formed from the relative invariants $(f^j_1 + i f^j_2)(f^m_1 - i f^m_2)$ of weight 2. We illustrate this using the Hopf fibration for $k=2$. The weight 2 relative invariant $$J = (2(f^1_1 + i f^1_2)(f^2_1 - i f^2_2), ||\nabla f^1\|^2 - \|\nabla f^2\|^2)$$ obeys $\|J\|^2 = \|\nabla f^1\|^2 + \|\nabla f^2\|^2$, hence projecting to the unit sphere shows that $(f^1,f^2,J/\|J\|)$ provides a 4-dimensional signature set that is singular only when $\nabla f^1 = \nabla f^2 = 0$, a codimension 2 phenomenon for images.
-
+For $k\ge 3$ colours there are plenty of invariants formed from first derivatives, namely $\nabla f^i \times \nabla f^j$ for $i<j$. However, these are all invariant under the bigger group $\mathrm{Diff}_{\mathrm{vol}}$ of local volume-preserving diffeomorphisms, and so the Poisson brackets cannot form a complete invariant for $SA(2)$: two derivatives are always needed no matter how many colours we have. The relation $SA(2)\subset \mathrm{Diff}_{\mathrm{vol}}$ acts an obstruction to $SA(2)$, an instance of the phenomenon of hidden symmetry.
+\item[$A(2)$]
+The same problem occurs with $A(2)$. There are plenty of invariants formed from two derivatives: already 9 when $k=2$. However, as with $SA(2)$, we can never get away with one derivative because all the first-derivative invariants, such as $\{f^1,f^2\}/\{f^1,f^3\}$, are also invariant under $\mathrm{Diff}_{\mathrm{vol}}$ (even though $A(2)$ is not even a subgroup of $\mathrm{Diff}_{\mathrm{vo}l}$).
+\item[$PSL(2,\mathbb{C})$]
+Recall that M\"obius and conformal transformations cannot be distinguished by their action on second derivatives. Therefore at least three derivatives are needed, no matter how many colours we have. We can use, for example, the invariants arising from the curvature of the level sets of each colour. Replacing the relative invariant $\|\nabla f\|^2$ by $\sum_{j=1}^k \|\nabla f^j\|^2$, and $f_{ii}$ by $\sum_{j=1}^k (f^j_{ii})^2$, increases the codimension of the singular images from 1 to $3k-2$.
+\item[$PSL(3,\mathbb{R})$]
+In $PSL(3, \mathbb{R})$ for $2$-colour images, there are three second-order relative invariants of weight 2, namely $(D_1,D_2,(\nabla f^1\times \nabla f^2)^2)$. Together with $(f^1,f^2)$, these yield a 4-dimensional $\mathbb{R}^2\times S^2$-valued signature using only second derivatives. With $k>2$ colours there are many more second-order invariants; however, as the action of the projective group on first derivatives is indistinguishable from that of the full diffeomorphism group, it is not possible to have a first-order signature that distinguishes projectively-related images from diffeomorphically-related ones.
+\item[$\mathrm{Diff}_{\mathrm{vol}}$]
 When $k\ge 2$ in $\mathrm{Diff}_{\mathrm{vol}}$ there are $k(k-1)/2$ first-order invariants $ \nabla f^i \times \nabla f^j$.  We consider the case $k=2$ and the 3-dimensional signature $$ (f^1,f^2, \nabla f^1 \times \nabla f^2).$$ This signature determines (generically and locally) the image up to an area-preserving map.  We have seen that we can generically choose the area-preserving map so that $f^1=x$, and we assume that this has been done. The remaining freedom is that of the area-preserving maps that preserve $x$: these are the shears $y\mapsto y + g(x)$. The signature for each fixed $x$ now gives $(f^2,f^2_y)$. This is the standard signature curve for the group of translations in $y$. Thus, $f^2$ is determined by the signature up to a translation in $y$, i.e., an area-preserving map.
+\item[$\mathrm{Diff}_{\mathrm{con}}$]
+For the infinite-dimensional group $\mathrm{Diff}_{\mathrm{con}}$, first-order signature sets are possible for $k \ge 2$ colours. They are formed from the relative invariants $(f^j_1 + i f^j_2)(f^m_1 - i f^m_2)$ of weight 2. We illustrate this using the Hopf fibration for $k=2$. The weight 2 relative invariant $$J = (2(f^1_1 + i f^1_2)(f^2_1 - i f^2_2), ||\nabla f^1\|^2 - \|\nabla f^2\|^2)$$ obeys $\|J\|^2 = \|\nabla f^1\|^2 + \|\nabla f^2\|^2$, hence projecting to the unit sphere shows that $(f^1,f^2,J/\|J\|)$ provides a 4-dimensional signature set that is singular only when $\nabla f^1 = \nabla f^2 = 0$, a codimension 2 phenomenon for images.
+\item[$\mathrm{Diff}$]
+In the full diffeomorphism group there are no differential invariants using 1 or 2 colours. For example, with $k=2$, for generic $f^1$, $f^2$ we can choose a diffeomorphism (i.e., choose local coordinates) so that $f^1=x$ and $f^2=y$. We therefore take $k\ge 3$. This provides the first-order relative invariants of weight 1 $\nabla f^i\times \nabla f^j$, and hence a first-order signature. However, a zeroth-order signature set is possible: $(f^1,\dots,f^k)$. This is the image of the image. It is (locally and generically) complete. We can choose coordinates so that $f^1=x$ and $f^2=y$; then the signature locally determines $f^3,\dots,f^k$ as functions of $f^1$ and $f^2$, i.e., the image.
+\end{description}
 
-In the full diffeomorphism group there are no differential invariants using 1 or 2 colours. For example, with $k=2$, for generic $f^1$, $f^2$ we can choose a diffeomorphism (i.e., choose local coordinates) so that $f^1=x$ and $f^2=y$. We therefore take $k\ge 3$. This provides the first order relative invariants of weight 1 $\nabla f^i\times \nabla f^j$, and hence a first order signature. However, a 0th order signature set is possible: $(f^1,\dots,f^k)$. This is the image of the image. It is (locally and generically) complete. We can choose coordinates so that $f^1=x$ and $f^2=y$; then the signature locally determines $f^3,\dots,f^k$ as functions of $f^1$ and $f^2$, i.e., the image.
+
 
 \section{Use in practice; noise, singularities}
  \todo[inline]{Experimental}
@@ -1280,15 +1281,14 @@ $\mathrm{Diff}$ & -- & -- & 0 \\
 \end{center}
 \end{table}
 
-E2:
 {\bf Aside 3. Role of the invariants} 
-All of the 2nd order differential invariants play known roles in geometric analysis:
+All of the second-order differential invariants play known roles in geometric analysis:
 \begin{enumerate}
 \item $f_x^2 + f_y^2=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
 \item $f_{xx} + f_{yy}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
 \item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is the `infinity-Laplacian'; 
 \item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and
-can be written in terms of the final 2nd order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
+can be written in terms of the final second-order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
 \end{enumerate}
 In addition, we shall see in later sections that functions of these invariants are invariants or
 relative invariants for many groups that contain $E(2)$, namely $Sim(2)$, $SA(2)$, $A(2)$, $PSL(3,\mathbb{R})$, $PSL(2,\mathbb{C})$, and the conformal group.
