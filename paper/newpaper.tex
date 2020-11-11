@@ -52,48 +52,43 @@ Count of derivatives and what to say
 \todo[inline]{Examples to be numbered like theorems}
 \todo[inline]{This is a start. To be completed later.}
 
-Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. More generally, the appearance of a fixed object in a set of images can vary markedly depending upon such variables as change of pose and relative position to the camera, even though the object itself does not change. This is even more noticeable in scenes that consist of multiple objects at different distances and orientations from the camera and any fixed background. The appearances of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the projective or affine groups, but they could also be conformal. Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
+%Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. 
+The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. %Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
 
-For image recognition it is then natural to seek representations of objects that vary only with regard to shape change, rather than to any change in form. If the space of objects is denoted $M$ and the non-shape transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target one by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will transform all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$ and use the theory of invariants, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. The question of how to compare invariant signatures is not considered further in this paper.
+For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This reduces the recognition problem to recognising higher-dimensional invariant signatures. 
 
-Ideally an invariant signature would be complete, so that two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis. However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, where one object obscures some part of another. This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
+Something about signatures
+3. The signature must vary continuously with respect to the image, either for all smooth
+images or for all except a set of sufficiently high codimension. This is essential if the
+signature is to be used to detect similarity of images, but it fails for the rational
+invariants found in the literature.
+Invariant signatures -- self-equivalences
+
+
+The theory of invariants has a rich mathematical history~\cite{}. 
+
+However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, where one object obscures some part of another. This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
 Olver et al. joint differential invars (aka semi-diff)
 MOMENTS
 
-
-
-When seeking 
-Invariant signatures -- self-equivalences
-Different sorts of invariant, and their properties.
-local invariants: occlusions OK
 derivatives: noise is not
-
 not intensity transforms
 
+We consider a wide range of planar groups, both finite-dimensional Lie groups and infinite-dimensional pseudo-Lie ones; as we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups.
 
-%Shapes/objects/images can be acted on by simple transformations that change
-%their appearance. We want to recognise the objects or identify the set of
-%transformations. If the set is a group, then we can seek to either identify
-%the group or solve the equivalence problem by
-%\begin{enumerate}
-    %\item Registration, or
-    %\item Invariance.
-%\end{enumerate}
-%The first is commonly studied but is computationally expensive and prone to
-%local minima. If you're not interested in the actual transformation it is
-%therefore to be avoided. Here we'll consider invariance. There are many
-%choices of type e.g. Fourier, integral, or differential invariants. The
-%last set are cheap to compute and have nice theoretical properties but are
-%not robust to noise. However, we'll use them anyway. 
+Ideally, an invariant signature would be complete, so that the image is exactly determined up to a transformation, and two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. However, this often requires signatures in many dimensions, and potentially also more derivatives of the image. For many applications an incomplete signature is sufficient, and is what we consider here. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis.
 
-This paper is a
-tutorial on differential invariants for planar Lie groups (e.g.
+
+In this paper we provide a tutorial on differential invariants for planar Lie groups (e.g.
 Euclidean, affine, projective) since they are relatively simple, useful,
 and relevant to images. We'll use these to demonstrate the methods of
-constructing and using differential invariant signatures. Note that this
-reduces the recognition problem to recognising higher-dimensional
-differential invariant signatures. We'll mention some approaches to this.
-See the companion paper for an implementation.
+constructing and using differential invariant signatures. 
+
+
+Different sorts of invariant, and their properties.
+
+The question of how to compare invariant signatures is not considered further in this paper.
+
 
 
 \subsection{Notation}
@@ -144,6 +139,8 @@ shapes. Essentially, the parameterization-dependence has only been deferred to a
 of the analysis (unless one is content to compare shapes visually). One approach to this is to
 weight the signature, see [32] for more details.
 ---
+
+SURF and that kind of crap
 
 
 An algorithm to compute invariants and determine complete signature sets is
@@ -343,7 +340,7 @@ For example, consider a weight $2$ transvectant defined as:
     &= f_{xx}(x, y) f_{yy}(x, y) - f_{xy}(x, y)^2.
 \end{align*}
 This is a degree $2$ partial transvectant as it involves derivatives of $f$
-up to second order, and can be represented graphically by the following
+up to second-order, and can be represented graphically by the following
 diagram:
 \begin{center}
 \begin{tikzpicture}[baseline=0]
@@ -800,7 +797,7 @@ Identifying $\R^2$ with $\mathbb{C}$, the M\"obius group is a real 6-dimensional
 It is the smallest nonlinear planar group that contains $SE(2)$, and it also has direct applications in image processing since it arises in the {\em conformal camera} model of vision, in which scenes are projected radially onto a sphere \cite{lenz1990group,turski2004geometric}; it is also the set of biholomorphic maps of the Riemann sphere. 
 %Different shapes may be related by M\"obius transformations, as is explored by Petukhov \cite{petukhov1989non} for biological objects: in one example, the human skull grows approximately by M\"obius transformations.  Note also that Thompson \cite{thompson1942growth} famously deformed images of one species to match those of another, many of his examples using conformal mappings, and thus may be approximated (or even determined by) M\"obius transformations. Discussing this work, Milnor \cite{milnor2010growth}  argued that ``The geometrically simplest way to change the relative size of different body parts would be by a conformal transformation. It seems plausible that this simplest solution will often be the most efficient, so that natural selection tend to choose it.'' (Milnor was thinking of 3D conformal transformations, whose restriction to 2D is the M\"obius transformations.)
 
-We are free to take $\delta=1$. Then $\bar f = f$ means that $z$ is translated to $\beta$; we can therefore take $\beta=0$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. We prolong the action to 2nd derivatives of $f$, which is sufficient to allow the group to act freely. There are 5 derivatives of $f$ up to order 2, so there will be at least 1 invariant. In order to find further invariants the prolongation to 3rd derivatives is required, which will result in at least another four invariants. %There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
+We are free to take $\delta=1$. Then $\bar f = f$ means that $z$ is translated to $\beta$; we can therefore take $\beta=0$. This leaves 4 group parameters $a,b,c,d$, where $\alpha = a + i b$, $\gamma = c + i d$, to be determined as follows. We prolong the action to second derivatives of $f$, which is sufficient to allow the group to act freely. There are 5 derivatives of $f$ up to order 2, so there will be at least 1 invariant. In order to find further invariants the prolongation to 3rd derivatives is required, which will result in at least another four invariants. %There are 9 derivatives of $f$ of order 1, 2, and 3, so there must be at least 5 invariants.
 \todo[inline]{General thm for this earlier...}
 
 The prolonged action is:
@@ -808,7 +805,7 @@ The prolonged action is:
 \arraycolsep=1.4pt
 \left[
 \begin{array}{c}
-  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} 
+  \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar x \bar x} \\ \bar f_{\bar x \bar y} \\ \bar f_{\bar y \bar y} 
  \end{array}
  \right]
  = 
@@ -881,15 +878,15 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\
 
 The moving frame calculation is then:
 \begin{enumerate}
-\item The frame $\bar f_x=1$, $\bar f_y=0$ determines the group parameters
+\item The frame $\bar f_{\bar x}=1$, $\bar f_{\bar y}=0$ determines the group parameters:
 $$ a = f_x/(f_x^2 + f_y^2),\quad b = f_y/(f_x^2 f_y^2).$$
 
-\item The frame $\bar f_{xy}=\bar f_{yy}=0$ determines the group parameters
+\item The frame $\bar f_{\bar x \bar y}=\bar f_{\bar y \bar y}=0$ determines the next group parameters:
 $$ c = (2 f_xf_yf_{xyy} - f_{xx}f_y^2 - f_{yy}f_x^2)/(2 f_x^2 + f_y^2)^2$$
 $$ d = (f_{xy}f_x^2 - f_x f_y f_{xx} - f_{xy}f_y^2 - f_{yy} f_x f_y)/(2 f_x^2 + f_y^2)^2.$$
 
-\item The 2nd order invariant is then given by $\bar f_{xx}$ using Equation~(\ref{eqn:mobius}); it is:
-$$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
+\item The second-order invariant is then given by $\bar f_{\bar x \bar x}$ using Equation~(\ref{eqn:mobius}); it is:
+$$\bar f_{\bar x \bar x} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 \end{enumerate}
 
 %It is clear that there must be 2 syzygies between the relative invariants $J_1,\dots,J_4,K_1,\dots,K_4$.
@@ -898,9 +895,8 @@ $$\bar f_{xx} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 %and
 %$$K_3=-K_1 +J_1 J_3 + 2 J_1^2 J_2^2.$$
 
-The four 3rd order invariants can be deduced from the moving frame. They are rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.
-We want to work with polynomials, and so clear denominators. We choose to use $M_1 = (f_{xx} + f_{yy})^4$ and two of the four 3rd order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
-$M_2=
+The four third-order invariants can be deduced from the moving frame. They are rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.  Clearing denominators so as to work with polynomials, we choose $M_1 = (f_{xx} + f_{yy})^4$ and two of the four third-order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
+$$M_2=
 f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 + 
  f_y ^3 f_{yyy} f_x ^2 + \frac{3}{2} f_{yy}^2 f_x ^4 - 
  9 f_y ^3 f_{yy} f_x  f_{xy} + 
@@ -913,9 +909,9 @@ f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 +
  \frac{9}{2} f_y ^2 f_x ^2 f_{xx}^2 + 3 f_y ^3 f_x ^2 f_{xxy} + 
  3 f_y  f_x ^4 f_{xxy} + f_y ^2 f_x ^3 f_{xxx} + 
  f_x ^5 f_{xxx}, 
- $
+ $$
  
- $M_3=-3 f_y  f_{yy}^2 f_x ^3 + 
+ $$M_3=-3 f_y  f_{yy}^2 f_x ^3 + 
  f_y ^2 f_{yyy} f_x ^3 + f_{yyy} f_x ^5 + 
  9 f_y ^2 f_{yy} f_x ^2 f_{xy} - 
  3 f_{yy} f_x ^4 f_{xy} - 6 f_y ^3 f_x  f_{xy}^2 + 
@@ -926,9 +922,9 @@ f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 +
  3 f_y ^3 f_x  f_{xx}^2 + 3 f_y ^4 f_x  f_{xxy} + 
  3 f_y ^2 f_x ^3 f_{xxy} - f_y ^5 f_{xxx} - 
  f_y ^3 f_x ^2 f_{xxx}.
-$
+$$
 
-The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
+The image $f$ and these 3 relative invariants of weight 8 provide a three-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
 
 %In previous work \cite{mobius}, two independent 3rd order M\"obius invariants were calculated
 %from the classical M\"obius geometry of curves. Namely, the M\"obius arclength 
@@ -962,14 +958,13 @@ The image $f$ and these 3 relative invariants of weight 8 provide a 3-dimensiona
 
 \subsection{The Projective Group}
 
-We consider the 8-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., 
+We consider the eight-dimensional group $\mathrm{PSL}(3,\R)$ acting on $\R^2$ by projective transformations, i.e., 
 \begin{equation}
 (x,y) \mapsto \left(\frac{a x + b y + j}{l + g x + h y}, \frac{c x + d y + k}{l+ g x + h y}\right).
 \end{equation}
 
-Requiring that $\bar f = f$ again enables us to clear the translation coefficients, so $k=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
+Requiring that $\bar f = f$ enables us to clear the translation coefficients, so $j=k=0$; for convenience we will also take $l=1$. This leaves 6 group parameters $(a,b,c,d,g,h)$ to be determined. For free action it is necessary to prolong the group action to 3rd derivatives of $f$. Since there are 9 derivatives of $f$ of order 1, 2, and 3, there will be at least 3 invariants.
 
-\todo[inline]{How to write this?}
 The prolonged action is:
 \begin{equation}
 \arraycolsep=1.4pt
@@ -977,7 +972,7 @@ The prolonged action is:
 %\rotatebox{90}{$
 \left[
 \begin{array}{c}
-  \bar f_x \\ \bar f_y \\ \bar f_{xx} \\ \bar f_{xy} \\ \bar f_{yy} \\ \bar f_{xxx} \\ \bar f_{xxy} \\ \bar f_{xyy} \\ \bar f_{yyy} 
+  \bar f_{\bar x} \\ \bar f_{\bar y} \\ \bar f_{\bar x \bar x} \\ \bar f_{\bar x \bar y} \\ \bar f_{\bar y \bar y} \\ \bar f_{\bar x \bar x \bar x} \\ \bar f_{\bar x \bar x \bar y} \\ \bar f_{\bar x \bar y \bar y} \\ \bar f_{ \bar y \bar y \bar y} 
  \end{array}
  \right]
  = 
@@ -989,10 +984,10 @@ The prolonged action is:
  -b g-a h & -d g-c h & a b & b c+a d & c d & 0 & 0 & 0 & 0 \\
  -2 b h & -2 d h & b^2 & 2 b d & d^2 & 0 & 0 & 0 & 0 \\
  6 a g^2 & 6 c g^2 & -6 a^2 g & -12 a c g & -6 c^2 g & a^3 & 3 a^2 c & 3 a c^2 & c^3 \\
- 2 g (b g+2 a h) & 2 g (d g+2 c h) & -2 a (2 b g+a h) & -4 (b c g+a d g+a c h) & -2 c (2 d
-   g+c h) & a^2 b & a (2 b c+a d) & c (b c+2 a d) & c^2 d \\
- 2 h (2 b g+a h) & 2 h (2 d g+c h) & -2 b (b g+2 a h) & -4 (b d g+b c h+a d h) & -2 d (d g+2
-   c h) & a b^2 & b (b c+2 a d) & d (2 b c+a d) & c d^2 \\
+ 2 g \alpha_1 & 2 g \beta_1 & -2 a \alpha_2 & -4 \delta_1 & -2 c \beta_2
+   & a^2 b & a \gamma_1 & c \gamma_1 & c^2 d \\
+ 2 h \alpha_2 & 2 h \beta_2 & -2 b \alpha_1 & -4 \delta_2 & -2 d \beta_1
+   & a b^2 & b \gamma_1 & d \gamma_2 & c d^2 \\
  6 b h^2 & 6 d h^2 & -6 b^2 h & -12 b d h & -6 d^2 h & b^3 & 3 b^2 d & 3 b d^2 & d^3 \\
 \end{array}
 \right]\left[
@@ -1002,39 +997,52 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{
  \right].%$}
  \end{equation}
 
-The affine group $A(2)$ is a subgroup of $\mathrm{PSL}(3,\R)$. In the analysis of that group, in Section~\ref{}, the invariant $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$ was identified. Under a general action of $\phi \in \mathrm{PSL}(3,\R)$, $D$ is a relative invariant (that is, the value is multiplied by a certain factor under group transformations):
-\begin{equation}
-\label{eq:D}
-D \mapsto (\det \phi')^2 D\circ \phi.
-\end{equation}
+\noindent where $\alpha_1 = b g + 2 a h, \alpha_2 = 2 b g + a h$, $\beta_1 = d g + 2 c h, \beta_2 = 2 d g + c h$, $\gamma_1 = b c + 2 a d, \gamma_2= 2 b c + a d$, and $\delta_1 = (b c g+a d g+a c h), \delta_2 = (b d g+b c h+a d h)$.
+%\left[
+%\begin{array}{ccccccccc}
+ %a & c & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ %b & d & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+ %-2 a g & -2 c g & a^2 & 2 a c & c^2 & 0 & 0 & 0 & 0 \\
+ %-b g-a h & -d g-c h & a b & b c+a d & c d & 0 & 0 & 0 & 0 \\
+ %-2 b h & -2 d h & b^2 & 2 b d & d^2 & 0 & 0 & 0 & 0 \\
+ %6 a g^2 & 6 c g^2 & -6 a^2 g & -12 a c g & -6 c^2 g & a^3 & 3 a^2 c & 3 a c^2 & c^3 \\
+ %2 g (b g+2 a h) & 2 g (d g+2 c h) & -2 a (2 b g+a h) & -4 (b c g+a d g+a c h) & -2 c (2 d
+   %g+c h) & a^2 b & a (2 b c+a d) & c (b c+2 a d) & c^2 d \\
+ %2 h (2 b g+a h) & 2 h (2 d g+c h) & -2 b (b g+2 a h) & -4 (b d g+b c h+a d h) & -2 d (d g+2
+   %c h) & a b^2 & b (b c+2 a d) & d (2 b c+a d) & c d^2 \\
+ %6 b h^2 & 6 d h^2 & -6 b^2 h & -12 b d h & -6 d^2 h & b^3 & 3 b^2 d & 3 b d^2 & d^3 \\
+%\end{array}
+%\right]
 
-Another invariant of $A(2)$ was:
+%%A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. 
+%Both $D$ and $E$ will be useful quantities shortly, but note that, from (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on its sign. 
 
-\begin{equation}
-E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
-\end{equation}
+We begin by choosing the frames $\bar f_{\bar x} = 1$ and $\bar f_{\bar y}=  0$, which determine the group parameters $a = (1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that $\bar f_{\bar y \bar y} = D d^2 / f_x^2$, where $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$, which we saw earlier as an invariant of $A(2)$, which is a subgroup of $\mathrm{PSL}(3,\R)$. Note that $D$ and $\bar f_{\bar y \bar y}$ have the same sign; in what follows we assume that $D>0$ (if it is negative, relatively little changes in the following derivation) and choose the frame $\bar f_{ \bar y \bar y} = 1$, so that $d = f_x/D^{1/2}.$
 
-%A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. 
-Both $D$ and $E$ will be useful quantities shortly, but note that, from (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on its sign. We begin by choosing the frames $\bar f_x = 1$ and $\bar f_y=  0$, which determine the group parameters $a = (1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that $\bar f_{yy} = d^2 D/f_x^2$. We assume that $D>0$ (if it is negative, relatively little changes in the following derivation) and choose the frame $\bar f_{yy} = 1$, so that $d = f_x/D^{1/2}.$
+The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{ \bar x \bar y \bar y}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{ \bar x \bar x}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$ In fact, the denominator of the expression for $h$ was another invariant of $A(2)$; we label it $E$ for convenience.
 
-The frame $\bar f_{yyy} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{xyy}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{xx}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$
+%\begin{equation}
+%E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
+%\end{equation}
 
-Having determined the frame, any function of the remaining derivatives $\bar f_{xxx}$, $\bar f_{xxy}$, and $\bar f_{yyy}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)$$, where (with $P_n$ denoting a polynomial of degree $n$):
+Having determined the frame, any function of the remaining derivatives $\bar f_{ \bar x \bar x \bar x}$, $\bar f_{ \bar x \bar x \bar y}$, and $\bar f_{ \bar y \bar y \bar y}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)$$, where (with $P_n$ denoting a polynomial of degree $n$):
 $$ J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5.$$
 
-The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the issue caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36; so projecting any subset of them of them to a sphere yields a 3rd order invariant signature.
+The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the ambiguity caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36, and so projecting any subset of them of them to a sphere yields a third-order invariant signature.
 
-$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points.  However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which turns out to obey:
+$J$ vanishes on generic images: $J=0$ when $D=E=0$, which is a codimension 0 phenomenon for images. In particular, $D=E=0$ at critical points. However, these signatures can be simplified and made more robust. Their structure suggests considering the combination $J_1 - J_3^2$, which obeys:
 $$J_1 - J_3^2 = 144 D^4 P_4.$$
 
 As $J_1/D^6$ and $J_3/D^3$ are invariant, so is $P_4/D^2$. 
-Moreover, the numerator of this new invariant does not vanish at critical points.  It has the structure
+Moreover, the numerator of this new invariant does not vanish at critical points.  It has the structure:
 $$P_4 = -4(\det f_{ij})^2 + Q_4,$$
 where $Q_4$ is a polynomial of degree 4 that vanishes when $f_x=f_y=0$. Hence, the relative invariant of weight 12:
 $$ (D^6, P_4^3, (E^2-12D P_5)^2)$$
-can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to
-$(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature $(0,1,0)$.
+can be projected to $S^2$, yielding a projective invariant of images that is singular only when $D=E=P_4=0$, which is a codimension 1 phenomenon, since  $D=E=0\Rightarrow P_4=0$. In particular, at critical points it tends to:
+$(0, (2\det f_{ij})^6, 0),$ and hence critical points with $\det f_{ij}\ne 0$ have signature value $(0,1,0)$.
+Including $J_2$ provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.
 
+\todo[inline]{Is this useful? Is it what we actually use? If so, fix the names...}
 For completeness we write out the invariant signature we use explicitly:
 
 $Q_4=4 f_x  f_{xy} ^2 f_{xyy}  - 
@@ -1070,12 +1078,10 @@ f_{yy}  f_{x} ^2 f_{xy} ^2 +
  f_{y} ^2 f_{yy}  f_{x}  f_{xxx}  + 
  f_{y} ^3 f_{xy}  f_{xxx}. $
  
-Including $J_2$ in addition provides a 4-dimensional signature set, but does not increase the codimension of the set of bad images.%
- 
 Further invariants can be found by noting that, for any planar transformation group and any two invariants
 $I^1$ and $I^2$, $\nabla I^1 \times \nabla I^2$ is a relative invariant of weight 1; that is:
 $$\nabla I^1 \times \nabla I^2\mapsto (\det \phi')(\nabla I^1 \times \nabla I^2).$$
-Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=10$ 4th order invariants.
+Applying this operation to $f$ and the four third-order invariants yields $5\cdot4/2=10$ fourth-order invariants.
 
 \begin{figure}
 \centering
@@ -1086,8 +1092,6 @@ Applying this operation to $f$ and the 4 3rd order invariants yields $5\cdot4/2=
 \end{figure}
 
 \subsection{Conformal Diffeomorphisms $\mathbf{Diff}_{\mathbf{con}}$}
-
-\todo[inline]{Put the moving frame version here}
 
 The group of conformal diffeomorphisms is the subgroup of diffeomorphisms that are angle-preserving, i.e.,
 
@@ -1101,20 +1105,23 @@ represents the Jacobian. The group is infinite-dimensional, but still small
 enough that images have local differential invariants. 
 
 The conformal diffeomorphisms provides a particularly nice example of the
-moving frame method. Letting $z = x + iy$, let $\bar{z} = \psi(z)$ be a conformal
-mapping. It's convenient to work with the inverse transformation, so let
+moving frame method. Because the group is infinite dimensional, we need to
+prolong the group action to the infinite jet space $J^{\infty}$ with
+elements of the form $(x, y, f, f_x, f_y, f_{xx}, f_{xy}, f_{yy}, \ldots)$.
+Recall the moving frame produces a conformal map $\psi$ for each element of
+$J^\infty$ that maps it to a suitably chosen cross section. 
+
+It's convenient to work in the complex variable $z = x + iy$. Without loss of
+generality, we can assume $x = y = 0$. We begin the construction of our
+cross section by choosing $\bar{x} = \bar{y} = 0$. Then, $\psi^{-1}$ 
+can be represented locally by a Taylor series of the form
 \begin{equation*}
-    z = \psi^{-1}(\bar{z}) = c_0 + c_1 \bar{z} + c_2 \bar{z}^2 +
-    c_3\bar{z}^3 + \cdots
+    z = \psi^{-1}(\bar{z}) = c_1 \bar{z} + c_2 \bar{z}^2 + c_3\bar{z}^3 + \cdots
 \end{equation*}
-where $c_i = a_i + ib_i \in \mathbb{C}$.  Because the group is infinite
-dimensional, we need to work on the prolongation of $\psi$ to the jet space
-$J^\infty = \{x, y, f, f_x, f_y, \ldots\}$ including all of its
-derivatives. To make $\psi$ into a moving frame, we specify the
-cross-section and solve for parameters in stages. We begin with $\bar{x} =
-\bar{y} = 0$. This yeilds $c_0 = z$. To find $c_1 = a_1 + i b_1$ we need
-two constraints. Differentiating $f(x, y) = \bar{f}(\bar{x}, \bar{y})$ and
-substituting in our existing cross section constraints $\bar{x} = \bar{y} = 0$ gives
+where $c_k = a_k + ib_k, k = 1, 2, \ldots$. We solve for the parameters
+$a_k, b_k$ in stages.  To find $c_1 = a_1 + i b_1$ we need two constraints.
+Differentiating $f(x, y) = \bar{f}(\bar{x}, \bar{y})$ and substituting in
+our existing cross section constraints $\bar{x} = \bar{y} = 0$ gives
 \begin{align*}
     \bar{f}_{\bar{x}} = f_x x_{\bar{x}} + f_y y_{\bar{x}} &= a_1 f_x + b_1
     f_y, \\
@@ -1135,15 +1142,14 @@ computations. This time, there are two new parameters, $a_2, b_2$, to solve
 for, but there are three derivatives. We use the cross section equations
 $\bar{f}_{\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{y}} = 0$ to solve for
 $a_2$ and $b_2$, the remaining derivative $\bar{f}_{\bar{y}\bar{y}}$ is then the
-sole second order invariant, which we also saw for the M\"obius group: 
+sole second-order invariant, which we also saw for the M\"obius group: 
 \begin{equation*}
     \bar{f}_{\bar{y}\bar{y}} = \frac{f_{xx} + f_{yy}}{f_x^2 + f_y^2}.
 \end{equation*}
 Continuing in this way, at derivative order $n$ two real group parameters
 enter: $a_n$ and $b_n$. There are $n+1$ independent derivatives of $f$ of
 order $n$, so there must be $n-1$ new independent invariants at each order.
-
-At third order there are two more invariants, using the constraints
+Hence at third order there are two more invariants, using the constraints
 $\bar{f}_{\bar{x}\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{x}\bar{y}} = 0$,
 the remaining derivatives are invariant:
 \begin{align*}
@@ -1178,16 +1184,19 @@ f_y + f_x^3 f_{xxy} - 2f_x^2 f_{xy} f_{xx} }{(f_x^2 + f_y^2)^3 }
 %That is, $f_{ii}$ and $f_i f_i$ are both relative invariants of weight 2, while $f_{ii}/(f_i f_i)$ is a conformal invariant, as we saw for the M\"obius group. By itself, it is not useful for images as it is singular at critical points of $f$.
 
 
-%The transformation of 1st derivatives is more clearly written in complex variables as $$ f_x + i f_y \mapsto a_1 (f_x + i f_y).$$ Given any two real invariants $g,h$, the real and imaginary parts of $(g_x+i g_y)(h_x-i h_y)$ are relative invariants of weight 2. This generates the required two invariants of order 3. (We have repeated and confirmed this calculation using the method of moving frames.) Specifically, let $J_1 = f_i f_i$ and  $J_2 = f_{ii}$, so that  $g = J_2/J_1$ is invariant.  We want to work with polynomials, so we clear denominators and let $J_3+iJ_4 = J_1^2 (g_x + i g_y)  (f_x - i f_y)$. $J_3$ and $J_4$ are a differential polynomials of $f$ of degree 4 and order 3, and are relative invariants of weight 6. They can be written explicitly as functions of the basic invariants of $SE(2)$ as
-%$$J_3 = f_k f_k f_{iij}f_j - 2 f_{ii} f_{jk} f_j f_k$$
-%and (writing $a_i\times b_i$ for $a_1 b_2 - b_2 a_1$)
-%$$ J_4 = f_k f_k f_{iij}\times f_j - 2 f_{ii} f_{jk} f_k\times f_j.$$
-%Under conformal maps we have
-%$$ (J_1,J_2,J_3,J_4) \mapsto (|a_1|^2 J_1, |a_1|^2 J_2, |a_1|^6 J_3,|a_1|^6 J_4).$$
+%The transformation of 1st derivatives is more clearly written in complex variables as $$ f_x + i f_y \mapsto a_1 (f_x + i f_y).$$ Given any two real invariants $g,h$, the real and imaginary parts of $(g_x+i g_y)(h_x-i h_y)$ are relative invariants of weight 2. This generates the required two invariants of order 3. (We have repeated and confirmed this calculation using the method of moving frames.) 
 
-%Therefore, projecting $(J_1^3,J_2^3,J_3)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^2$. It is continuous at all $(x,y)$ such that $J_1$, $J_2$, and $J_3$ are not simultaneously equal to zero.  Now $J_1=0$ implies $f_1=f_2=0$, and $J_2=0$ implies $f_{ii}=0$, but these together imply $J_3=0$. Thus the signature set is discontinuous when $f_1=f_2=f_{ii}=0$, a codimension-1 phenomenon for images.
+\todo[inline]{Fix up this bit to be correct and complete for what we do}
+Specifically, let $J_1 = f_i f_i$ and  $J_2 = f_{ii}$, so that  $g = J_2/J_1$ is invariant.  We want to work with polynomials, so we clear denominators and let $J_3+iJ_4 = J_1^2 (g_x + i g_y)  (f_x - i f_y)$. $J_3$ and $J_4$ are a differential polynomials of $f$ of degree 4 and order 3, and are relative invariants of weight 6. They can be written explicitly as functions of the basic invariants of $SE(2)$ as
+$$J_3 = f_k f_k f_{iij}f_j - 2 f_{ii} f_{jk} f_j f_k$$
+and (writing $a_i\times b_i$ for $a_1 b_2 - b_2 a_1$)
+$$ J_4 = f_k f_k f_{iij}\times f_j - 2 f_{ii} f_{jk} f_k\times f_j.$$
+Under conformal maps we have
+$$ (J_1,J_2,J_3,J_4) \mapsto (|a_1|^2 J_1, |a_1|^2 J_2, |a_1|^6 J_3,|a_1|^6 J_4).$$
 
-%Similarly, projecting $(J_1^3,J_2^3,J_3,J_4)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^3$. This is also singular when $f_1=f_2=f_{ii}=0$. These singularities are not removable. A typical image near a `bad' point takes the form $f = a(x^2-y^2) + b x y + c x^3 + d x^2 y + e x y^2 + g y^3$.  For such an $f$, $(J_1^3,J_2^3,J_3,J_4)=\mathcal{O}(x^6,x^3,x^3,x^3)$.  The cubic forms always change sign and do not generically lead to a well-defined direction as $(x,y)\to(0,0)$. 
+Therefore, projecting $(J_1^3,J_2^3,J_3)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^2$. It is continuous at all $(x,y)$ such that $J_1$, $J_2$, and $J_3$ are not simultaneously equal to zero.  Now $J_1=0$ implies $f_1=f_2=0$, and $J_2=0$ implies $f_{ii}=0$, but these together imply $J_3=0$. Thus the signature set is discontinuous when $f_1=f_2=f_{ii}=0$, a codimension-1 phenomenon for images.
+
+Similarly, projecting $(J_1^3,J_2^3,J_3,J_4)$ to the unit sphere, together with $f$ itself, provides a conformal signature set in $\R\times S^3$. This is also singular when $f_1=f_2=f_{ii}=0$. These singularities are not removable. A typical image near a `bad' point takes the form $f = a(x^2-y^2) + b x y + c x^3 + d x^2 y + e x y^2 + g y^3$.  For such an $f$, $(J_1^3,J_2^3,J_3,J_4)=\mathcal{O}(x^6,x^3,x^3,x^3)$.  The cubic forms always change sign and do not generically lead to a well-defined direction as $(x,y)\to(0,0)$. 
 
 \subsection{Volume-Preserving Diffeomorphisms $\mathbf{Diff_{vol}}$}
 
@@ -1202,28 +1211,32 @@ At nongeneric points, there can be invariants. For example, the area enclosed in
 
 \section{Colour Images}\label{sec:colour}
 
-The formulation we provided in the introduction considered $k$ channels of information. However, thus far we have considered only greyscale images ($k=1$). However, most images are three-channel colour (typically represented as RBG values), and multi-spectral images can have hundreds of channels of measurement. It then becomes natural to consider how to use this information in the computation of invariants. The hope is that by constructing invariants using different colour channels, fewer derivatives need to be computed. For $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. 
+The formulation we provided in the introduction considered $k$ channels of information. So far we have considered only greyscale images ($k=1$), but most real images are three-channel colour (RBG), and multi-spectral images can have hundreds of channels of measurement. It is therefore natural to consider whether this information is useful for the computation of invariants. 
 
-We briefly sketch some possibilities for some of the groups that we have considered earlier.  However, the situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so there is correlation between them. This means that the invariant signatures identified next are na\"ive, and should be viewed as best-case scenarios. 
+The hope is that by constructing invariants using different colour channels, fewer derivatives are needed: for $k$ colours, signature sets of dimension up to $k + k(k+1)/2$ can be chosen from the invariants $f^i$ and $f^i_m f^j_m$ for $i,j=1,\dots, k$. However, the situation is more complicated that it first appears because the information in the channels is not independent: colour is built by the intensities in the three channels, and so there is correlation between them. We briefly sketch some possibilities for some of the groups that we have considered earlier, but note that the correlation means that the invariant signatures identified next are na\"ive, and should be viewed as best-case scenarios. 
 
-Note that for $k\ge 3$ the 3-dimensional signature $(f^1,f^2,f^3)$ is invariant under all local planar diffeomorphisms; a higher-dimensional signature, involving at least first derivatives, is therefore required.
+\begin{description}
+\item[$E(2)$]
+Considering $E(2)$, for $k\ge 2$, first derivatives suffice. However, note that for $k\ge 3$ the three-dimensional signature $(f^1,f^2,f^3)$ is invariant under all local planar diffeomorphisms and so a higher-dimensional signature, involving at least first derivatives, is required.
+\item[$SA(2)$]
+For $SA(2)$, one can take transvectants of any components of $f$ to get invariants. For $k=2$ colours, there is only one  invariant formed from first derivatives, namely $((f^1)',(f^2)')_x = f^1_x f^2_y - f^1_y f^2_x$ (the Poisson bracket $\{f^1,f^2\}$). So again two derivatives are necessary, even for a 3-dimensional signature.
 
-Considering $E(2)$, for $k\ge 2$, first derivatives suffice. 
-For $SA(2)$,  we are seeking invariants of $k V_1 \oplus k V_2 \oplus \dots$. One can take transvectants of any components of $f$ to get invariants. For $k=2$ colours, there is only one  invariant formed from 1st derivatives, namely $((f^1)',(f^2)')_x = f^1_x f^2_y - f^1_y f^2_x$ (the Poisson bracket $\{f^1,f^2\}$). So again two derivatives are necessary, even for a 3-dimensional signature.
-
-For $k\ge 3$ colours, a new phenomenon enters.  There are plenty of invariants formed from 1st derivatives, namely $\nabla f^i \times \nabla f^j$ for $i<j$. However, these are all invariant under the bigger group $\mathrm{Diff}_{\mathrm{vol}}$ of local volume-preserving diffeomorphisms, and so the Poisson brackets cannot form a complete invariant for $SA(2)$: two derivatives are always needed no matter how many colours we have. The relation $SA(2)\subset \mathrm{Diff}_{\mathrm{vol}}$ acts an obstruction to $SA(2)$, an instance of the phenomenon of hidden symmetry.
-
-The same problem occurs with $A(2)$. There are plenty of invariants formed from two derivatives: already 9 when $k=2$. However, as with $SA(2)$, we can never get away with one derivative because all the 1-derivative invariants, such as $\{f^1,f^2\}/\{f^1,f^3\}$, are also invariant under $\mathrm{Diff}_{\mathrm{vol}}$ (even though $A(2)$ is not even a subgroup of $\mathrm{Diff}_{\mathrm{vo}l}$).
-
-Recall that M\"obius and conformal transformations cannot be distinguished by their action on second derivatives. Therefore at least 3 derivatives are needed, no matter how many colours we have. We can use, for example, the invariants arising from the curvature of the level sets of each colour. Replacing the relative invariant $\|\nabla f\|^2$ by $\sum_{j=1}^k \|\nabla f^j\|^2$, and $f_{ii}$ by $\sum_{j=1}^k (f^j_{ii})^2$, increases the codimension of the singular images from 1 to $3k-2$.
-
-In $PSL(3, \mathbb{R})$ for $2$-colour images, there are 3 second order relative invariants of weight 2, namely $(D_1,D_2,(\nabla f^1\times \nabla f^2)^2)$. Together with $(f^1,f^2)$, these yield a 4-dimensional $\mathbb{R}^2\times S^2$-valued signature using only 2nd derivatives. With $k>2$ colours there are many more 2nd order invariants; however, as the action of the projective group on 1st derivatives is indistinguishable from that of the full diffeomorphism group, it is not possible to have a 1st order signature that distinguishes projectively-related images from diffeomorphically-related ones.
-
-For the infinite-dimensional group $\mathrm{Diff}_{\mathrm{con}}$, first order signature sets are possible for $k \ge 2$ colours. They are formed from the relative invariants $(f^j_1 + i f^j_2)(f^m_1 - i f^m_2)$ of weight 2. We illustrate this using the Hopf fibration for $k=2$. The weight 2 relative invariant $$J = (2(f^1_1 + i f^1_2)(f^2_1 - i f^2_2), ||\nabla f^1\|^2 - \|\nabla f^2\|^2)$$ obeys $\|J\|^2 = \|\nabla f^1\|^2 + \|\nabla f^2\|^2$, hence projecting to the unit sphere shows that $(f^1,f^2,J/\|J\|)$ provides a 4-dimensional signature set that is singular only when $\nabla f^1 = \nabla f^2 = 0$, a codimension 2 phenomenon for images.
-
+For $k\ge 3$ colours there are plenty of invariants formed from first derivatives, namely $\nabla f^i \times \nabla f^j$ for $i<j$. However, these are all invariant under the bigger group $\mathrm{Diff}_{\mathrm{vol}}$ of local volume-preserving diffeomorphisms, and so the Poisson brackets cannot form a complete invariant for $SA(2)$: two derivatives are always needed no matter how many colours we have. The relation $SA(2)\subset \mathrm{Diff}_{\mathrm{vol}}$ acts an obstruction to $SA(2)$, an instance of the phenomenon of hidden symmetry.
+\item[$A(2)$]
+The same problem occurs with $A(2)$. There are plenty of invariants formed from two derivatives: already 9 when $k=2$. However, as with $SA(2)$, we can never get away with one derivative because all the first-derivative invariants, such as $\{f^1,f^2\}/\{f^1,f^3\}$, are also invariant under $\mathrm{Diff}_{\mathrm{vol}}$ (even though $A(2)$ is not even a subgroup of $\mathrm{Diff}_{\mathrm{vo}l}$).
+\item[$PSL(2,\mathbb{C})$]
+Recall that M\"obius and conformal transformations cannot be distinguished by their action on second derivatives. Therefore at least three derivatives are needed, no matter how many colours we have. We can use, for example, the invariants arising from the curvature of the level sets of each colour. Replacing the relative invariant $\|\nabla f\|^2$ by $\sum_{j=1}^k \|\nabla f^j\|^2$, and $f_{ii}$ by $\sum_{j=1}^k (f^j_{ii})^2$, increases the codimension of the singular images from 1 to $3k-2$.
+\item[$PSL(3,\mathbb{R})$]
+In $PSL(3, \mathbb{R})$ for $2$-colour images, there are three second-order relative invariants of weight 2, namely $(D_1,D_2,(\nabla f^1\times \nabla f^2)^2)$. Together with $(f^1,f^2)$, these yield a 4-dimensional $\mathbb{R}^2\times S^2$-valued signature using only second derivatives. With $k>2$ colours there are many more second-order invariants; however, as the action of the projective group on first derivatives is indistinguishable from that of the full diffeomorphism group, it is not possible to have a first-order signature that distinguishes projectively-related images from diffeomorphically-related ones.
+\item[$\mathrm{Diff}_{\mathrm{vol}}$]
 When $k\ge 2$ in $\mathrm{Diff}_{\mathrm{vol}}$ there are $k(k-1)/2$ first-order invariants $ \nabla f^i \times \nabla f^j$.  We consider the case $k=2$ and the 3-dimensional signature $$ (f^1,f^2, \nabla f^1 \times \nabla f^2).$$ This signature determines (generically and locally) the image up to an area-preserving map.  We have seen that we can generically choose the area-preserving map so that $f^1=x$, and we assume that this has been done. The remaining freedom is that of the area-preserving maps that preserve $x$: these are the shears $y\mapsto y + g(x)$. The signature for each fixed $x$ now gives $(f^2,f^2_y)$. This is the standard signature curve for the group of translations in $y$. Thus, $f^2$ is determined by the signature up to a translation in $y$, i.e., an area-preserving map.
+\item[$\mathrm{Diff}_{\mathrm{con}}$]
+For the infinite-dimensional group $\mathrm{Diff}_{\mathrm{con}}$, first-order signature sets are possible for $k \ge 2$ colours. They are formed from the relative invariants $(f^j_1 + i f^j_2)(f^m_1 - i f^m_2)$ of weight 2. We illustrate this using the Hopf fibration for $k=2$. The weight 2 relative invariant $$J = (2(f^1_1 + i f^1_2)(f^2_1 - i f^2_2), ||\nabla f^1\|^2 - \|\nabla f^2\|^2)$$ obeys $\|J\|^2 = \|\nabla f^1\|^2 + \|\nabla f^2\|^2$, hence projecting to the unit sphere shows that $(f^1,f^2,J/\|J\|)$ provides a 4-dimensional signature set that is singular only when $\nabla f^1 = \nabla f^2 = 0$, a codimension 2 phenomenon for images.
+\item[$\mathrm{Diff}$]
+In the full diffeomorphism group there are no differential invariants using 1 or 2 colours. For example, with $k=2$, for generic $f^1$, $f^2$ we can choose a diffeomorphism (i.e., choose local coordinates) so that $f^1=x$ and $f^2=y$. We therefore take $k\ge 3$. This provides the first-order relative invariants of weight 1 $\nabla f^i\times \nabla f^j$, and hence a first-order signature. However, a zeroth-order signature set is possible: $(f^1,\dots,f^k)$. This is the image of the image. It is (locally and generically) complete. We can choose coordinates so that $f^1=x$ and $f^2=y$; then the signature locally determines $f^3,\dots,f^k$ as functions of $f^1$ and $f^2$, i.e., the image.
+\end{description}
 
-In the full diffeomorphism group there are no differential invariants using 1 or 2 colours. For example, with $k=2$, for generic $f^1$, $f^2$ we can choose a diffeomorphism (i.e., choose local coordinates) so that $f^1=x$ and $f^2=y$. We therefore take $k\ge 3$. This provides the first order relative invariants of weight 1 $\nabla f^i\times \nabla f^j$, and hence a first order signature. However, a 0th order signature set is possible: $(f^1,\dots,f^k)$. This is the image of the image. It is (locally and generically) complete. We can choose coordinates so that $f^1=x$ and $f^2=y$; then the signature locally determines $f^3,\dots,f^k$ as functions of $f^1$ and $f^2$, i.e., the image.
+
 
 \section{Use in practice; noise, singularities}
  \todo[inline]{Experimental}
@@ -1262,15 +1275,14 @@ $\mathrm{Diff}$ & -- & -- & 0 \\
 \end{center}
 \end{table}
 
-E2:
 {\bf Aside 3. Role of the invariants} 
-All of the 2nd order differential invariants play known roles in geometric analysis:
+All of the second-order differential invariants play known roles in geometric analysis:
 \begin{enumerate}
 \item $f_x^2 + f_y^2=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
 \item $f_{xx} + f_{yy}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
 \item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is the `infinity-Laplacian'; 
 \item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and
-can be written in terms of the final 2nd order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
+can be written in terms of the final second-order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
 \end{enumerate}
 In addition, we shall see in later sections that functions of these invariants are invariants or
 relative invariants for many groups that contain $E(2)$, namely $Sim(2)$, $SA(2)$, $A(2)$, $PSL(3,\mathbb{R})$, $PSL(2,\mathbb{C})$, and the conformal group.
