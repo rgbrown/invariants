@@ -55,39 +55,37 @@ Count of derivatives and what to say
 %Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. 
 The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. %Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
 
-For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This reduces the recognition problem to recognising higher-dimensional invariant signatures. 
+For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple~\cite{}, and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
 
-Something about signatures
-3. The signature must vary continuously with respect to the image, either for all smooth
-images or for all except a set of sufficiently high codimension. This is essential if the
-signature is to be used to detect similarity of images, but it fails for the rational
-invariants found in the literature.
-Invariant signatures -- self-equivalences
-
+An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one works with an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. These signatures are typically of a higher dimensionality that the original image. 
 
 The theory of invariants has a rich mathematical history~\cite{}. 
 
-However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, where one object obscures some part of another. This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
 Olver et al. joint differential invars (aka semi-diff)
 MOMENTS
+
+
+In order for the invariant signatures to be useful to identify similarity in images, there are two key considerations: they must vary continuously with respect to the image, either for all smooth images or for all except a set of sufficiently high codimension, and they must be robust with respect to occlusions, where one object obscures some part of another. These constraints lead to the 
+This leads one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. 
+This fails for a variety of 
+However, of particular saliance for object recognition in scenes is the need to be robust to occlusions, 
+
+The introduction of an invariant signature reduces the recognition problem to one of comparing the higher-dimensional signatures that encode the desired self-equivalences. In this paper we introduce the mathematical considerations necessary to construct invariant signatures to the planar Lie groups that can transform 2D images. We consider a wide range of planar groups, both finite-dimensional Lie groups and infinite-dimensional pseudo-Lie ones; as we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups. We provide sample signature sets for the various groups we consider, and examples of the appearance of those signatures for transformations of a simple, smooth image, but do not consider the question of a complete practical implementation. We do not consider the matching of the signatures, for which several methods already exist, such as~\cite{}.
+
+This is essential if the
+signature is to be used to detect similarity of images, but it fails for the rational
+invariants found in the literature.
+
 
 derivatives: noise is not
 not intensity transforms
 
-We consider a wide range of planar groups, both finite-dimensional Lie groups and infinite-dimensional pseudo-Lie ones; as we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups.
 
 Ideally, an invariant signature would be complete, so that the image is exactly determined up to a transformation, and two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. However, this often requires signatures in many dimensions, and potentially also more derivatives of the image. For many applications an incomplete signature is sufficient, and is what we consider here. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis.
 
 
-In this paper we provide a tutorial on differential invariants for planar Lie groups (e.g.
-Euclidean, affine, projective) since they are relatively simple, useful,
-and relevant to images. We'll use these to demonstrate the methods of
-constructing and using differential invariant signatures. 
-
-
 Different sorts of invariant, and their properties.
 
-The question of how to compare invariant signatures is not considered further in this paper.
 
 
 
@@ -196,7 +194,6 @@ JUSTIFY THIS SET OF GROUPS
 \end{figure}
 
 %Groups we've done:
-
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 
 We consider as our image, the following function, defined on $[-1, 1]
@@ -234,9 +231,7 @@ like locally.
 overlaid.}\label{fig:function_scanlines}
 \end{figure}
 
-\todo[inline]{visual obstruction}
-
-\section{Differential invariants of E(2) through tensor contraction}
+\section{Differential invariants through tensor contraction}
 While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance as they are equivalent. We therefore use subscript indices exclusively.
 
 In this setting, a Euclidean transformation acting on $\mathbb{R}^2$ is given
@@ -1233,25 +1228,18 @@ When $k\ge 2$ in $\mathrm{Diff}_{\mathrm{vol}}$ there are $k(k-1)/2$ first-order
 \item[$\mathrm{Diff}_{\mathrm{con}}$]
 For the infinite-dimensional group $\mathrm{Diff}_{\mathrm{con}}$, first-order signature sets are possible for $k \ge 2$ colours. They are formed from the relative invariants $(f^j_1 + i f^j_2)(f^m_1 - i f^m_2)$ of weight 2. We illustrate this using the Hopf fibration for $k=2$. The weight 2 relative invariant $$J = (2(f^1_1 + i f^1_2)(f^2_1 - i f^2_2), ||\nabla f^1\|^2 - \|\nabla f^2\|^2)$$ obeys $\|J\|^2 = \|\nabla f^1\|^2 + \|\nabla f^2\|^2$, hence projecting to the unit sphere shows that $(f^1,f^2,J/\|J\|)$ provides a 4-dimensional signature set that is singular only when $\nabla f^1 = \nabla f^2 = 0$, a codimension 2 phenomenon for images.
 \item[$\mathrm{Diff}$]
+\todo[Move this one out]
 In the full diffeomorphism group there are no differential invariants using 1 or 2 colours. For example, with $k=2$, for generic $f^1$, $f^2$ we can choose a diffeomorphism (i.e., choose local coordinates) so that $f^1=x$ and $f^2=y$. We therefore take $k\ge 3$. This provides the first-order relative invariants of weight 1 $\nabla f^i\times \nabla f^j$, and hence a first-order signature. However, a zeroth-order signature set is possible: $(f^1,\dots,f^k)$. This is the image of the image. It is (locally and generically) complete. We can choose coordinates so that $f^1=x$ and $f^2=y$; then the signature locally determines $f^3,\dots,f^k$ as functions of $f^1$ and $f^2$, i.e., the image.
 \end{description}
 
 
-
-\section{Use in practice; noise, singularities}
- \todo[inline]{Experimental}
-
-Some calculation detail
-
-\todo[inline]{Signature examples}
-\todo[inline]{Alien: Smoothing, noise}
-\todo[inline]{Spot the group?}
 
 \section{Conclusions}
 
 \todo[inline]{Number of derivatives}
 \todo[inline]{Noise; integral invariants, Fourier}
 \todo[inline]{Is there a general theory - syzygy??}
+\todo[inline]{Difficulties of a practical implementation}
 
 \begin{table}[h]
 \begin{center}
