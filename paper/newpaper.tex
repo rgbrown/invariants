@@ -28,37 +28,37 @@
 \end{AMS}
 
 \section{Introduction}
-\todo[inline]{
-Richard: 
-Start on invariant tensor theorem
-Generate new pictures, add function details
-SE(2) jobs inline
-Mobius, Conformal -- finish code, tidy writing
-First bash at experimental section
+%\todo[inline]{
+%Richard: 
+%Start on invariant tensor theorem
+%Generate new pictures, add function details
+%SE(2) jobs inline
+%Mobius, Conformal -- finish code, tidy writing
+%First bash at experimental section
 
-Stephen:
-Rearrange examples text to IVT section, write about signatures here
-Fix up tables, check bib
-Examples for SA(2), A(2) -- need to think about sig here
-Moving frame intro
-Projective -- tidy writing, especially the names of the invariants
-Colour
-First bash at conclusion
+%Stephen:
+%Rearrange examples text to IVT section, write about signatures here
+%Fix up tables, check bib
+%Examples for SA(2), A(2) -- need to think about sig here
+%Moving frame intro
+%Projective -- tidy writing, especially the names of the invariants
+%Colour
+%First bash at conclusion
 
-Later:
-Introduction
-Count of derivatives and what to say
-}
+%Later:
+%Introduction
+%Count of derivatives and what to say
+%}
 
-\todo[inline]{Examples to be numbered like theorems}
-\todo[inline]{This is a start. To be completed later.}
+%\todo[inline]{Examples to be numbered like theorems}
+%\todo[inline]{This is a start. To be completed later.}
 
 %Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. 
 The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. %Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
 
 For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{Modersitzki03}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\cite{Marsland19b} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
 
-An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than curve outlines.
+An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than outlines of curves.
 
 The introduction of an invariant signature reduces the recognition problem to one of comparing the higher-dimensional signatures (typically the signatures need to be at least three dimensional for planar images) that encode the desired self-equivalences. In this paper we introduce the mathematical considerations necessary to construct invariant signatures to the planar Lie groups (and some infinite-dimensional, pseudo-Lie groups too) that can transform 2D images. As we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups. We provide sample signature sets for the various groups we consider, and examples of the appearance of those signatures for transformations of a simple, smooth image, but do not consider the question of a complete practical implementation. We do not consider the classification of the signatures, for which either a standard image recognition algorithm can be used (see, e.g.,~\cite{Zhang20} for a survey), or a matching method such as~\cite{UsCurrents} can be used.
 
@@ -66,13 +66,15 @@ In order for the invariant signatures to be useful to identify similarity in ima
 
 Ideally, an invariant signature would be complete, so that the image is exactly determined up to a transformation, and two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. However, this often requires signatures in many dimensions, and potentially also more derivatives of the image. For many applications an incomplete signature is sufficient, and is what we consider here. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis.
 
+In this paper we investigate differential invariant signatures for images and parts of images under planar spatial transformations, for both grayscale and colour images. The remainder of this introductory sectin provides a description of the notation that we use in this paper, followed by a summary of relevant work on invariants. We also introduce the way that we will present examples of the signatures for the various groups we consider. Following this, in the next three sections we describe three distinct methods of computing differential invariants: by tensor contraction, using the theory of transvectants, and via the method of moving frames, applying the methods to a variety of the planar Lie groups. We consider the difference that colour images make in Section~\ref{sec:colour}, and then discuss the number of derivatives required and the effect this has on the practicality of the method.
+
 \subsection{Notation}
 
 We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subset\R^n$ (typically, images are planar, so $n=2$), $1\le k\in\mathbb{Z}$ is the number of colour channels, and $f\colon\Omega\to\R^k$. The function $f$ will be taken to be as smooth as necessary. Consider a (finite or infinite-dimensional) local transformation group $\mathcal{G}$.  A transformation $\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) = (f\circ\varphi^{-1},\varphi(\Omega),k)$. For many of our examples we consider greyscale images, so $k=1$, although we will discuss colour images in Section~\ref{sec:colour}. Also, since we work locally, we will usually omit the domain $\Omega$.
 
-In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$. This is known as the jet space, or jet bundle~\cite{OlverEIS}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$). As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. 
+In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$ via the jet space~\cite{OlverEIS}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$.) As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. It can also be useful to consider the maximum order of derivative in the invariant, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2. 
 
-An $m$-dimensional signature set is the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e., the set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$.  A signature set is complete for $f$ if it determines $f$ up to transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$. 
+An $m$-dimensional signature set is the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e., the set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$.  A signature set is complete for $f$ if it determines $f$ up to transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$. If the signature is not complete, then there will be a \emph{bad set} of images that cannot be differentiated between. ***
 
 NEED TO TALK ABOUT WHEN IT IS SINGULAR
 
@@ -167,7 +169,7 @@ SURF and that kind of crap
 An algorithm to compute invariants and determine complete signature sets is
 described in \cite{Olver2005}. First, the entire set of invariants is
 computed using the method of moving frames. Second, determine the
-differential invariant order $s$ of $f$ \todo[inline]{we need to define the differential invariant order}. Then the signature set of a maximal
+differential invariant order $s$ of $f$. Then the signature set of a maximal
 set of functionally independent invariants of order $s+1$ is complete. A
 third step is possible, in which the dimension of the signature set is
 reduced by eliminating those invariants whose values can be computed from the
@@ -338,9 +340,7 @@ Under this formula we end with a factor $(\det A)^{-r}$ in place of $(\det
 A)^{-1}$ that we saw previously, when all $n$ copies of $\mathbb{R}^2$ are
 transformed by the same affine function $\mathbf{x} \mapsto A\mathbf{x} +
 \mathbf{b}$. $r$ is referred to as the weight of the partial
-transvectant. It can also be useful to consider the maximum order of
-derivative in the transvectant, which we term degree, e.g., $f_{xy}^2 f_x
-f_y$ has degree 2. Note also that the individual pairwise Omega processes commute.
+transvectant. Note that the individual pairwise Omega processes commute.
 
 For the current case it is sufficient to consider $n$ copies of the same
 function $f$. If we represent each copy (of $\mathbb{R}^2$) as a node on a
@@ -579,7 +579,7 @@ Recall that invariants of a supergroup are automatically invariants of any of
 its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
 
 Hence, we can form a signature for $SA(2)$ by choosing any combination of
-partial transvectants. We'll choose a signature with three components so that
+partial transvectants. We choose a signature with three components so that
 it can be visualised as a three-dimensional surface; note that this will not
 be complete and may well have a very large bad set. For example, we can choose the function value together with the first two partial transvectants to form the signature:
 \begin{equation*}
@@ -591,7 +591,7 @@ Consider as our image, the function $f(x, y) = 0.5 - 0.2x - 0.3y - 0.05x^2 +
 0.03xy + 0.04y^2 + 0.03y^3 +0.001x^3 - 0.0015x^2y + 0.002xy^2 - 0.0005y^3$
 defined on $[0, 1]\times[0, 1]$.
 \todo[inline]{remake figure with modified matrix. Also modify function so it has some features like a critical point}
-We'll subject our image to a special affine transformation:
+We will subject our image to a special affine transformation:
 \begin{equation*}
 \mathbf{x} \mapsto \frac{1}{1.1}\begin{bmatrix} 0.6875 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
 \end{equation*}
@@ -724,7 +724,7 @@ so that they would decay smoothly to zero at critical points.
 
 \subsection{The Euclidean Group E(2)}
 An element of the Euclidean group $E(2)$ maps an element $(x, y)$ of
-$\mathbb{R}^2$ to $(\bar{x}, \bar{y})$ as 
+$\mathbb{R}^2$ to $(\bar{x}, \bar{y})$ as:
 \begin{equation*}
   \begin{aligned}
     \bar{x} &=  x\varepsilon\cos\theta  - y\varepsilon\sin\theta + t_x \\
