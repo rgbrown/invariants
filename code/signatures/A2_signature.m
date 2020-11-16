@@ -4,11 +4,10 @@ group = 'A2';
 out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy, fxxx, fxxy, fxyy, fyyy] = derivs{:};
-        C = fxx.*fyy - fxy.^2;
-        D = fy.^2.*fxx - 2*fx.*fy.*fxy + fx.^2.*fyy;
-        E = fxxx.*fy.^3 - 3*fxxy.*fx.*fy.^2 + 3*fxyy.*fx.^2.*fy - fyyy.*fx.^3;
-        
-        denom = sqrt(C.^6 + D.^6 + E.^4);
-        sig = {f.*C.^3./denom, f.*D.^3./denom, f.*E.^2./denom};
+        C = fx.^2.*fyy + fxx.*fy.^2 - 2*fx.*fxy.*fy; % weight 2
+        D = fxx.*fyy - fxy.^2; % weight 2
+        E = fx.^3.*fyyy - fxxx.*fy.^3 + 3*fx.*fxxy.*fy.^2 - 3*fx.^2.*fxyy.*fy; % weight 4
+        denom = sqrt(C.^4 + D.^4 + E.^2);
+        sig = {f.*C.^2./denom, f.*D.^2./denom, f.*E./denom};
     end
 end

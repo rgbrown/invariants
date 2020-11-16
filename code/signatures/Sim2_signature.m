@@ -4,10 +4,11 @@ group = 'Sim2';
 out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
     function sig = evaluate(derivs)
         [f, fx, fy, fxx, fxy, fyy] = derivs{:};
-        I1 = fx.^2 + fy.^2;
-        I2 = (fxx + fxy).^2;
-        I3 = fxx.^2 + 2*fxy.*fxy + fyy.^2;        
-        denom = sqrt(I1.^2 + I2.^2 + I3.^2);
-        sig = {f.*I1./denom, f.*I2./denom, f.*I3./denom};
+        J1 = fxx + fyy;     % Weight 2
+        J2 = fx.^2 + fy.^2; % Weight 2
+        J3 = fx.^2.*fxx + 2*fx.*fy.*fxy + fy.^2.*fyy; % Weight 4
+        J4 = fxx.^2 + 2*fxy.^2 + fyy.^2; % Weight 4
+        denom = sqrt(J1.^4 + J2.^4 + J4.^2);
+        sig = {f.*J1.^2./denom, f.*J2.^2./denom, f.*J4./denom};
     end
 end

@@ -31,7 +31,7 @@ out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
             3*fy.^4.*fx.*fxxy + 3*fy.^2.*fx.^3.*fxxy - fy.^5.*fxxx - fy.^3.*fx.^2.*fxxx;
         
         % Choices: J1.^4, J2^4, J1*J3, K1, K4, J1*J4
-        I1 = J1.^4;
+        I1 = J2.^4;
         I2 = K1; %J2.^4;
         I3 = K4; %J1.*J3;
         

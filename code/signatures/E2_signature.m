@@ -11,7 +11,7 @@ out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
         I4 = fy.^2.*fxx -2*fx.*fy.*fxy + fx.^2.*fyy; % SE2
         I5 = (-fx.*fy.*(fxx - fyy) + (fx.^2 - fy.^2).*fxy); %SE2
         I6 = fxx.^2 + fyy.^2 + 2*fxy.^2;
-        sig = {I0, I1, I5};
+        sig = {I0, I1, I3};
        
     end
 end
