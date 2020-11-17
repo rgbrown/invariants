@@ -33,14 +33,13 @@ signatures.PSL3R.tform = PSL3RTransform(1, 0.1, 0.05, 0.8, 0.2, -0.1);
 signatures.PSL3R.sigfun = @PSL3R_signature;
 signatures.Diffcon.tform = DiffconTransform(2);
 signatures.Diffcon.sigfun = @Diffcon_signature;
-
+signatures.T2.tform = T2Transform(0.1, -0.2);
+signatures.T2.sigfun = @T2_signature;
 
 %% Try out a particular group, and then save 3D axes info using the block below
-signatures.Diffcon.tform = DiffconTransform(2);
-signatures.Diffcon.sigfun = @Diffcon_signature;
 close all
-group = 'Diffcon';
-write_images = false;
+group = 'T2';
+write_images = true;
 close all
 sig = generate_figures(f, signatures.(group), write_images);
 
@@ -53,8 +52,8 @@ save(strcat('images/', sig.group, '_cam.mat'), 'caminfo');
 
 %% Generate all images
 write_images = true;
-%groups = {'SE2', 'E2', 'Sim2', 'SA2', 'A2', 'Mobius', 'PSL3R', 'Conformal'};
-groups = {'Diffcon'};
+%groups = {'SE2', 'E2', 'Sim2', 'SA2', 'A2', 'Mobius', 'PSL3R', 'Diffcon', 'T2'};
+groups = {'T2'};
 for k = 1:numel(groups)
     gp = groups{k};
     sig = generate_figures(f, signatures.(gp), write_images);
