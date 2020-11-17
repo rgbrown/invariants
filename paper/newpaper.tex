@@ -222,32 +222,66 @@ In this paper our aim is develop the mathematical underpinnings of constructing 
 The image we use is defined on $[-1,1] \times [-1,1]$ to be:
 
 \begin{equation}\label{eq:function}
-**write me**
+f(x, y) = \exp(-2x^2 - 4\sin^2(y + 0.5x^2))
 \end{equation}
 
-\subsubsection{Example}
-Consider as our image, the function $f(x, y) = 0.5 - 0.2x - 0.3y - 0.05x^2 +
-0.03xy + 0.04y^2 + 0.03y^3 +0.001x^3 - 0.0015x^2y + 0.002xy^2 - 0.0005y^3$
-defined on $[0, 1]\times[0, 1]$.
-
-The function is depicted as a greyscale image in Figure~\ref{fig:function}. On the left the image itself is shown, while on the right a version with a regular grid superimposed is given. This is useful for visualising both the transformation and how the image is mapped into the three-dimensional signature surface.
+The function is depicted as a greyscale image in Figure~\ref{fig:function}.
+On the left the image itself is shown, while on the right a version with a
+regular grid superimposed is given. This is useful for visualising both the
+transformation and how the image is mapped into the three-dimensional
+signature surface.
 
 \begin{figure}
   \centering
   \includegraphics[width=.45\textwidth]{Figs/function}
-  \includegraphics[width=.45\textwidth]{Figs/function_scanlines}
-  \caption{The test function used in this document, from
-  Eq.~\eqref{eq:function}.}\label{fig:function}
+  \includegraphics[width=.45\textwidth]{Figs/function_scanlines}\\
+  \caption{The test function used in this document, from Eq.~\eqref{eq:function}.}\label{fig:function}
 \end{figure}
 
 \subsection{Getting Started: Translations}
 \label{sec:T2}
 
-The most basic transformation group of a image is the translation group $T(2): \phi(\mathbf{x}) = \mathbf{x} + \mathbf{t}$. These could arise from actions such as cropping a photo.
+The most basic transformation group of a image is the translation group
+$T(2) \colon \mathbb{R}^2 \to \mathbb{R}^2$ with elements of the form
+$\varphi(\mathbf{x}) = \mathbf{x} + \mathbf{t}$ for fixed $\mathbf{t}$.
+These could arise from actions such as cropping a photo.
 
-We could explicitly write the calculation in Eq.~\ref{eq:prolongation} for this case, but instead provide an intuitive explanation. Consider a point in the original image, and the corresponding point in the transformed one. Clearly, the intensity value of the points match, and so do their first spatial derivatives. These three quantities can be used as coordinates in a new space, where the two image points will correspond. Computing these coordinates for all image points will define a surface in the new three-dimensional space, and the two images will produce the same surface, which we call the signature. 
+We could explicitly write the calculation in Eq.~\ref{eq:prolongation} for
+this case, but instead provide an intuitive explanation. Consider a point
+in the original image, and the corresponding point in the transformed one.
+Clearly, the intensity value of the points match, and so do their first
+spatial derivatives. These three quantities can be used as coordinates in a
+new space, where the two image points will correspond. Computing these
+coordinates for all image points will define a surface in the new
+three-dimensional space, and the two images will produce the same surface,
+which we call the signature. 
 
-Figure~\ref{fig:T2} shows (a) the original image, (b) the translated image by $x,y$, (c) the signature of one of them, (d) the superimposed pair of signatures. Now explain the missing bits.
+Figure~\ref{fig:T2} shows (a) the original image, (b) the translated image
+under the transformation $(x,y) \mapsto (x + 0.1, y - 0.2)$, (c) the
+signature of one of them, (d) the superimposed pair of signatures. The
+yellow lines in (c) correspond to where the yellow grid from (a) has been
+mapped to on the signature surface. In (d), notice that as some of the
+image has moved out of frame, there are parts of the signature near its
+boundary that do not overlap.
+
+
+\begin{figure}
+  \centering
+  \begin{tabular}{cc}
+  \includegraphics[width=.45\textwidth]{Figs/function_scanlines} &
+  \includegraphics[width=.45\textwidth]{Figs/f_transformed_T2} \\
+  (a) & (b) \\
+  \includegraphics[width=.45\textwidth]{Figs/T2_signature} &
+  \includegraphics[width=.45\textwidth]{Figs/T2_match} \\
+  (c) & (d)
+  \end{tabular}
+  \caption{(a), (b) The image before and after the T(2) transformation $(x,
+  y) \mapsto (x + 0.1, y - 0.2)$. (c) the signature of the
+  image (before translation). (d) the signature after the
+  translation superimposed.}\label{fig:T2}
+\end{figure}
+
+
 
 \section{Differential invariants through tensor contraction}
 \label{sec:contraction}
