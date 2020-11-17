@@ -11,3 +11,4 @@ out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
         sig = {I0, I1, I2};
     end
 end
+
