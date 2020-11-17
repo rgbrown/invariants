@@ -38,7 +38,7 @@ signatures.T2.sigfun = @T2_signature;
 
 %% Try out a particular group, and then save 3D axes info using the block below
 close all
-group = 'T2';
+group = 'SE2';
 write_images = true;
 close all
 sig = generate_figures(f, signatures.(group), write_images);
