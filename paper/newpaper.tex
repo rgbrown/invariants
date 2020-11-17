@@ -9,7 +9,7 @@
 
 \date{\today}
 \title{Differential invariant signatures for planar Lie group transformations of images}
-\author{Not-working authors }
+\author{Richard Brown, Stephen Marsland, and Robert McLachlan}
 
 \begin{document}
 \maketitle
@@ -38,40 +38,11 @@ A(2) by transvectant
 Check signatures for Mobius etc.
 
 Discussion
-
-Make table fit
-
 }
 
-%\todo[inline]{
-%Richard: 
-%Start on invariant tensor theorem
-%Generate new pictures, add function details
-%SE(2) jobs inline
-%Mobius, Conformal -- finish code, tidy writing
-%First bash at experimental section
+The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. 
 
-%Stephen:
-%Rearrange examples text to IVT section, write about signatures here
-%Fix up tables, check bib
-%Examples for SA(2), A(2) -- need to think about sig here
-%Moving frame intro
-%Projective -- tidy writing, especially the names of the invariants
-%Colour
-%First bash at conclusion
-
-%Later:
-%Introduction
-%Count of derivatives and what to say
-%}
-
-%\todo[inline]{Examples to be numbered like theorems}
-%\todo[inline]{This is a start. To be completed later.}
-
-%Biologists differentiate between the {\em form} of an object, and the {\em shape}, being the part of form that is unaffected by size and orientation. 
-The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. %Regardless of which group appears to act, such variations highlight the importance of `shape', as opposed to `form', in object recognition. 
-
-For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{Modersitzki03}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\cite{Marsland19b} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
+For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{Modersitzki03}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\cite{RiemannianStats} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
 
 An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than outlines of curves.
 
@@ -151,10 +122,35 @@ where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. %It 
 
 \subsection{Relevant Literature}
 
-The theory of invariants has a rich mathematical history, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Of most relevance to us here 
-\cite{Cayley,Littlewood44,Cartan52,Patterson1928,Veblen1872}
+Classical invariants
 
-\cite{Olver2005,Cartan35}
+The theory of invariants has a rich mathematical history, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Polynomials, then geometry. 
+
+Lie
+
+\cite{Cayley,Littlewood44,Cartan52,Patterson1928,Veblen1872,Lie1884}
+
+
+A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool, and this can be extended to the affine group using the Fourier-Mellin transform and the bispectrum. Alternatively, integral invariants and moments can be computed. For the similarity group applied to images the seminal reference is \cite{Hu1962}, but see also~\cite{}. 
+\cite{Hickman2011,Abu-Mostafa1984,Kakarala2010,Flusser2009,Papakostas2013}
+\cite{Manay2006,Negrinho2013,Ghorbel1994,Turski2006}
+\cite{Reddy1996,Gauthier2008,Kakarala2011,Smach2007}
+
+The other group that has been of particular interest for image analysis is the projective group, because of its ubiquity in images from cameras. Summarise these...
+\cite{Suk2000,Suk2004,Hann2002a,Kogan2014}
+
+
+Diff invs and sigs
+
+An algorithm to compute differential and joint invariants and determine complete signature sets is described in \cite{Olver2005}. The entire set of invariants is computed using the method of moving frames (see Section~\ref{sec:MF}) and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants.
+
+Joint sigs
+\cite{Fels1997,Olver2013,Arora2009}
+An intermediary role is played by the “semi-differential invariants” (or, as we would
+prefer they be known, “joint differential invariants”) introduced into vision by Van Gool et. al., [34],
+
+Diff Invs
+\cite{Florack1993,Olver2007,Bouton1898}
 
 
 
@@ -167,30 +163,7 @@ not intensity transforms
 
 
 
-
-Different sorts of invariant, and their properties.
-
-Signature
-
-Relative invars
-Joint sigs
-\cite{Fels1997,Olver2013,Arora2009}
-
-Diff Invs
-\cite{Florack1993,Olver2007,Bouton1898}
-
-
-Projective invars
-\cite{Suk2000,Suk2004,Hann2002a,Kogan2014}
-
-Moments
-\cite{Hickman2011,Abu-Mostafa1984,Kakarala2010,Flusser2009,Papakostas2013}
-
-FFT
-\cite{Reddy1996,Gauthier2008,Kakarala2011,Smach2007}
-
-Integral invar
-\cite{Manay2006,Negrinho2013,Ghorbel1994,Turski2006}
+** FIX FAUGERAS
 
 There has been a long-standing interest in constructing invariants for image recognition. 
 \cite{VanGool1995,Wood1996,Zhang2019,Faugeras1994,Gros1992,Taubin1992,Lenz1990,Florack1993}
@@ -199,19 +172,6 @@ There has been a long-standing interest in constructing invariants for image rec
 
 SURF and that kind of crap
 
-
-An algorithm to compute invariants and determine complete signature sets is
-described in \cite{Olver2005}. First, the entire set of invariants is
-computed using the method of moving frames. Second, determine the
-differential invariant order $s$ of $f$. Then the signature set of a maximal
-set of functionally independent invariants of order $s+1$ is complete. A
-third step is possible, in which the dimension of the signature set is
-reduced by eliminating those invariants whose values can be computed from the
-values of derivatives of some subset of the invariants.
-
-While we follow this approach in general, in specific cases we have computed invariants using other techniques
-including the invariant tensor theorem and classical invariant theory. We shall see that this yields insights into the relationships between the different groups. We develop our approach through examples of progressively more complicated groups.
-===
 
 %Groups we've done:
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
@@ -422,7 +382,7 @@ Note that the weight is the number of edges in the graph.
 
 \begin{table}
 \centering
-\begin{tabular}{cccp{11cm}}
+\begin{tabular}{cccp{9cm}}
 Degree & Weight & Diagram & Partial transvectant\\
 \hline
 2 & 2 &
@@ -470,7 +430,8 @@ Degree & Weight & Diagram & Partial transvectant\\
     \draw[-] (3) to (4);
     \draw[-] (4) to (5);
 \end{tikzpicture}
-& $\left(f_{x}\right)^{2} f_{xx} \left(f_{yy}\right)^{2} - \left(f_{x}\right)^{2} f_{yy} \left(f_{xy}\right)^{2} - 2 f_{x} f_{xx} f_{y} f_{yy} f_{xy} + 2 f_{x} f_{y} \left(f_{xy}\right)^{3} + \left(f_{xx}\right)^{2} \left(f_{y}\right)^{2} f_{yy} - f_{xx} \left(f_{y}\right)^{2} \left(f_{xy}\right)^{2}$ \\
+& $\left(f_{x}\right)^{2} f_{xx} \left(f_{yy}\right)^{2} - \left(f_{x}\right)^{2} f_{yy} \left(f_{xy}\right)^{2} - 2 f_{x} f_{xx} f_{y} f_{yy} f_{xy} 
+ + 2 f_{x} f_{y} \left(f_{xy}\right)^{3} + \left(f_{xx}\right)^{2} \left(f_{y}\right)^{2} f_{yy} - f_{xx} \left(f_{y}\right)^{2} \left(f_{xy}\right)^{2}$ \\
 
 3 & 3 &
 \begin{tikzpicture}[baseline=0]
@@ -561,7 +522,7 @@ f_{yy} f_{xyy} - 2 f_{xxx} f_{yyy} f_{xy} - 2 f_{yy}
 
 \begin{table}
 \centering
-\begin{tabular}{cccp{11cm}}
+\begin{tabular}{cccp{9cm}}
 Degree & Weight & Diagram & Partial transvectant\\
 \hline
 4 & 4 &
@@ -1215,7 +1176,7 @@ f_xf_y^2f_{yyy} +
 f_y + f_x^3 f_{xxy} - 2f_x^2 f_{xy} f_{xx} \right] \label{eqn:C3}
 \end{align}
 
-Note that the denominators of all three of these equations are the same up to index. We therefore clear denominators as usual and form the three-dimensional signature ((\ref{eqn:C1})^2,(\ref{eqn:C2}),(\ref{eqn:C3})). We then project them into the unit sphere and multiply by $f$ to constrain them. This signature is continuous at all $(x,y)$ such that the three quantities are not simultaneously equal to zero, which occurs when $f_x = f_y = f_{xx} = f_{yy} = 0$, which is a codimension-1 phenomenon for images.
+Note that the denominators of all three of these equations are the same up to index. We therefore clear denominators as usual and form the three-dimensional signature ((\ref{eqn:C1})$^3$,(\ref{eqn:C2}),(\ref{eqn:C3})). We then project them into the unit sphere and multiply by $f$ to constrain them. This signature is continuous at all $(x,y)$ such that the three quantities are not simultaneously equal to zero, which occurs when $f_x = f_y = f_{xx} = f_{yy} = 0$, which is a codimension-1 phenomenon for images.
 
 %However, we first note that the M\"obius action is locally identical to the full conformal group up to and including second order. Therefore, there are no new conformal invariants, apart from the M\"obius ones, up to second order. It is possible to identify some invariants via direct calculation using the defining geometric properties of the conformal group.
 
@@ -1295,9 +1256,9 @@ In the full diffeomorphism group $\mathrm{Diff}$ there are no differential invar
 %\todo[inline]{Is there a general theory - syzygy??}
 %\todo[inline]{Difficulties of a practical implementation}
 
-Quick summary
+The recognition of objects within images as their appearance changes based on camera motion remains an unsolved problem. In this paper we have used three different methods of computing differential invariant signatures to identify appropriate signatures for images transformed under the planar Lie groups that are of interest for this question. The resulting three-dimensional signatures are not always complete, but they are relatively fast to compute.
 
-Table~\ref{tab:derivs} summarises one of the most important parameters of differential invariant signatures for the transformation groups that we have considered in this paper, namely the highest order of derivative of the image that is needed. While none of the groups need more than third-order differentiation, and usually less (especially for colour images), even this can be problematic for real images. Our aim in this paper has been to explore the mathematical theory required to compute the invariants. Producing a computationally robust method of calculating these invariants is not trivial. There are three primary considerations: noise/texture, flat areas, and the Florack thing. ***
+Table~\ref{tab:derivs} summarises one of the most important parameters of differential invariant signatures for the transformation groups that we have considered, namely the highest order of derivative of the image that is needed. While none of the groups need more than third-order differentiation, and usually less (especially for colour images), even this can be problematic for real images. Our aim in this paper has been to explore the mathematical theory required to compute the invariants. 
 
 \begin{table}[h]
 \begin{center}
@@ -1323,17 +1284,19 @@ $\mathrm{Diff}$ & -- & -- & 0 \\
 \end{center}
 \end{table}
 
+Producing a computationally robust method of numerically approximating derivatives and hence invariants is not trivial, particularly for the higher-orders, where noise and rounding errors can dominate. There are three primary considerations: noise and texture; flat areas, where the derivatives are all identically zero; and the fact that conventional numerical differentiation is not well-posed~\cite{Florack1993}. Some considerations of these points and some potential approaches to solving them for practical implementations are considered in~\cite{Calabi1998} and~\cite{Florack1993}. However, the question of how to create a full and effective implementation remains an open problem.
 
-All of the second-order differential invariants of $E(2)$ play known roles in geometric analysis:
-\begin{enumerate}
+Finally, we note that there is underlying mathematical structure that we have not fully exposed. For example, all of the second-order differential invariants of $E(2)$ play known roles in geometric analysis:
+
+\begin{itemize}
 \item $f_x^2 + f_y^2=\|\nabla f\|^2$ is the Lagrangian density for the Laplacian;
 \item $f_{xx} + f_{yy}$ is the Laplacian, which plays a key role in Euclidean and conformal geometry;
 \item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is the `infinity-Laplacian'; 
-\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and
-can be written in terms of the final second-order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
-\end{enumerate}
-In addition, we shall see in later sections that functions of these invariants are invariants or
-relative invariants for many groups that contain $E(2)$, namely $Sim(2)$, $SA(2)$, $A(2)$, $PSL(3,\mathbb{R})$, $PSL(2,\mathbb{C})$, and the conformal group.
+\item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and can be written in terms of the final second-order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
+\end{itemize}
+
+Functions of these invariants are invariants or relative invariants for many groups that contain $E(2)$, such as those that we have considered in this paper. Syzygies.
+
 
 \bibliographystyle{plainnat}
 \bibliography{invariants}
