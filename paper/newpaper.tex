@@ -120,61 +120,6 @@ Derivatives of $\bar{f}$ and $f$ can be related by the chain rule, for example t
 \end{equation}
 where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. %It is often convenient to work with $\varphi^{-1}$ instead, as in \S\ref{sec:movingframes}.
 
-\subsection{Relevant Literature}
-
-Classical invariants
-
-The theory of invariants has a rich mathematical history, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Polynomials, then geometry. 
-
-Lie
-
-\cite{Cayley,Littlewood44,Cartan52,Patterson1928,Veblen1872,Lie1884}
-
-
-A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool, and this can be extended to the affine group using the Fourier-Mellin transform and the bispectrum. Alternatively, integral invariants and moments can be computed. For the similarity group applied to images the seminal reference is \cite{Hu1962}, but see also~\cite{}. 
-\cite{Hickman2011,Abu-Mostafa1984,Kakarala2010,Flusser2009,Papakostas2013}
-\cite{Manay2006,Negrinho2013,Ghorbel1994,Turski2006}
-\cite{Reddy1996,Gauthier2008,Kakarala2011,Smach2007}
-
-The other group that has been of particular interest for image analysis is the projective group, because of its ubiquity in images from cameras. Summarise these...
-\cite{Suk2000,Suk2004,Hann2002a,Kogan2014}
-
-
-Diff invs and sigs
-
-An algorithm to compute differential and joint invariants and determine complete signature sets is described in \cite{Olver2005}. The entire set of invariants is computed using the method of moving frames (see Section~\ref{sec:MF}) and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants.
-
-Joint sigs
-\cite{Fels1997,Olver2013,Arora2009}
-An intermediary role is played by the “semi-differential invariants” (or, as we would
-prefer they be known, “joint differential invariants”) introduced into vision by Van Gool et. al., [34],
-
-Diff Invs
-\cite{Florack1993,Olver2007,Bouton1898}
-
-
-
-This is essential if the
-signature is to be used to detect similarity of images, but it fails for the rational
-invariants found in the literature.
-
-
-not intensity transforms
-
-
-
-** FIX FAUGERAS
-
-There has been a long-standing interest in constructing invariants for image recognition. 
-\cite{VanGool1995,Wood1996,Zhang2019,Faugeras1994,Gros1992,Taubin1992,Lenz1990,Florack1993}
-
-\cite{SURF}
-
-SURF and that kind of crap
-
-
-%Groups we've done:
-%translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 \subsection{Example signatures}
 
 In this paper our aim is develop the mathematical underpinnings of constructing differential invariant signatures for images under the action of planar Lie groups. However, as we develop the signature for each group, we will provide an example of the type of surface that the signature defines. Note that these will generally be three-dimensional representation of the planar image. 
@@ -243,6 +188,61 @@ boundary that do not overlap.
 
 
 
+\subsection{Relevant Literature}
+
+Classical invariants
+
+The theory of invariants has a rich mathematical history, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Polynomials, then geometry. 
+
+Lie
+
+\cite{Cayley,Littlewood44,Cartan52,Patterson1928,Veblen1872,Lie1884}
+
+
+A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool, and this can be extended to the affine group using the Fourier-Mellin transform and the bispectrum. Alternatively, integral invariants and moments can be computed. For the similarity group applied to images the seminal reference is \cite{Hu1962}, but see also~\cite{}. 
+\cite{Hickman2011,Abu-Mostafa1984,Kakarala2010,Flusser2009,Papakostas2013}
+\cite{Manay2006,Negrinho2013,Ghorbel1994,Turski2006}
+\cite{Reddy1996,Gauthier2008,Kakarala2011,Smach2007}
+
+The other group that has been of particular interest for image analysis is the projective group, because of its ubiquity in images from cameras. Summarise these...
+\cite{Suk2000,Suk2004,Hann2002a,Kogan2014}
+
+
+Diff invs and sigs
+
+An algorithm to compute differential and joint invariants and determine complete signature sets is described in \cite{Olver2005}. The entire set of invariants is computed using the method of moving frames (see Section~\ref{sec:MF}) and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants.
+
+Joint sigs
+\cite{Fels1997,Olver2013,Arora2009}
+An intermediary role is played by the “semi-differential invariants” (or, as we would
+prefer they be known, “joint differential invariants”) introduced into vision by Van Gool et. al., [34],
+
+Diff Invs
+\cite{Florack1993,Olver2007,Bouton1898}
+
+
+
+This is essential if the
+signature is to be used to detect similarity of images, but it fails for the rational
+invariants found in the literature.
+
+
+not intensity transforms
+
+
+
+** FIX FAUGERAS
+
+There has been a long-standing interest in constructing invariants for image recognition. 
+\cite{VanGool1995,Wood1996,Zhang2019,Faugeras1994,Gros1992,Taubin1992,Lenz1990,Florack1993}
+
+\cite{SURF}
+
+SURF and that kind of crap
+
+
+%Groups we've done:
+%translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 \section{Differential invariants through tensor contraction}
 \label{sec:contraction}
 
@@ -1002,26 +1002,16 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{
  \end{equation}
 
 \noindent where $\alpha_1 = b g + 2 a h, \alpha_2 = 2 b g + a h$, $\beta_1 = d g + 2 c h, \beta_2 = 2 d g + c h$, $\gamma_1 = b c + 2 a d, \gamma_2= 2 b c + a d$, and $\delta_1 = (b c g+a d g+a c h), \delta_2 = (b d g+b c h+a d h)$.
-%\left[
-%\begin{array}{ccccccccc}
- %a & c & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
- %b & d & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
- %-2 a g & -2 c g & a^2 & 2 a c & c^2 & 0 & 0 & 0 & 0 \\
- %-b g-a h & -d g-c h & a b & b c+a d & c d & 0 & 0 & 0 & 0 \\
- %-2 b h & -2 d h & b^2 & 2 b d & d^2 & 0 & 0 & 0 & 0 \\
- %6 a g^2 & 6 c g^2 & -6 a^2 g & -12 a c g & -6 c^2 g & a^3 & 3 a^2 c & 3 a c^2 & c^3 \\
- %2 g (b g+2 a h) & 2 g (d g+2 c h) & -2 a (2 b g+a h) & -4 (b c g+a d g+a c h) & -2 c (2 d
-   %g+c h) & a^2 b & a (2 b c+a d) & c (b c+2 a d) & c^2 d \\
- %2 h (2 b g+a h) & 2 h (2 d g+c h) & -2 b (b g+2 a h) & -4 (b d g+b c h+a d h) & -2 d (d g+2
-   %c h) & a b^2 & b (b c+2 a d) & d (2 b c+a d) & c d^2 \\
- %6 b h^2 & 6 d h^2 & -6 b^2 h & -12 b d h & -6 d^2 h & b^3 & 3 b^2 d & 3 b d^2 & d^3 \\
-%\end{array}
-%\right]
 
-%%A direct calculation using (\ref{eq:prolong}) shows that the same transformation rule (\ref{eq:D}) holds for $\phi\in\mathrm{PSL}(3,\R)$.  That is, $D$ is a relative invariant of weight 2 of this action. 
-%Both $D$ and $E$ will be useful quantities shortly, but note that, from (\ref{eq:D}), the sign of $D$ is invariant and therefore the choice of moving frame must depend on its sign. 
-
-We begin by choosing the frames $\bar f_{\bar x} = 1$ and $\bar f_{\bar y}=  0$, which determine the group parameters $a = (1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that $\bar f_{\bar y \bar y} = D d^2 / f_x^2$, where $D = f_{x}^2 f_{yy} + f_y^2 f_{xx} - 2 f_x f_y f_{xyy}$, which we saw earlier as an invariant of $A(2)$, which is a subgroup of $\mathrm{PSL}(3,\R)$. Note that $D$ and $\bar f_{\bar y \bar y}$ have the same sign; in what follows we assume that $D>0$ (if it is negative, relatively little changes in the following derivation) and choose the frame $\bar f_{ \bar y \bar y} = 1$, so that $d = f_x/D^{1/2}.$
+We begin the construction of the moving frame by choosing $\bar f_{\bar x}
+= 1$ and $\bar f_{\bar y}=  0$, which determine the group parameters $a =
+(1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that
+$\bar f_{\bar y \bar y} = D d^2 / f_x^2$, where $D = f_{x}^2 f_{yy} + f_y^2
+f_{xx} - 2 f_x f_y f_{xyy}$, which we saw earlier as an invariant of
+$A(2)$, which is a subgroup of $\mathrm{PSL}(3,\R)$. Note that $D$ and
+$\bar f_{\bar y \bar y}$ have the same sign. If $D < 0$, we choose the
+frame $\bar{f}_{\bar y \bar y} = -1$ and if $D \ge 0$ we choose $\bar
+f_{\bar y \bar y} = 1$. Then $d = f_x/|D|^{1/2}.$
 
 \todo[inline]{Problem here? fyyy is in MF and an invariant...}
 The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{ \bar x \bar y \bar y}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{ \bar x \bar x}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$ In fact, the denominator of the expression for $h$ was another invariant of $A(2)$; we label it $E$ for convenience.
@@ -1030,8 +1020,18 @@ The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group parameter $ 
 %E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
 %\end{equation}
 
-Having determined the frame, any function of the remaining derivatives $\bar f_{ \bar x \bar x \bar x}$, $\bar f_{ \bar x \bar x \bar y}$, and $\bar f_{ \bar y \bar y \bar y}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: $$ (f_{xxx}, f_{xxy}^2, f_{xyy})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right)\:,$$ where (with $P_n$ denoting a polynomial of degree $n$):
-$$ J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5.$$
+Having determined the frame, any function of the remaining derivatives $\bar f_{ \bar x \bar x \bar x}$, $\bar f_{ \bar x \bar x \bar y}$, and $\bar f_{ \bar y \bar y \bar y}$, as given in Equation~(\ref{eq:prolong}), provides invariants. We choose: 
+\begin{equation*}
+ (\bar f_{\bar x\bar x\bar x}, \bar f_{\bar x\bar x\bar y}^2, \bar f_{\bar
+ x\bar y\bar
+ y})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right).
+\end{equation*} 
+\todo[inline]{Check J2 has squared or not}
+The terms $J_1, J_2, J_3$ can be written in terms of $D$ and $E$, together
+with a polynomial of degree $n$ denoted by $P_n$. 
+\begin{equation*}
+    J_1 = E^4 + D P_{13},\quad J_2 = (E^3 + D P_9)^2,\quad J_3=E^2 -12 D P_5.
+\end{equation*}
 
 The $J_i$ are polynomials of degree 16, 24, and 8, respectively, and are extremely complicated when written out explicitly. They do have one benefit, though, which is that they  all have denominators given by integer powers of $D$, resolving the ambiguity caused by the sign of $D$. Therefore, $$ (D^{18}, J_1^3, J_2^2, J_3^6)$$ are all relative invariants of weight 36, and so projecting any subset of them of them to a sphere yields a third-order invariant signature.
 
