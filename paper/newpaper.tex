@@ -124,7 +124,12 @@ where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. %It 
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 \subsection{Example signatures}
 
-In this paper our aim is develop the mathematical underpinnings of constructing differential invariant signatures for images under the action of planar Lie groups. However, as we develop the signature for each group, we will provide an example of the type of surface that the signature defines. Note that these will generally be three-dimensional representation of the planar image. 
+In this paper our aim is develop the mathematical underpinnings of
+constructing differential invariant signatures for images under the action
+of planar Lie groups. However, as we develop the signature for each group,
+we will provide an example of the type of surface that the signature
+defines. Note that these will generally be three-dimensional representation
+of the planar image. 
 
 The image we use is defined on $[-1,1] \times [-1,1]$ to be:
 
@@ -134,9 +139,9 @@ f(x, y) = \exp(-2x^2 - 4\sin^2(y + 0.5x^2))
 
 The function is depicted as a greyscale image in Figure~\ref{fig:function}.
 On the left the image itself is shown, while on the right a version with a
-regular grid superimposed is given. This is useful for visualising both the
-transformation and how the image is mapped into the three-dimensional
-signature surface.
+regular grid superimposed is given. We will use this function throughout,
+using the grid to help visualise both the transformation and how the image
+is mapped into the three-dimensional signature surface. 
 
 \begin{figure}
   \centering
@@ -162,16 +167,19 @@ spatial derivatives. These three quantities can be used as coordinates in a
 new space, where the two image points will correspond. Computing these
 coordinates for all image points will define a surface in the new
 three-dimensional space, and the two images will produce the same surface,
-which we call the signature. 
+which we call the signature, $\mathcal{I}(f)(x, y) = \left(I_1, I_2,
+I_3\right)$ where $I_1 = f, I_2 = f_x, I_3 = f_y$.
 
 Figure~\ref{fig:T2} shows (a) the original image, (b) the translated image
 under the transformation $(x,y) \mapsto (x + 0.1, y - 0.2)$, (c) the
 signature of one of them, (d) the superimposed pair of signatures. The
 yellow lines in (c) correspond to where the yellow grid from (a) has been
-mapped to on the signature surface. In (d), notice that as some of the
-image has moved out of frame, there are parts of the signature near its
-boundary that do not overlap.
-
+mapped to on the signature surface. The parts of the surface where the mesh
+gets close together are where the function and its derivatives are tending
+towards zero. This occurs around the boundary of our test image and so all
+of these points are close together in the signature space. In (d), notice
+that as some of the image has moved out of frame, there are parts of the
+signature surfaces of the two images that do not overlap.
 
 \begin{figure}
   \centering
@@ -188,7 +196,6 @@ boundary that do not overlap.
   image (before translation). (d) the signature after the
   translation superimposed.}\label{fig:T2}
 \end{figure}
-
 
 \subsection{Relevant Literature}
 
@@ -246,14 +253,23 @@ SURF and that kind of crap
 \section{Differential invariants through tensor contraction}
 \label{sec:contraction}
 
-While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance as they are equivalent. We therefore use subscript indices exclusively.
+While we avoid the use of tensors in most of this study, there is a notable
+exception to be made for the Euclidean transformation group $E(2)$. In this
+setting we can restrict ourselves to \emph{Cartesian tensors}, where we
+need make no distinction between covariance and contravariance as they are
+equivalent. We therefore use subscript indices exclusively.
 
 In this setting, a Euclidean transformation acting on $\mathbb{R}^2$ is given
 by an expression of the form:
 \begin{equation*}
   \bar{x}_i = a_{ij}x_j + b_j,
 \end{equation*}
-using the Einstein summation convention. The orthogonality condition is that $a_{ik}a_{jk} = a_{ki}a_{kj} = \delta_{ij}$.
+using the Einstein summation convention. The orthogonality condition is
+that $a_{ik}a_{jk} = a_{ki}a_{kj} = \delta_{ij}$. A Euclidean
+transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$ can also be
+written in matrix form as $\bar{\mathbf{x}} = \varphi(\mathbf{x}) =
+U\mathbf{x} + \mathbf{t}$ where the matrix $U$ satisfies $U^TU = I$ and
+$\mathbf{t} \in \mathbb{R}^2$.
 
 With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is a $2^p$-tuple of real numbers $C_{i_1\ldots i_p}$ whose components transform under a Euclidean transformation as:
 \begin{equation*}
@@ -261,30 +277,34 @@ With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is
 \end{equation*}
 and a $0$-tensor is a scalar, or invariant. 
 
-The main observation is that in this setting, the $n^\text{th}$ order partial derivative operator $\partial^n / \partial_{x_{i_1}}\cdots \partial_{x_{i_n}}$ formally transforms as an $n$-tensor~\cite{Florack1993}. Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial^p f / \partial_{x_{i_1}} \cdots \partial_{x_{i_p}}$ will give a Euclidean invariant.
+The main observation is that in this setting, the $n^\text{th}$ order
+partial derivative operator $\partial^n / \partial_{x_{i_1}}\cdots
+\partial_{x_{i_n}}$ formally transforms as an $n$-tensor, \citep{Florack1993}. Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial^p f / \partial_{x_{i_1}} \cdots \partial_{x_{i_p}}$ will give a Euclidean invariant.
 
 For example, up to second derivatives, we have the following Euclidean invariants, expressed as tensor contractions:
-\begin{align*}
-  f &= f \\
-  f_if_i &= f_x^2 + f_y^2 \\
-  f_{ii} &= f_{xx} + f_{yy} \\
-  f_{ij} f_{ij} &= f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
-  f_i f_j f_{ij} &= f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
-\label{eq:se2}
-\end{align*}
+\begin{equation}
+\label{eq:e2tensor}
+\begin{aligned}
+  I_0 &= f = f \\
+  I_1 &= f_if_i = f_x^2 + f_y^2 \\
+  I_2 &= f_{ii} = f_{xx} + f_{yy} \\
+  I_3 &= f_{ij} f_{ij} = f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
+  I_4 &= f_i f_j f_{ij} = f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
+\end{aligned}
+\end{equation}
 
-While we can construct any number of invariants this way, there is no guarantee of functional independence between them. We will address this issue in Section~\ref{sec:movingframes} when we construct invariants of $E(2)$ and other groups using the method of moving frames.
-
-SE(2): rotation, Sim(2): zooming.
-
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{Figs/f_transformed_SE2.png}
-\includegraphics[width=.45\textwidth]{Figs/SE2_signature.png}
-\caption{A sample $SE(2)$ Transform and 3D signature.}
-\label{fig:SE2}
-\end{figure}
-
+While we can construct any number of invariants this way, there is no
+guarantee of functional independence between them. We will address this
+issue in Section~\ref{sec:movingframes} when we construct invariants of
+$E(2)$ and other groups using the method of moving frames. We can form a
+signature from any three of these invariants \eqref{eq:e2tensor}, we choose for
+simplicity our signature to be 
+\begin{equation}
+    \label{eq:e2signature}
+    \mathcal{I}_{E(2)} = (I_0, I_1, I_2)
+\end{equation}.  
+A sample $E(2)$ transformation is depicted in Fig.~\ref{fig:E2} with its corresponding
+signature.
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{Figs/f_transformed_E2.png}
@@ -292,6 +312,53 @@ SE(2): rotation, Sim(2): zooming.
 \caption{A sample $E(2)$ Transform and 3D signature.}
 \label{fig:E2}
 \end{figure}
+We will defer discussion of the Special Euclidean group (which excludes
+reflections) until Section~\ref{sec:SE2} where invariants naturally arise
+from the method of moving frames.
+
+\subsection{The similarity group}
+\label{sec:Sim2}
+The similarity group $\text{Sim}(2)$ consists transformations of the form
+$\bar{\mathbf{x}} = \varphi(\mathbf{x}) = sU\mathbf{x} + \mathbf{t}$, where $U^TU = I$ and $s
+\in \mathbb{R}\setminus\{0\}$. It is like the Euclidean group except it
+also allows for isotropic scaling. In image applications, similarity
+transformations arise from operations like zooming.
+
+Under similarity transformations, the Euclidean invariants become
+/emph{relative invariants}. Each derivative introduces a multiple of $s$ to
+each invariant. For example, $\bar{f}_{\bar x}^2 + \bar{f}_{\bar y}^2 =
+s^2(f_x^2 + f_y^2)$ and $\bar{f}_{\bar x \bar x}^2 + 2\bar{f}_{\bar x \bar
+y}^2 + \bar{f}_{\bar y \bar y} = s^4 (f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2$). We
+refer to the power of $s$ as the weight of the transformation. 
+
+One way to produce similarity invariants would be to take ratios of powers
+of the Euclidean invariants \eqref{eq:e2tensor} so that the multiples of
+$s$ cancel. For example $\frac{f_x^2 + f_y^2}{f_{xx} + f_{yy}}$ is the
+ratio of two weight-2 relative invariants and is hence a similarity
+invariant. However this invariant is singular whenever $f_{xx} + f_{yy} =
+0$ which is a codimension-0 phenomenon for images. 
+
+A better approach is to take three invariants of the same weight, we'll
+take $I_1^2$, $I_2^2$, and $I_3$ from \eqref{eq:e2tensor}, all of which are
+weight $4$, and project them onto the unit sphere. This can then be
+multiplied by $I_0 = f$ to form a signature surface. So our signature is
+defined by
+\begin{equation}
+    \label{eq:sim2signature}
+\mathcal{I}_{\text{Sim(2)}}(f) = \frac{f}{\sqrt{I_1^4 + I_2^4 + I_3^2}}(I_1^2, I_2^2,
+        I_3)
+\end{equation}
+This signature is only singular when $f_x = f_y = f_{xx} = f_{yy} = f_{xy}
+= 0$. A sample similarity transformation and computed signature is shown in
+Fig.~\ref{fig:Sim2}
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_Sim2.png}
+\includegraphics[width=.45\textwidth]{Figs/Sim2_signature.png}
+\caption{A sample $\text{Sim}(2)$ Transform and 3D signature.}
+\label{fig:Sim2}
+\end{figure}
+
 
 
 \section{Differential invariants through transvectants}
@@ -644,6 +711,7 @@ Cartan normalisation can be considered as identifying a canonical subspace (with
 Olver uses the group $SE(2)$ on curves as an example~\cite{OlverCIT}, recovering the Euclidean curvature as a second-order invariant. We continue this example to compute invariants to $SE(2)$ for images, before moving on to other planar Lie group examples: $E(2)$, the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). Finally, we apply the method to an infinite-dimensional pseudo-Lie group, the conformal diffeomorphisms.
 
 \subsection{The Special Euclidean Group SE(2)}
+\label{sec:SE2}
 
 An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as:
 \begin{equation*}
@@ -705,6 +773,13 @@ all invariant. This gives the following set of invariants:
 Note that we multiplied each of the second derivative invariants by $I_1$
 so that they would decay smoothly to zero at critical points. 
 
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_SE2.png}
+\includegraphics[width=.45\textwidth]{Figs/SE2_signature.png}
+\caption{A sample $SE(2)$ Transform and 3D signature.}
+\label{fig:SE2}
+\end{figure}
 \subsection{The Euclidean Group E(2)}
 An element of the Euclidean group $E(2)$ maps an element $(x, y)$ of
 $\mathbb{R}^2$ to $(\bar{x}, \bar{y})$ as:
