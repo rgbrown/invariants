@@ -647,20 +647,44 @@ Degree & Weight & Diagram & Partial transvectant\\
 \label{tab:transvectants2}
 \end{table}
 
+Some of these partial transvectants appear in signatures
+from other transformation groups, so for future reference, let
+\begin{equation}
+    \label{eq:cde}
+    \begin{aligned}
+        C &= f_{xx}f_{yy}-f_{xy}^2, \\
+        D &= f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2, \\
+        E &= f_{xxx}f_y^3 - 3f_{xxy}f_xf_y^2 + 3f_{xyy}f_x^2f_y -
+        f_{yyy}f_x^3.
+    \end{aligned}
+\end{equation}
+
 \subsection{Signatures of $SA(2)$ and $A(2)$}
 
-The action of the affine group $A(2)$ arises as the motions of planar objects far from a camera. Recall that invariants of a supergroup are automatically invariants of any of its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
+The action of the affine group $A(2)$ arises in images as the motion of
+planar objects in images taken from a distant camera. Recall that
+invariants of a supergroup are automatically invariants of any of its
+subgroups. For example, invariants of $A(2)$ are automatically invariants
+of $SA(2)$, but not necessarily vice versa. Any of the partial
+transvectants found in Tables~\ref{tab:transvectants1}
+and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant
+is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
 
-Hence, we can form a signature for $SA(2)$ by choosing any combination of partial transvectants. We choose a signature with three components so that it can be visualised as a three-dimensional surface; note that this will not be complete and may well have a very large bad set. For example, we can choose the function value together with the first two partial transvectants to form the signature:
-\begin{equation*}
-    \left(f, f_{xx}f_{yy}-f_{xy}^2, f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2\right).
-\end{equation*}
+Hence, we can form a signature for $SA(2)$ by choosing any combination of
+partial transvectants. We choose a signature with three components so that
+it can be visualised as a three-dimensional surface; note that this will
+not be complete and may well have a very large bad set. For example, we can
+choose the function value together with the $C, D$ from \eqref{eq:cde}
+to form the signature. 
 
+\begin{equation}
+    \label{eq:SA2signature}
+    \mathcal{I}_{SA(2)}(f) = \left(f, C, D \right).
+\end{equation}
 We will subject our test image to the special affine transformation:
 \begin{equation*}
-\mathbf{x} \mapsto \frac{1}{1.1}\begin{bmatrix} 0.6875 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
+\mathbf{x} \mapsto \frac{1}{1.22}\begin{bmatrix} 0.7 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
 \end{equation*}
-
 Fig.~\ref{fig:SA2} shows the signature of our test image under this transformation.
 
 \begin{figure}
@@ -672,7 +696,28 @@ Fig.~\ref{fig:SA2} shows the signature of our test image under this transformati
 \end{figure}
 
 \subsubsection{Moving on to A(2), \ldots}
-Using the same function as an example, 
+
+For $A(2)$ the weight of the partial transvectants prevents them from being
+invariants. There are two options to create a signature. One is to select
+ratios of partial transvectants, similar to as discussed in
+Section~\ref{sec:Sim2}. It is then beneficial to choose the
+numerator and denominator so that they have different critical points,
+which can be achieved by adding together partial transvectants of the same
+weight as appropriate. Instead, we employ the same normalisation strategy
+as previously, projecting the weight four relative invariants $(C^2, D^2,
+E)$ onto the unit hypersphere and multiplying by $f$. In this way, our
+signature is
+\begin{equation}
+    \label{eq:A2signature}
+    \mathcal{I}_{A(2)} = \frac{f}{\sqrt{C^4 + D^4 + E^2}}(C^2, D^2, E)
+\end{equation}
+
+We will subject our test image to the special affine transformation:
+\begin{equation*}
+\mathbf{x} \mapsto \begin{bmatrix} 0.7 & 1.1 \\ -0.6 & 0.8
+\end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
+\end{equation*}
+Fig.~\ref{fig:A2} shows the signature of our test image under this transformation.
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{Figs/f_transformed_A2.png}
@@ -680,8 +725,6 @@ Using the same function as an example,
 \caption{A sample $A(2)$ transformation and 3D signature.}
 \label{fig:A2}
 \end{figure}
-
-For $A(2)$ the weight of the partial transvectants prevents them from being invariants. There are two options to create a signature. One is to select ratios of partial transvectants. It is then beneficial to choose the numerator and denominator so that they have different critical points, which can be achieved by adding together partial transvectants of the same weight as appropriate. Instead, we normalise the partial transvectants by choosing only those where all components have the same weight and projecting them onto the unit hypersphere. By multiplying these by the function (which takes values between 0 and 1) we create a signature enclosed by the unit hypersphere. An example is shown in Figure~\ref{fig:A2}.
 
 
 \section{Differential invariants through moving frames}\label{sec:movingframes}
