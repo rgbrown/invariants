@@ -1,6 +1,7 @@
 \documentclass[review,onefignum,onetabnum]{siamonline190516}
 \usepackage{amsmath,amsfonts,graphicx}
 \def\R{\mathbb{R}}
+\usepackage{mathtools}
 \usepackage{xcolor}
 \usepackage{todonotes}
 \usepackage{tikz}
@@ -124,7 +125,12 @@ where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. %It 
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
 \subsection{Example signatures}
 
-In this paper our aim is develop the mathematical underpinnings of constructing differential invariant signatures for images under the action of planar Lie groups. However, as we develop the signature for each group, we will provide an example of the type of surface that the signature defines. Note that these will generally be three-dimensional representation of the planar image. 
+In this paper our aim is develop the mathematical underpinnings of
+constructing differential invariant signatures for images under the action
+of planar Lie groups. However, as we develop the signature for each group,
+we will provide an example of the type of surface that the signature
+defines. Note that these will generally be three-dimensional representation
+of the planar image. 
 
 The image we use is defined on $[-1,1] \times [-1,1]$ to be:
 
@@ -134,9 +140,9 @@ f(x, y) = \exp(-2x^2 - 4\sin^2(y + 0.5x^2))
 
 The function is depicted as a greyscale image in Figure~\ref{fig:function}.
 On the left the image itself is shown, while on the right a version with a
-regular grid superimposed is given. This is useful for visualising both the
-transformation and how the image is mapped into the three-dimensional
-signature surface.
+regular grid superimposed is given. We will use this function throughout,
+using the grid to help visualise both the transformation and how the image
+is mapped into the three-dimensional signature surface. 
 
 \begin{figure}
   \centering
@@ -162,16 +168,19 @@ spatial derivatives. These three quantities can be used as coordinates in a
 new space, where the two image points will correspond. Computing these
 coordinates for all image points will define a surface in the new
 three-dimensional space, and the two images will produce the same surface,
-which we call the signature. 
+which we call the signature, $\mathcal{I}(f)(x, y) = \left(I_1, I_2,
+I_3\right)$ where $I_1 = f, I_2 = f_x, I_3 = f_y$.
 
 Figure~\ref{fig:T2} shows (a) the original image, (b) the translated image
 under the transformation $(x,y) \mapsto (x + 0.1, y - 0.2)$, (c) the
 signature of one of them, (d) the superimposed pair of signatures. The
 yellow lines in (c) correspond to where the yellow grid from (a) has been
-mapped to on the signature surface. In (d), notice that as some of the
-image has moved out of frame, there are parts of the signature near its
-boundary that do not overlap.
-
+mapped to on the signature surface. The parts of the surface where the mesh
+gets close together are where the function and its derivatives are tending
+towards zero. This occurs around the boundary of our test image and so all
+of these points are close together in the signature space. In (d), notice
+that as some of the image has moved out of frame, there are parts of the
+signature surfaces of the two images that do not overlap.
 
 \begin{figure}
   \centering
@@ -188,7 +197,6 @@ boundary that do not overlap.
   image (before translation). (d) the signature after the
   translation superimposed.}\label{fig:T2}
 \end{figure}
-
 
 \subsection{Relevant Literature}
 
@@ -210,14 +218,23 @@ Although there are computational challenges regarding the numerical approximatio
 \section{Differential invariants through tensor contraction}
 \label{sec:contraction}
 
-While we avoid the use of tensors in most of this study, there is a notable exception to be made for the Euclidean transformation group $E(2)$. In this setting we can restrict ourselves to \emph{Cartesian tensors}, where we need make no distinction between covariance and contravariance as they are equivalent. We therefore use subscript indices exclusively.
+While we avoid the use of tensors in most of this study, there is a notable
+exception to be made for the Euclidean transformation group $E(2)$. In this
+setting we can restrict ourselves to \emph{Cartesian tensors}, where we
+need make no distinction between covariance and contravariance as they are
+equivalent. We therefore use subscript indices exclusively.
 
 In this setting, a Euclidean transformation acting on $\mathbb{R}^2$ is given
 by an expression of the form:
 \begin{equation*}
   \bar{x}_i = a_{ij}x_j + b_j,
 \end{equation*}
-using the Einstein summation convention. The orthogonality condition is that $a_{ik}a_{jk} = a_{ki}a_{kj} = \delta_{ij}$.
+using the Einstein summation convention. The orthogonality condition is
+that $a_{ik}a_{jk} = a_{ki}a_{kj} = \delta_{ij}$. A Euclidean
+transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$ can also be
+written in matrix form as $\bar{\mathbf{x}} = \varphi(\mathbf{x}) =
+U\mathbf{x} + \mathbf{t}$ where the matrix $U$ satisfies $U^TU = I$ and
+$\mathbf{t} \in \mathbb{R}^2$.
 
 With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is a $2^p$-tuple of real numbers $C_{i_1\ldots i_p}$ whose components transform under a Euclidean transformation as:
 \begin{equation*}
@@ -225,30 +242,34 @@ With respect to $\mathbb{R}^2$, a Cartesian tensor of rank $p$, or $p$-tensor is
 \end{equation*}
 and a $0$-tensor is a scalar, or invariant. 
 
-The main observation is that in this setting, the $n^\text{th}$ order partial derivative operator $\partial^n / \partial_{x_{i_1}}\cdots \partial_{x_{i_n}}$ formally transforms as an $n$-tensor~\cite{Florack1993}. Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial^p f / \partial_{x_{i_1}} \cdots \partial_{x_{i_p}}$ will give a Euclidean invariant.
+The main observation is that in this setting, the $n^\text{th}$ order
+partial derivative operator $\partial^n / \partial_{x_{i_1}}\cdots
+\partial_{x_{i_n}}$ formally transforms as an $n$-tensor, \citep{Florack1993}. Because the product of a $p$-tensor and a $q$-tensor gives a $(p+q)$-tensor and contraction of a $p$-tensor yields a $(p-2)$-tensor, a complete contraction of a tensor of even rank formed as a product of terms of the form $\partial^p f / \partial_{x_{i_1}} \cdots \partial_{x_{i_p}}$ will give a Euclidean invariant.
 
 For example, up to second derivatives, we have the following Euclidean invariants, expressed as tensor contractions:
-\begin{align*}
-  f &= f \\
-  f_if_i &= f_x^2 + f_y^2 \\
-  f_{ii} &= f_{xx} + f_{yy} \\
-  f_{ij} f_{ij} &= f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
-  f_i f_j f_{ij} &= f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
-\label{eq:se2}
-\end{align*}
+\begin{equation}
+\label{eq:e2tensor}
+\begin{aligned}
+  I_0 &= f = f \\
+  I_1 &= f_if_i = f_x^2 + f_y^2 \\
+  I_2 &= f_{ii} = f_{xx} + f_{yy} \\
+  I_3 &= f_{ij} f_{ij} = f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
+  I_4 &= f_i f_j f_{ij} = f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}
+\end{aligned}
+\end{equation}
 
-While we can construct any number of invariants this way, there is no guarantee of functional independence between them. We will address this issue in Section~\ref{sec:movingframes} when we construct invariants of $E(2)$ and other groups using the method of moving frames.
-
-SE(2): rotation, Sim(2): zooming.
-
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{Figs/f_transformed_SE2.png}
-\includegraphics[width=.45\textwidth]{Figs/SE2_signature.png}
-\caption{A sample $SE(2)$ Transform and 3D signature.}
-\label{fig:SE2}
-\end{figure}
-
+While we can construct any number of invariants this way, there is no
+guarantee of functional independence between them. We will address this
+issue in Section~\ref{sec:movingframes} when we construct invariants of
+$E(2)$ and other groups using the method of moving frames. We can form a
+signature from any three of these invariants \eqref{eq:e2tensor}, we choose for
+simplicity our signature to be 
+\begin{equation}
+    \label{eq:e2signature}
+    \mathcal{I}_{E(2)} = (I_0, I_1, I_2)
+\end{equation}.  
+A sample $E(2)$ transformation is depicted in Fig.~\ref{fig:E2} with its corresponding
+signature.
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{Figs/f_transformed_E2.png}
@@ -256,6 +277,53 @@ SE(2): rotation, Sim(2): zooming.
 \caption{A sample $E(2)$ Transform and 3D signature.}
 \label{fig:E2}
 \end{figure}
+We will defer discussion of the Special Euclidean group (which excludes
+reflections) until Section~\ref{sec:SE2} where invariants naturally arise
+from the method of moving frames.
+
+\subsection{The similarity group}
+\label{sec:Sim2}
+The similarity group $\text{Sim}(2)$ consists transformations of the form
+$\bar{\mathbf{x}} = \varphi(\mathbf{x}) = sU\mathbf{x} + \mathbf{t}$, where $U^TU = I$ and $s
+\in \mathbb{R}\setminus\{0\}$. It is like the Euclidean group except it
+also allows for isotropic scaling. In image applications, similarity
+transformations arise from operations like zooming.
+
+Under similarity transformations, the Euclidean invariants become
+/emph{relative invariants}. Each derivative introduces a multiple of $s$ to
+each invariant. For example, $\bar{f}_{\bar x}^2 + \bar{f}_{\bar y}^2 =
+s^2(f_x^2 + f_y^2)$ and $\bar{f}_{\bar x \bar x}^2 + 2\bar{f}_{\bar x \bar
+y}^2 + \bar{f}_{\bar y \bar y} = s^4 (f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2$). We
+refer to the power of $s$ as the weight of the transformation. 
+
+One way to produce similarity invariants would be to take ratios of powers
+of the Euclidean invariants \eqref{eq:e2tensor} so that the multiples of
+$s$ cancel. For example $\frac{f_x^2 + f_y^2}{f_{xx} + f_{yy}}$ is the
+ratio of two weight-2 relative invariants and is hence a similarity
+invariant. However this invariant is singular whenever $f_{xx} + f_{yy} =
+0$ which is a codimension-0 phenomenon for images. 
+
+A better approach is to take three invariants of the same weight, we'll
+take $I_1^2$, $I_2^2$, and $I_3$ from \eqref{eq:e2tensor}, all of which are
+weight $4$, and project them onto the unit sphere. This can then be
+multiplied by $I_0 = f$ to form a signature surface. So our signature is
+defined by
+\begin{equation}
+    \label{eq:sim2signature}
+\mathcal{I}_{\text{Sim(2)}}(f) = \frac{f}{\sqrt{I_1^4 + I_2^4 + I_3^2}}(I_1^2, I_2^2,
+        I_3)
+\end{equation}
+This signature is only singular when $f_x = f_y = f_{xx} = f_{yy} = f_{xy}
+= 0$. A sample similarity transformation and computed signature is shown in
+Fig.~\ref{fig:Sim2}
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_Sim2.png}
+\includegraphics[width=.45\textwidth]{Figs/Sim2_signature.png}
+\caption{A sample $\text{Sim}(2)$ Transform and 3D signature.}
+\label{fig:Sim2}
+\end{figure}
+
 
 
 \section{Differential invariants through transvectants}
@@ -544,20 +612,44 @@ Degree & Weight & Diagram & Partial transvectant\\
 \label{tab:transvectants2}
 \end{table}
 
+Some of these partial transvectants appear in signatures
+from other transformation groups, so for future reference, let
+\begin{equation}
+    \label{eq:cde}
+    \begin{aligned}
+        C &= f_{xx}f_{yy}-f_{xy}^2, \\
+        D &= f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2, \\
+        E &= f_{xxx}f_y^3 - 3f_{xxy}f_xf_y^2 + 3f_{xyy}f_x^2f_y -
+        f_{yyy}f_x^3.
+    \end{aligned}
+\end{equation}
+
 \subsection{Signatures of $SA(2)$ and $A(2)$}
 
-The action of the affine group $A(2)$ arises as the motions of planar objects far from a camera. Recall that invariants of a supergroup are automatically invariants of any of its subgroups. For example, invariants of $A(2)$ are automatically invariants of $SA(2)$, but not necessarily vice versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
+The action of the affine group $A(2)$ arises in images as the motion of
+planar objects in images taken from a distant camera. Recall that
+invariants of a supergroup are automatically invariants of any of its
+subgroups. For example, invariants of $A(2)$ are automatically invariants
+of $SA(2)$, but not necessarily vice versa. Any of the partial
+transvectants found in Tables~\ref{tab:transvectants1}
+and~\ref{tab:transvectants2} are invariants of $SA(2)$ (as the determinant
+is $1$), but only up to scale factor ($\det A^{-r}$) of $A(2)$.
 
-Hence, we can form a signature for $SA(2)$ by choosing any combination of partial transvectants. We choose a signature with three components so that it can be visualised as a three-dimensional surface; note that this will not be complete and may well have a very large bad set. For example, we can choose the function value together with the first two partial transvectants to form the signature:
-\begin{equation*}
-    \left(f, f_{xx}f_{yy}-f_{xy}^2, f_x^2f_{yy} - 2f_xf_yf_{xy} + f_{xx}f_y^2\right).
-\end{equation*}
+Hence, we can form a signature for $SA(2)$ by choosing any combination of
+partial transvectants. We choose a signature with three components so that
+it can be visualised as a three-dimensional surface; note that this will
+not be complete and may well have a very large bad set. For example, we can
+choose the function value together with the $C, D$ from \eqref{eq:cde}
+to form the signature. 
 
+\begin{equation}
+    \label{eq:SA2signature}
+    \mathcal{I}_{SA(2)}(f) = \left(f, C, D \right).
+\end{equation}
 We will subject our test image to the special affine transformation:
 \begin{equation*}
-\mathbf{x} \mapsto \frac{1}{1.1}\begin{bmatrix} 0.6875 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
+\mathbf{x} \mapsto \frac{1}{1.22}\begin{bmatrix} 0.7 & 1.1 \\ -0.6 & 0.8 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
 \end{equation*}
-
 Fig.~\ref{fig:SA2} shows the signature of our test image under this transformation.
 
 \begin{figure}
@@ -569,7 +661,28 @@ Fig.~\ref{fig:SA2} shows the signature of our test image under this transformati
 \end{figure}
 
 \subsubsection{Moving on to A(2), \ldots}
-Using the same function as an example, 
+
+For $A(2)$ the weight of the partial transvectants prevents them from being
+invariants. There are two options to create a signature. One is to select
+ratios of partial transvectants, similar to as discussed in
+Section~\ref{sec:Sim2}. It is then beneficial to choose the
+numerator and denominator so that they have different critical points,
+which can be achieved by adding together partial transvectants of the same
+weight as appropriate. Instead, we employ the same normalisation strategy
+as previously, projecting the weight four relative invariants $(C^2, D^2,
+E)$ onto the unit hypersphere and multiplying by $f$. In this way, our
+signature is
+\begin{equation}
+    \label{eq:A2signature}
+    \mathcal{I}_{A(2)} = \frac{f}{\sqrt{C^4 + D^4 + E^2}}(C^2, D^2, E)
+\end{equation}
+
+We will subject our test image to the special affine transformation:
+\begin{equation*}
+\mathbf{x} \mapsto \begin{bmatrix} 0.7 & 1.1 \\ -0.6 & 0.8
+\end{bmatrix}\mathbf{x} + \begin{bmatrix} 0.1 \\ -0.2 \end{bmatrix}
+\end{equation*}
+Fig.~\ref{fig:A2} shows the signature of our test image under this transformation.
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{Figs/f_transformed_A2.png}
@@ -577,8 +690,6 @@ Using the same function as an example,
 \caption{A sample $A(2)$ transformation and 3D signature.}
 \label{fig:A2}
 \end{figure}
-
-For $A(2)$ the weight of the partial transvectants prevents them from being invariants. There are two options to create a signature. One is to select ratios of partial transvectants. It is then beneficial to choose the numerator and denominator so that they have different critical points, which can be achieved by adding together partial transvectants of the same weight as appropriate. Instead, we normalise the partial transvectants by choosing only those where all components have the same weight and projecting them onto the unit hypersphere. By multiplying these by the function (which takes values between 0 and 1) we create a signature enclosed by the unit hypersphere. An example is shown in Figure~\ref{fig:A2}.
 
 
 \section{Differential invariants through moving frames}\label{sec:movingframes}
@@ -608,6 +719,7 @@ Cartan normalisation can be considered as identifying a canonical subspace (with
 Olver uses the group $SE(2)$ on curves as an example~\cite{OlverCIT}, recovering the Euclidean curvature as a second-order invariant. We continue this example to compute invariants to $SE(2)$ for images, before moving on to other planar Lie group examples: $E(2)$, the M\"obius group ($PSL(2,\mathbb{C})$) and the projective group ($PSL(3,\mathbb{R})$). Finally, we apply the method to an infinite-dimensional pseudo-Lie group, the conformal diffeomorphisms.
 
 \subsection{The Special Euclidean Group SE(2)}
+\label{sec:SE2}
 
 An element of the special Euclidean group $SE(2)$ acts on an element $(x, y)$ of $\mathbb{R}^2$ to produce $(\bar{x}, \bar{y})$ as:
 \begin{equation*}
@@ -640,7 +752,7 @@ parameters, we choose the cross section of the group orbits to be $\bar{x}
 = 0, \bar{y} = 0, \bar{f}_{\bar{y}} = 0$. We also require that $\bar{f}_{x}
 > 0$ to uniquely define the moving frame. Note that the group action is
 locally free (away from critical points) when prolonged to $J^1$, however
-we prolonged to $J^2$ in order to compute invariants. points. The moving
+we prolonged to $J^2$ in order to compute invariants. The moving
 frame is then given by the prolonged Euclidean transformation that maps an
 element of  $J^2$ to this cross section. It can be thought of as rotating
 the image about that point so that its gradient is pointing in the positive
@@ -659,15 +771,31 @@ $\bar{f}_{\bar{x}\bar{y}}$, and $\bar{f}_{\bar{y}\bar{y}}$ are therefore
 all invariant. This gives the following set of invariants:
 \begin{equation}\label{eq:se2invariants}
 \begin{aligned}
-  I_0 &= f \\
-  I_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
-  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= I_1\bar{f}_{\bar{x}\bar{x}}) \\
-  I_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) &&(= I_1\bar{f}_{\bar{x}\bar{y}})\\
-  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}}).
+  K_0 &= f \\
+  K_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
+  K_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= K_1\bar{f}_{\bar{x}\bar{x}}) \\
+  K_3 &= f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2) &&(= K_1\bar{f}_{\bar{x}\bar{y}})\\
+  K_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= K_1\bar{f}_{\bar{y}\bar{y}}).
 \end{aligned}
 \end{equation}
-Note that we multiplied each of the second derivative invariants by $I_1$
-so that they would decay smoothly to zero at critical points. 
+Note that we multiplied each of the second derivative invariants by the
+invariant $K_1$ so that they would decay smoothly to zero at critical
+points.  Interestingly, $K_4$ is the affine invariant $D$ from
+\eqref{eq:cde} and $K_1, K_2$ are also Euclidean invariants, so we need to
+include $K_3$ in our signature. We choose our signature to be
+\begin{equation}
+    \label{eq:SE2signature}
+    I_{SE(2)}(f) = (f, K_1, K_3)
+\end{equation}
+Fig.~\ref{fig:SE2} shows the signature of our test image under a sample
+transformation of $SE(2)$:
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_SE2.png}
+\includegraphics[width=.45\textwidth]{Figs/SE2_signature.png}
+\caption{A sample $SE(2)$ Transform and 3D signature.}
+\label{fig:SE2}
+\end{figure}
 
 \subsection{The Euclidean Group E(2)}
 An element of the Euclidean group $E(2)$ maps an element $(x, y)$ of
@@ -724,29 +852,23 @@ the $\bar{f}_{\bar{x}\bar{y}}$ term. Substituting in for $\cos\theta,
     f_y^2)f_{xy})}{f_x^2 + f_y^2}.
 \end{equation*}
 This suggests choosing $\varepsilon$ to make $\bar{f}_{\bar{x}\bar{y}} \ge
-0$. We can then list the invariants:
+0$. The moving frame is then fully specified, and the remaining derivatives
+give the same invariants $K_0, K_1, K_2, K_4$ as for $SE(2)$,
+\eqref{eq:se2invariants}, the one difference being $\hat{K}_3$:
 \begin{equation}\label{eq:e2invariants}
-\begin{aligned}
-  I_0 &= f \\
-  I_1 &= f_x^2 + f_y^2 & &(= \bar{f}_{\bar{x}}^2)\\
-  I_2 &= f_x^2 f_{xx} + 2 f_x f_y f_{xy} + f_y^2 f_{yy} &&(= I_1\bar{f}_{\bar{x}\bar{x}}) \\
-  I_3 &= \lvert f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2)\rvert
-  &&(= I_1\lvert \bar{f}_{\bar{x}\bar{y}}\rvert)\\
-  I_4 &= f_y^2 f_{xx} - 2 f_x f_y f_{xy} + f_x^2 f_{yy} &&(= I_1\bar{f}_{\bar{y}\bar{y}}).
-\end{aligned}
+    \hat{K}_3 = \lvert f_x f_y (f_{yy} - f_{xx}) + f_{xy} (f_x^2 - f_y^2)\rvert
 \end{equation}
-Notice that most, but not all of the $SE(2)$ invariants
-\eqref{eq:se2invariants} are also $E(2)$ invariants. We again multiply
-through the invariants by $I_1$ so that they decay smoothly at critical
-points.
 
-These invariants are a functionally independent, complete, set of polynomial differential invariants up to second derivatives. Note that the invariants found previously by tensor contraction Eq. (\ref{eq:se2}) in Section~\ref{sec:contraction} can be expressed in terms of these:
+These invariants are a functionally independent, complete, set of
+polynomial differential invariants up to second derivatives. Note that the
+invariants found previously by tensor contraction Eq. (\ref{eq:e2tensor}) in
+Section~\ref{sec:contraction} can be expressed in terms of these:
 \begin{align*}
-  f = f &= I_0 \\
-  f_if_i = f_x^2 + f_y^2 &= I_1 \\
-  f_{ii} = f_{xx} + f_{yy} &= \frac{I_2 + I_4}{I_1} \\
-  f_{ij} f_{ij} = f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 &= \frac{I_2^2 + I_4^2 + 2I_3^2}{I_1^2} \\
-  f_i f_j f_{ij} = f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy} &= I_2.
+  f = f &= K_0 \\
+  f_if_i = f_x^2 + f_y^2 &= K_1 \\
+  f_{ii} = f_{xx} + f_{yy} &= \frac{K_2 + K_4}{K_1} \\
+  f_{ij} f_{ij} = f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 &= \frac{K_2^2 + K_4^2 + 2K_3^2}{K_1^2} \\
+  f_i f_j f_{ij} = f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy} &= K_2.
 \end{align*}
 
 \subsection{The M\"{o}bius Group}
@@ -858,8 +980,12 @@ $$\bar f_{\bar x \bar x} = \frac{f_{xx}+f_{yy}}{f_x^2 + f_y^2}.$$
 %and
 %$$K_3=-K_1 +J_1 J_3 + 2 J_1^2 J_2^2.$$
 
-The four third-order invariants can be deduced from the moving frame. They are rational functions with numerators of degree 6 and denominators $(f_x^2 + f_y^2)^4$, and are relative invariants of weight 8.  Clearing denominators so as to work with polynomials, we choose $M_1 = (f_{xx} + f_{yy})^4$ and two of the four third-order invariants to form a M\"obius signature $(M_1, M_2, M_3)$, where: 
-\begin{align} M_2&=
+The four third-order invariants can be deduced from the moving frame. They
+are rational functions with numerators of degree 6 and denominators $(f_x^2
++ f_y^2)^4$, and are relative invariants of weight 8.  Clearing
+denominators so as to work with polynomials, we choose $M_1 = (f_{xx} +
+f_{yy})^4$ and two of the four third-order invariants $M_2$ and $M_3$:
+\begin{align*} M_2&=
 f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 + 
  f_y ^3 f_{yyy} f_x ^2 + \frac{3}{2} f_{yy}^2 f_x ^4 - 
  9 f_y ^3 f_{yy} f_x  f_{xy} + 
@@ -874,9 +1000,9 @@ f_y ^5 f_{yyy} + \frac{9}{2} f_y ^2 f_{yy}^2 f_x ^2 +
  \frac{9}{2} f_y ^2 f_x ^2 f_{xx}^2 + 3 f_y ^3 f_x ^2 f_{xxy} + 
  3 f_y  f_x ^4 f_{xxy} + f_y ^2 f_x ^3 f_{xxx} + 
  f_x ^5 f_{xxx}, 
-\end{align}
+\end{align*}
  
-\begin{align}
+\begin{align*}
 M_3&=-3 f_y  f_{yy}^2 f_x ^3 + 
  f_y ^2 f_{yyy} f_x ^3 + f_{yyy} f_x ^5 + 
  9 f_y ^2 f_{yy} f_x ^2 f_{xy} - 
@@ -889,9 +1015,24 @@ M_3&=-3 f_y  f_{yy}^2 f_x ^3 +
  &+ 3 f_y ^3 f_x  f_{xx}^2 + 3 f_y ^4 f_x  f_{xxy} + 
  3 f_y ^2 f_x ^3 f_{xxy} - f_y ^5 f_{xxx} - 
  f_y ^3 f_x ^2 f_{xxx}.
-\end{align}
-
-The image $f$ and these 3 relative invariants of weight 8 provide a three-dimensional signature; an example is shown in Figure~\ref{fig:mobius}, although note that it is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1 phenomenon for images. 
+\end{align*}
+We then form a signature by our usual projection method from the image $f$
+and these three weight $8$ relative invariants:
+\begin{equation}
+    \label{eq:mobiussignature}
+    \mathcal{I}_{\text{M\"obius}}(f) = \frac{f}{\sqrt{M_1^2 + M_2^2 +
+    M_3^2}} (M_1, M_2, M_3)
+\end{equation}
+An example is shown in Figure~\ref{fig:mobius}, although note that the
+signature is singular when $f_x=f_y=f_{xx}+f_{yy}=0$, a codimension 1
+phenomenon for images. 
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_Mobius.png}
+\includegraphics[width=.45\textwidth]{Figs/Mobius_signature.png}
+\caption{A sample M\"obius Transform and 3D signature.}
+\label{fig:mobius}
+\end{figure}
 
 %In previous work \cite{mobius}, two independent 3rd order M\"obius invariants were calculated
 %from the classical M\"obius geometry of curves. Namely, the M\"obius arclength 
@@ -915,13 +1056,6 @@ The image $f$ and these 3 relative invariants of weight 8 provide a three-dimens
 %For example, the image $f$ together with the projection of $(J_1^4, J_2^4, K_1)$ provides a 3-dimensional signature.
 %Any such signature that includes $J_1$ and $J_2$ is 
 
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{Figs/f_transformed_Mobius.png}
-\includegraphics[width=.45\textwidth]{Figs/Mobius_signature.png}
-\caption{A sample M\"obius Transform and 3D signature.}
-\label{fig:mobius}
-\end{figure}
 
 \subsection{The Projective Group}
 
@@ -977,8 +1111,14 @@ $\bar f_{\bar y \bar y}$ have the same sign. If $D < 0$, we choose the
 frame $\bar{f}_{\bar y \bar y} = -1$ and if $D \ge 0$ we choose $\bar
 f_{\bar y \bar y} = 1$. Then $d = f_x/|D|^{1/2}.$
 
-\todo[inline]{Problem here? fyyy is in MF and an invariant...}
-The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group parameter $ h = \frac{d(f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2 f_{xxy} - f_y^3 f_{xxx})}{6 f_x D},$ while $\bar f_{ \bar x \bar y \bar y}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y f_{xx}}{D}$, and $\bar f_{ \bar x \bar x}=0$ gives $ g = \frac{1}{2 f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$ In fact, the denominator of the expression for $h$ was another invariant of $A(2)$; we label it $E$ for convenience.
+The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group
+parameter $ h = \frac{f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2
+f_{xxy} - f_y^3 f_{xxx}}{6|D|^{3/2}},$ while $\bar f_{ \bar x \bar y 
+y}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y
+f_{xx}}{D}$, and $\bar f_{ \bar x \bar x}=0$ gives $ g = \frac{1}{2
+f_x^2}(f_{xx} + 2 c ( f_x f_{xy} - f_y f_{xx} ) + c^2 D).$ In fact, the
+numerator of the expression for $h$ was another invariant of $A(2)$; we
+label it $E$ for convenience.
 
 %\begin{equation}
 %E := f_{yyy}f_x^3 - 3 f_{xyy}f_x f_y^2 + 3 f_{xxy}f_x^2 f_y - f_{xxx}f_y^3.
@@ -990,7 +1130,6 @@ Having determined the frame, any function of the remaining derivatives $\bar f_{
  x\bar y\bar
  y})=\left(\frac{J_1}{D^6},\frac{J_2}{D^9},\frac{J_3}{D^3}\right).
 \end{equation*} 
-\todo[inline]{Check J2 has squared or not}
 The terms $J_1, J_2, J_3$ can be written in terms of $D$ and $E$, together
 with a polynomial of degree $n$ denoted by $P_n$. 
 \begin{equation*}
@@ -1113,7 +1252,8 @@ $\bar{f}_{\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{y}} = 0$ to solve for
 $a_2$ and $b_2$, the remaining derivative $\bar{f}_{\bar{y}\bar{y}}$ is then the
 sole second-order invariant, which we also saw for the M\"obius group: 
 \begin{equation}
-    \bar{f}_{\bar{y}\bar{y}} = \frac{f_{xx} + f_{yy}}{f_x^2 + f_y^2}.
+    \bar{f}_{\bar{y}\bar{y}} = \frac{f_{xx} + f_{yy}}{f_x^2 + f_y^2} =
+    \frac{C_1}{f_x^2 + f_y^2}.
 \label{eqn:C1}
 \end{equation}
 Continuing in this way, at derivative order $n$ two real group parameters
@@ -1123,24 +1263,51 @@ Hence at third order there are two more invariants, using the constraints
 $\bar{f}_{\bar{x}\bar{x}\bar{x}} = 0, \bar{f}_{\bar{x}\bar{x}\bar{y}} = 0$,
 the remaining derivatives are invariant:
 \begin{align}
-    \bar{f}_{\bar{x}\bar{y}\bar{y}} &= \frac{1}{(f_x^2 + f_y^2)^3} \left[
+    \bar{f}_{\bar{x}\bar{y}\bar{y}} &= 
+    \begin{multlined}[t]
+        \frac{1}{(f_x^2 + f_y^2)^3} \left[
 f_y^3f_{yyy} + f_x^2f_yf_{yyy}
             -2f_y^2f_{yy}^2 - 2f_{xx}f_y^2f_{yy} -
-            4f_xf_{xy}f_yf_{yy} - 2f_x^2 f_{xx}f_{yy} \right. \\ \nonumber
-&+ \left. f_{xxy}f_y^3 +
+            4f_xf_{xy}f_yf_{yy} - 2f_x^2 f_{xx}f_{yy} \right. \\ 
++ \left. f_{xxy}f_y^3 +
             f_x^2 f_{xxy}f_y - 4 f_x f_{xy} f_{xx} f_y + f_x^3 f_{xxx} -
-        2f_x^2 f_{xx}^2 + f_x^3 f_{xyy} \right] 
-\\ \label{eqn:C2}
-        \bar{f}_{\bar{y}\bar{y}\bar{y}} &= \frac{1}{(f_x^2 + f_y^2)^3} \left[
+    2f_x^2 f_{xx}^2 + f_x^3 f_{xyy} \right]
+    = \frac{C_2}{(f_x^2 +
+f_y^2)^3}\end{multlined} \\
+    \bar{f}_{\bar{y}\bar{y}\bar{y}} &= 
+    \begin{multlined}[t]
+        \frac{1}{(f_x^2 + f_y^2)^3} \left[
 f_xf_y^2f_{yyy} +
         f_x^3f_{yyy} - 2f_x f_y f_{yy}^2 + 2f_{xy}f_y^2f_{yy} -
-    2f_x^2f_{xy}f_{yy} - f_{xxx}f_y^3 \right. \\ \nonumber
-&- \left. f_{xyy}f_y^3 + f_xf_{xxy}f_y^2 +
+    2f_x^2f_{xy}f_{yy} - f_{xxx}f_y^3 \right. \\ 
+-  f_{xyy}f_y^3 + f_xf_{xxy}f_y^2 +
 2f_{xy}f_{xx}f_y^2 - f_x^2 f_{xxx} f_y + 2f_xf_{xx}^2 f_y - f_x^2 f_{xyy}
-f_y + f_x^3 f_{xxy} - 2f_x^2 f_{xy} f_{xx} \right] \label{eqn:C3}
+f_y \\\left.+ f_x^3 f_{xxy} - 2f_x^2 f_{xy} f_{xx}\right]
+= \frac{C_3}{(f_x^2 + f_y^2)^3}
+\end{multlined}\label{eqn:C3}
 \end{align}
+Note that the denominators of all three of these equations are the same up
+to index. We therefore clear denominators as usual and form the
+signature using our usual projection technique:
+\begin{equation}
+    \label{eq:conformalsignature}
+\mathcal{I}_{\text{Diff}_\text{con}}(f) = \frac{f}{\sqrt{C_1^6 + C_2^2 +
+C_3^2}}(C_1^3, C_2, C_3)
+\end{equation}
+This signature is continuous at all $(x,y)$ such that the three quantities
+are not simultaneously equal to zero, which occurs when $f_x = f_y = f_{xx}
+= f_{yy} = 0$, which is a codimension-1 phenomenon for images.
 
-Note that the denominators of all three of these equations are the same up to index. We therefore clear denominators as usual and form the three-dimensional signature ((\ref{eqn:C1})$^3$,(\ref{eqn:C2}),(\ref{eqn:C3})). We then project them into the unit sphere and multiply by $f$ to constrain them. This signature is continuous at all $(x,y)$ such that the three quantities are not simultaneously equal to zero, which occurs when $f_x = f_y = f_{xx} = f_{yy} = 0$, which is a codimension-1 phenomenon for images.
+An example for the conformal map $\varphi$ defined through $\varphi^{-1}$ by
+$\varphi^{-1}(z) = \frac{3}{8}(z - 2)^2 - \frac{3}{2}$ is shown in
+Figure~\ref{fig:Diffcon}.
+\begin{figure}
+\centering 
+\includegraphics[width=.45\textwidth]{Figs/f_transformed_Diffcon.png}
+\includegraphics[width=.45\textwidth]{Figs/Diffcon_signature.png}
+\caption{A sample $\text{Diff}_{con}$ Transform and 3D signature.}
+\label{fig:Diffcon}
+\end{figure}
 
 %However, we first note that the M\"obius action is locally identical to the full conformal group up to and including second order. Therefore, there are no new conformal invariants, apart from the M\"obius ones, up to second order. It is possible to identify some invariants via direct calculation using the defining geometric properties of the conformal group.
 

@@ -13,6 +13,6 @@ out = signature_switch(f, @evaluate, derivative_order, group, varargin{:});
         %F = fyy.*fxxy.^2 + fxx.*fxyy.^2 + fxyy.*fxxx.*fyyy - fyy.*fxxx.*fxyy - ...
         %fxyy.*fxxy.*fxyy - fxx.*fxxy.*fyyy;
         %sig = {C, D, E};
-        sig = {C, D, E};
+        sig = {f, C, D};
     end
 end
