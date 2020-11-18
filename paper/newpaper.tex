@@ -32,15 +32,6 @@ Object recognition, planar transformation, planar Lie groups, invariants, differ
 \end{AMS}
 
 \section{Introduction}
-\todo[inline]{
-Literature
-Discussion -- syzygies
-
-Sim(2) by contraction
-A(2) by transvectant
-Check signatures for Mobius etc.
-}
-
 The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera and any fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. 
 
 For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{Modersitzki03}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\cite{RiemannianStats} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
@@ -199,8 +190,6 @@ signature surfaces of the two images that do not overlap.
 \end{figure}
 
 \subsection{Relevant Literature}
-
-Classical invariants
 
 The theory of invariants has a rich mathematical history, starting from invariants of forms~\cite{Cayley}, where the invariants are polynomials in the coefficients of the forms, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Geometric considerations and differential invariants followed fairly quickly~\cite{Veblen1872,Tresse1894,Bouton1898,Patterson1928}, particularly because they enabled the classification of differential equations into equivalence classes~\cite{Lie1884,Littlewood44, Cartan52}. More recently, this has extended, primarily by Olver and collaborators, see e.g.,~\cite{OlverCIT} and~\cite{OlverEIS} for summaries.
 
