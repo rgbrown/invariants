@@ -14,7 +14,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Camera motion imposes transformations on the objects in an image, and these transformations will differ for objects at different positions relativele to the camera. Typically these transformations will be elements of planar Lie groups. While there have been significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We consider how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the transformation groups. 
+Changes in viewpoint, such as camera motion, impose transformations on the objects in an image, and these transformations will differ for objects at different positions relativele to the camera. Typically these transformations will be elements of planar Lie groups. While there have been significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We consider how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the transformation groups. 
 
 There are a variety of methods that can be used to identify differential invariants, and we provide examples of three of them: tensor contraction, transvectants, and the method of moving frames. We use the resulting invariants to construct practical sets to form three-dimensional invariant signatures. These signatures are not necessarily complete: the image cannot always be reconstructed uniquely up to transformation, but they are plottable, and depend at worst on third derivatives, although more channels of information, such as colour images, can reduce the highest order to derivate needed in some cases. We demonstrate the invariant signatures for each transformation group based on a simple smooth image. A full consideration of how these signatures could be used in practice will require effective methods to numerically approximate derivatives effectively for images.
 \end{abstract}
@@ -44,7 +44,7 @@ The appearance of a fixed object in a set of images can vary markedly depending 
 
 For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{Modersitzki03}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\cite{RiemannianStats} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
 
-An alternative option is to seek $\mathcal{G}$-invariant functions on $M$, which is what we consider here. In this case, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than outlines of curves.
+An alternative option is to seek $\mathcal{G}$-invariant functions on $M$. Mathematical invariants provide a useful way to identify sets of objects that are the same up to some equivalence relation, since the functions are constant for objects in the same equivalence class. For a group $\mathcal{G}$, orbits of the group form the equivalence classes. For images, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than outlines of curves under a variety of transformation groups.
 
 The introduction of an invariant signature reduces the recognition problem to one of comparing the higher-dimensional signatures (typically the signatures need to be at least three dimensional for planar images) that encode the desired self-equivalences. In this paper we introduce the mathematical considerations necessary to construct invariant signatures to the planar Lie groups (and some infinite-dimensional, pseudo-Lie groups too) that can transform 2D images. As we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups. We provide sample signature sets for the various groups we consider, and examples of the appearance of those signatures for transformations of a simple, smooth image, but do not consider the question of a complete practical implementation. We do not consider the classification of the signatures, for which either a standard image recognition algorithm can be used (see, e.g.,~\cite{Zhang20} for a survey), or a matching method such as~\cite{UsCurrents} can be used.
 
@@ -194,51 +194,15 @@ boundary that do not overlap.
 
 Classical invariants
 
-The theory of invariants has a rich mathematical history, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Polynomials, then geometry. 
+The theory of invariants has a rich mathematical history, starting from invariants of forms~\cite{Cayley}, where the invariants are polynomials in the coefficients of the forms, see e.g.,~\cite{OlverCIT,Kraft2002} for an overview. Geometric considerations and differential invariants followed fairly quickly~\cite{Veblen1872,Tresse1894,Bouton1898,Patterson1928}, particularly because they enabled the classification of differential equations into equivalence classes~\cite{Lie1884,Littlewood44, Cartan52}. More recently, this has extended, primarily by Olver and collaborators, see e.g.,~\cite{OlverCIT} and~\cite{OlverEIS} for summaries.
 
-Lie
+There has been a long-standing interest in constructing invariants for image recognition and pattern analysis, see e.g.,~\cite{Mundy1992} and~\cite{Wood1996}. This was set in the context of Lie's invariants in~\cite{VanGool1995}, where the concept of a joint (or semi-) differential invariant (an invariant that acts on the joint action of the transformation group, see~\cite{Fels1997,Olver2013}) was introduced~\cite{VanGool1992}; see also~\cite{Hubert2009}. 
 
-\cite{Cayley,Littlewood44,Cartan52,Patterson1928,Veblen1872,Lie1884}
-\cite{VanGool1995}
+A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool~\cite{Ghorbel1994,Turski2006,Smach2007,Gauthier2008}, and this can be extended to the affine group using the Fourier-Mellin transform~\cite{Reddy1996,Zhang2019} and the bispectrum~\cite{Kakarala2009,Negrinho2013}. Alternatively, integral invariants~\cite{Manay2006,Feng2010} and geometric moments can be computed. For the similarity group applied to images the original reference is \cite{Hu1962}, but see also~\cite{Hickman2011} for affine transformations, \cite{Flusser2009} for an implicit representation, and \cite{Papakostas2013} for their use in a binary pattern for image recognition, which is somewhat related to the invariant features such as SURF~\cite{SURF}.
 
-\cite{Kakarala2011}
+The group that has been of particular interest for image analysis is the projective group, because of its ubiquity in camera models. Invariants for this group have been computing using points~\cite{Gros1992,Suk2000}, geometric moments~\cite{Suk2004}, curvature~\cite{Hann2002a}, and differential and joint invariants~\cite{Hubert2007,Arora2009,Kogan2014,Li19}.
 
-There has been a long-standing interest in constructing invariants for image recognition.
-Wood1996,
-Taubin1992
-A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool~\cite{Ghorbel1994,Turski2006,Smach2007,Gauthier2008}, and this can be extended to the affine group using the Fourier-Mellin transform~\cite{Reddy1996,Zhang2019} and the bispectrum~\cite{Kakarala2009,Negrinho2013}. Alternatively, integral invariants~\cite{Manay2006,Feng2010} and moments can be computed. For the similarity group applied to images the original reference is \cite{Hu1962}, but see also~\cite{Hickman2011} for affine transformations, \cite{Flusser2009} for an implicit representation, and \cite{Papakostas2013} for their use in a binary pattern for image recognition.
-
-The group that has been of particular interest for image analysis is the projective group, because of its ubiquity in camera models. Summarise these...
-\cite{Suk2000,Suk2004,Hann2002a,Kogan2014,Li19}
-\cite{Gros1992,Hubert2007}
-
-Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis. 
-Diff invs and sigs
-
-An algorithm to compute differential and joint invariants and determine complete signature sets is described in \cite{Olver2005}. The entire set of invariants is computed using the method of moving frames (see Section~\ref{sec:movingframes}) and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants.
-
-\cite{Faugeras1994}
-
-Joint sigs
-\cite{Fels1997,Olver2013,Arora2009}
-An intermediary role is played by the “semi-differential invariants” (or, as we would
-prefer they be known, “joint differential invariants”) introduced into vision by Van Gool et. al., [34],
-
-Diff Invs
-\cite{Florack1993,Olver2007,Bouton1898}
-
-
-
-
-
-
-
-
-** FIX FAUGERAS
-
-\cite{SURF}
-
-SURF and that kind of crap
+Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis~\cite{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\cite{Cartan35} (see Section~\ref{sec:movingframes}), and which was used to construct image invariants as early as 1994 in \cite{Faugeras1994}, and the concept of an image signature built from a set of invariants~\cite{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described in \cite{Olver2005,Olver2007}. The entire set of invariants is computed using the method of moving frames and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants. 
 
 
 %Groups we've done:
@@ -1295,9 +1259,8 @@ Finally, we note that there is underlying mathematical structure that we have no
 \item $f_{xx}f_x^2 + 2 f_{xy} f_x f_y + f_{yy} f_y^2 $ is also a Lagrangian density for $-2(f_{xx} f_{yy} - f_{xy}^2)$, which arises in the Monge--Amp\`ere equations and can be written in terms of the final second-order invariant as $-2 (f_{xx} f_{yy} - f_{xy}^2) = 2 f_{xy}^2 - f_{xx}^2 - f_{yy}^2$
 \end{itemize}
 
-Functions of these invariants are invariants or relative invariants for many groups that contain $E(2)$, such as those that we have considered in this paper. Syzygies.
+Functions of these invariants are invariants or relative invariants for many groups that contain $E(2)$, such as those that we have considered in this paper. 
 
-not intensity transforms
 
 \bibliographystyle{plainnat}
 \bibliography{invariants}
