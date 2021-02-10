@@ -17,7 +17,7 @@
 \begin{abstract}
 Changes in viewpoint, such as camera motion, impose transformations on the objects in an image, and these transformations will differ for objects at different positions relativele to the camera. Typically these transformations will be elements of planar Lie groups. While there have been significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We consider how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the transformation groups. 
 
-There are a variety of methods that can be used to identify differential invariants, and we provide examples of three of them: tensor contraction, transvectants, and the method of moving frames. We use the resulting invariants to construct practical sets to form three-dimensional invariant signatures. These signatures are not necessarily complete: the image cannot always be reconstructed uniquely up to transformation, but they are plottable, and depend at worst on third derivatives, although more channels of information, such as colour images, can reduce the highest order to derivate needed in some cases. We demonstrate the invariant signatures for each transformation group based on a simple smooth image. A full consideration of how these signatures could be used in practice will require effective methods to numerically approximate derivatives effectively for images.
+There are a variety of methods that can be used to identify differential invariants, and we provide examples of three of them: tensor contraction, transvectants, and the method of moving frames. We use the resulting invariants to construct practical sets to form three-dimensional invariant signatures. These signatures are not necessarily complete: the image cannot always be reconstructed uniquely up to transformation, but they are plottable, and depend at worst on third derivatives, although more channels of information, such as colour images, can reduce the highest order of derivative needed in some cases. We demonstrate the invariant signatures for each transformation group based on a simple smooth image. A full consideration of how these signatures could be used in practice will require effective methods to numerically approximate derivatives effectively for images.
 \end{abstract}
 
 
@@ -36,13 +36,38 @@ The appearance of a fixed object in a set of images can vary markedly depending 
 
 For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.~\cite{Modersitzki03}). Hence for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\cite{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\cite{RiemannianStats} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. 
 
-An alternative option is to seek $\mathcal{G}$-invariant functions on $M$. Mathematical invariants provide a useful way to identify sets of objects that are the same up to some equivalence relation, since the functions are constant for objects in the same equivalence class. For a group $\mathcal{G}$, orbits of the group form the equivalence classes. For images, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than outlines of curves under a variety of transformation groups.
+An alternative option is to seek $\mathcal{G}$-invariant functions on $M$. Mathematical invariants provide a useful way to identify sets of objects that are the same up to some equivalence relation, since the functions are constant for objects in the same equivalence class. For a group $\mathcal{G}$, orbits of the group form the equivalence classes. For images, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. 
+This has been considered extensively by Olver and co-authors for the case of outlines of objects~\cite{Calabi1998,Hoff2013}. In this paper we consider the case of signatures for images rather than outlines of curves under a variety of transformation groups.
 
-The introduction of an invariant signature reduces the recognition problem to one of comparing the higher-dimensional signatures (typically the signatures need to be at least three dimensional for planar images) that encode the desired self-equivalences. In this paper we introduce the mathematical considerations necessary to construct invariant signatures to the planar Lie groups (and some infinite-dimensional, pseudo-Lie groups too) that can transform 2D images. As we shall show, the lattice structure of the set of groups influences the relationship between the sets of invariants for the different groups. We provide sample signature sets for the various groups we consider, and examples of the appearance of those signatures for transformations of a simple, smooth image, but do not consider the question of a complete practical implementation. We do not consider the classification of the signatures, for which either a standard image recognition algorithm can be used (see, e.g.,~\cite{Zhang20} for a survey), or a matching method such as~\cite{UsCurrents} can be used.
+A greyscale image can be viewed as a two-dimensional manifold embedded in a
+three dimensional ambient space, with coordinates $(x, y, f(x,y))$. A
+signature has coordinates $\mathcal{I}(f) = (I_1, I_2, \ldots, I_m)$ which
+are functions of the derivatives of $f(x, y))$, and will therefore be a
+two-dimensional manifold embedded in $\mathbb{R}^m$. Under a change of
+coordinates $(x, y) \mapsto (\bar{x}, \bar{y})$ induced by a group action,
+the signature of the corresponding image $\bar{f}(\bar{x}, \bar{y}) = f(x, y)$
+will have the same signature.
 
-In order for the invariant signatures to be useful to identify similarity in images, there are two key considerations: they must vary continuously with respect to the image, either for all smooth images or for all except a set of sufficiently high codimension, and they must be robust with respect to occlusions, where one object obscures some part of another. Thse constraints are essential if the signature is to be used to detect similarity of images, but the first fails for the rational invariants found in the literature. Such considerations lead one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. For this reason we focus on differential invariants. The disadvantage of such invariants, as we shall discuss, is the need to compute several orders of spatial derivative of the image.
+The introduction of an invariant signature reduces the recognition problem to
+one of comparing the signatures in a higher-dimensional space that encode the
+desired self-equivalences. For greyscale images, it is natural to seek
+signatures with three coordinates as $\mathbb{R}^3$ is the smallest space in
+which the signature surfaces can reside. In this paper we introduce the
+mathematical considerations necessary to construct invariant signatures to
+the planar Lie groups (and some infinite-dimensional, pseudo-Lie groups too)
+that can transform 2D images. As we shall show, the lattice structure of the
+set of groups influences the relationship between the sets of invariants for
+the different groups. We provide sample signature sets for the various groups
+we consider, and examples of the appearance of those signatures for
+transformations of a simple, smooth image, but do not consider the question
+of a complete practical implementation. We do not consider the classification
+of the signatures, for which either a standard image recognition algorithm
+can be used (see, e.g.,~\cite{Zhang20} for a survey), or a matching method
+such as~\cite{UsCurrents} can be used.
 
-Ideally, an invariant signature would be complete, so that the image is exactly determined by the signature up to a transformation, and two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. However, this often requires signatures in many dimensions, and potentially also more derivatives of the image. For many applications an incomplete signature is sufficient, and is what we consider here. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis.
+In order for the invariant signatures to be useful to identify similarity in images, there are two key considerations: they must vary continuously with respect to the image, either for all smooth images or for all except a set of sufficiently high codimension, and they must be robust with respect to occlusions, where one object obscures some part of another. These constraints are essential if the signature is to be used to detect similarity of images, but the first fails for the rational invariants found in the literature. Such considerations lead one naturally to consider local invariants, i.e., those defined using each point of the object as its own basepoint, together with a neighbourhood in some topology. This is sufficient to compute, e.g., derivatives of an object. For this reason we focus on differential invariants. The disadvantage of such invariants, as we shall discuss, is the need to compute several orders of spatial derivative of the image.
+
+Ideally, an invariant signature would be complete, so that the image is exactly determined by the signature up to a transformation, and two objects share a signature if and only if they differ only by a transformation from $\mathcal{G}$. However there are some pathological scenarios that occur regularly in images, particularly that flat regions of images collapse down to single points in the signature as all of the derivatives are zero in these regions. So images that are otherwise similar apart from the size of one of these regions cannot be distinguished between. For this reason, we do not pursue complete signatures, for many applications an incomplete signature is sufficient, and is what we consider here. See, e.g.,~\cite{UsMobius} and references therein for more discussion about the desirable properties of a set of invariants for image and curve analysis. 
 
 In this paper we investigate differential invariant signatures for images and parts of images under planar spatial transformations, primarily Lie groups, for both greyscale and colour images. The set of groups that we consider are shown as a lattice in Figure~\ref{fig:lattice}, where the size of the groups decrease as down the page, and the arrows denote the subgroup relationship. There is an important relationship between a group and its subgroups for invariants, which is that invariants of a group are automatically invariants of its subgroups. This means that differentiating between them requires care.
 
@@ -90,7 +115,18 @@ We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subs
 
 In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$ via the jet space~\cite{OlverEIS}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$.) As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. It can also be useful to consider the maximum order of derivative in the invariant, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2. 
 
-An $m$-dimensional signature set is the image of $m$ invariants $\mathcal{I}=(I_1,I_2,\dots,I_m)$, i.e., the set $\mathcal{I}(f)(\Omega)\subset \mathbb{R}^m$. See Section~\ref{sec:T2} for a basic example.  A signature set is complete for $f$ if it determines $f$ up to transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$ and $\tilde \Omega = \varphi(\Omega)$. If the signature is not complete, then there will be a \emph{bad set} of images that cannot be differentiated between. 
+An signature set is the image of $m$ invariants
+$\mathcal{I}=(I_1,I_2,\dots,I_m)$. For simplicity of notation we will write
+$\mathcal{I}(f)$ with the understanding that each signature component is
+actually acting on the jet space $J^d(f, \Omega, k)$. The signature
+$\mathcal{I}(f) \subset \mathbb{R}^m$. See Section~\ref{sec:T2} for a basic
+example. A signature set is complete for $f$ if it determines $f$ up to
+transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde
+f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a
+transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$
+and $\tilde \Omega = \varphi(\Omega)$. If the signature is not complete, then
+there will be a \emph{bad set} of images that cannot be differentiated
+between.
 
 The methods we use to construct the invariants, particularly the moving frames, produces invariants that, when considered alone, are singular at certain points (for example, critical points). However, in all groups considered the invariants are rational functions of the derivatives of the function. Moreover, the denominators of these functions are powers of each other, and so it is possible to clear them, thus removing these singular points by a projection technique that will be introduced in Section~\ref{sec:Sim2}.
 
@@ -114,8 +150,7 @@ where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. %It 
 
 %Groups we've done:
 %translations, E(2), Sim(2), SA(2), A(2), PSL(2,C), PSL(3,R), Diff\_con, Diff\_vol, Diff
-\subsection{Example signatures}
-
+\subsection{Test image}
 In this paper our aim is develop the mathematical underpinnings of
 constructing differential invariant signatures for images under the action
 of planar Lie groups. However, as we develop the signature for each group,
