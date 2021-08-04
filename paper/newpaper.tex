@@ -104,7 +104,7 @@ f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a
 transformation $\varphi\in \mathcal{G}$ such that $\tilde f = \varphi\cdot f$
 and $\tilde \Omega = \varphi(\Omega)$. 
 
-The methods we use to construct the invariants, particularly the moving frames, produces invariants that, when considered alone, are singular at points (such as critical points). However, in all groups considered the invariants are rational functions of the derivatives of the function. Moreover, the denominators of these functions are powers of each other, and so it is possible to clear them by a projection technique that will be introduced in Section~\ref{sec:Sim2}.
+The methods we use to construct the invariants, particularly the moving frames, produce invariants that are singular at points such as critical points. In all groups considered the invariants are rational functions of the derivatives of the function. Moreover, the denominators of these functions are powers of each other, and so it is possible to clear the denominators, thereby removing the singularity, by a projection technique that will be introduced in Section~\ref{sec:Sim2}.
 
 For the case of two-dimensional greyscale images it is often convenient to work in coordinates. In this case the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$ is given by (where $f$ and $\mathbf{x}$ denote the original image and coordinates, and $\bar{f}$ and $\bar{\mathbf{x}}$ the transformed versions):
 \begin{equation}\label{eq:transformation}
@@ -196,8 +196,8 @@ signature surfaces of the two images that do not overlap.
   \end{tabular}
   \caption{(a), (b) The image before and after the $T(2)$ transformation $(x,
   y) \mapsto (x + 0.1, y - 0.2)$. (c) the signature of the
-  image (before translation). (d) the signatures before and after the
-  translation superimposed.}\label{fig:T2}
+  image (before translation). (d) the signatures before (blue) and after (red)
+  the translation superimposed, showing that the signature surface is invariant.}\label{fig:T2}
 \end{figure}
 
 \subsection{Relevant Literature}
@@ -208,7 +208,7 @@ There has been a long-standing interest in constructing invariants for image rec
 
 A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool~\citep{Ghorbel1994,Turski2006,Smach2007,Gauthier2008}, and this can be extended to the affine group using the Fourier-Mellin transform~\citep{Reddy1996,Zhang2019} and the bispectrum~\citep{Kakarala2009,Negrinho2013}. Alternatively, integral invariants~\citep{Manay2006,Feng2010} and geometric moments can be computed. For the similarity group applied to images the original reference is \citet{Hu1962}, but see also~\citet{Hickman2011} for affine transformations, \citet{Flusser2009} for an implicit representation, and \citet{Papakostas2013} for their use in a binary pattern for image recognition, which is somewhat related to the invariant features such as SURF~\citep{SURF}.
 
-The group that has been of particular interest for image analysis is the projective group, because of its ubiquity in camera models. Invariants for this group have been computing using points~\citep{Gros1992,Suk2000}, geometric moments~\citep{Suk2004}, curvature~\citep{Hann2002a}, and differential and joint invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.
+The group that has been of particular interest for image analysis is the projective group, because of its ubiquity in camera models. Invariants for this group have been computed using points~\citep{Gros1992,Suk2000}, geometric moments~\citep{Suk2004}, curvature~\citep{Hann2002a}, and differential and joint invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.
 
 Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis~\citep{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\citep{Cartan35} (see Section~\ref{sec:movingframes}), and which was used to construct image invariants as early as 1994 by \citet{Faugeras1994}, and the concept of an image signature built from a set of invariants~\citep{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described by \citet{Olver2005,Olver2007}. The entire set of invariants is computed using the method of moving frames and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants. 
 
@@ -250,11 +250,11 @@ For example, up to second derivatives, we have the following Euclidean invariant
 \begin{equation}
 \label{eq:e2tensor}
 \begin{aligned}
-  I_0 &= f = f \\
-  I_1 &= f_if_i = f_x^2 + f_y^2 \\
-  I_2 &= f_{ii} = f_{xx} + f_{yy} \\
-  I_3 &= f_{ij} f_{ij} = f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \\
-  I_4 &= f_i f_j f_{ij} = f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}.
+  I_0 &= f = f \,,\\
+  I_1 &= f_if_i = f_x^2 + f_y^2  \,,\\
+  I_2 &= f_{ii} = f_{xx} + f_{yy} \,,\\
+  I_3 &= f_{ij} f_{ij} = f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2 \,,\\
+  I_4 &= f_i f_j f_{ij} = f_x^2 f_{xx} + 2f_x f_y f_{xy} + f_y^2 f_{yy}\,.
 \end{aligned}
 \end{equation}
 
@@ -289,8 +289,8 @@ $\bar{\mathbf{x}} = \varphi(\mathbf{x}) = sU\mathbf{x} + \mathbf{t}$, where $U^T
 also allows for isotropic scaling. In image applications, similarity
 transformations arise from operations like zooming.
 
-Under similarity transformations, the Euclidean invariants become
-\emph{relative invariants}, i.e., each derivative introduces a multiple of $s$ to
+Under transformations by $\text{Sim}(2)$, the Euclidean invariants become
+\emph{relative} invariants, i.e., each derivative introduces a multiple of $s$ to
 each invariant. For example, $\bar{f}_{\bar x}^2 + \bar{f}_{\bar y}^2 =
 s^2(f_x^2 + f_y^2)$ and $\bar{f}_{\bar x \bar x}^2 + 2\bar{f}_{\bar x \bar
 y}^2 + \bar{f}_{\bar y \bar y} = s^4 (f_{xx}^2 + 2f_{xy}^2 + f_{yy}^2$). We
