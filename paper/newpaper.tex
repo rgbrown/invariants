@@ -32,7 +32,7 @@ Object recognition, planar transformation, planar Lie groups, invariants, differ
 \end{AMS}
 
 \section{Introduction}
-The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera against a fixed background. The appearance of each individual object will then vary independently as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. 
+The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera against a fixed background. The appearance of each individual object will then chnge in different ways as a constant camera motion or other such transformation is applied. Typically the individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. 
 
 For image recognition it is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the appearance transformations form a group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$. One way to achieve this is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.,~\citep{Modersitzki03}). For example, for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\citep{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\citet{RiemannianStats} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. The alternative approach, of showing examples of each object after applying sufficiently many transformations that the classifier can learn to recognise the object after any group transformation, inevitably scales extremely badly.
 
@@ -407,7 +407,7 @@ diagram:
 where the double edge corresponds to the two copies of $\Omega_{12}$ (the names are purely for convenience), i.e.,
 the weight is the number of edges in the graph.
 
-Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} shows all possible non-zero partial
+Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} show all possible non-zero partial
 transvectants of $A_2$ up to weight $4$ that can be generated in this way.
 
 \begin{table}
@@ -624,18 +624,7 @@ from other transformation groups, so for future reference, we define:
 
 \subsection{Signatures of $SA(2)$ and $A(2)$}
 
-The action of the affine group $A(2)$ arises in images as the motion of
-planar objects in images taken from a distant camera. Recall that
-because of the subgroup relationship, invariants of $A(2)$ are automatically invariants
-of $SA(2)$, but not necessarily vice versa. Any of the partial
-transvectants found in Tables~\ref{tab:transvectants1}
-and~\ref{tab:transvectants2} are relative invariants of $SA(2)$ (as the determinant
-is $1$). Hence, we can form a signature for $SA(2)$ by choosing any combination of
-partial transvectants. We choose a signature with three components so that
-it can be visualised as a three-dimensional surface; note that this will
-not be complete and may well have a very large bad set. For example, we can
-choose the function value together with $C$ and $D$ from Eq.~\eqref{eq:cde}
-to form the signature: 
+The action of the affine group $A(2)$ arises in images as the motion of planar objects in images taken from a distant camera. Because $SA(2)$ is a subgroup of $A(2)$, any invariant of $A(2)$ is also an invariant of $SA(2)$, but not necessarily vice-versa. Any of the partial transvectants found in Tables~\ref{tab:transvectants1} and~\ref{tab:transvectants2} are invariants of $SA(2)$ as the determinant is $1$. Hence, we can form a signature for $SA(2)$ by choosing any combination of partial transvectants. We choose a signature with three components so that it can be visualised as a three-dimensional surface; note that this will not be complete and may well have a very large bad set. For example, we can choose the function value together with $C$ and $D$ from Eq.~\eqref{eq:cde} to form the signature: 
 
 \begin{equation}
     \label{eq:SA2signature}
@@ -689,8 +678,7 @@ Fig.~\ref{fig:A2} shows the signature of our test image under this transformatio
 
 So far, the methods that we have seen to construct differential invariants for particular groups are not directly generalisable. It is natural to ask if there is an algorithmic approach that will yield invariants more directly. The answer is a qualified yes. There is a general method, based on Cartan's method of moving frames, that is generally applicable, but finding good solutions with it still requires some ingenuity in general. Olver and co-authors have popularised the approach and made it applicable to object recognition based on outline curves, see~\citet{Olver2005} for an overview, and note particularly the original application paper~\citep{Calabi1998}.  We introduce the method here and then demonstrate its use to find invariants to further groups, but for further technical details see~\citet{OlverCIT}. 
 
-A moving frame is a mapping into a group $\mathcal{G}$ that provides a frame of reference along a manifold.  It was extended by~\citet{Cartan35} to the `method of moving frames'. If the group $\mathcal{G}$ is a Lie group then it has a homogeneous space and a frame of reference can be applied on the manifold structure of the group. Considering the actions of such a transformation group enables the identification of invariants to that group since it defines a $\mathcal{G}$-equivariant mapping. A (right-) moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$, where $z \in J^d$. It is necessary~\citep{Olver2013} for the group act freely. This means that the group action needs to be extended to the entire jet space of derivatives up to order $d$ by implicit differentiation of the group action, a process known as prolongation.
-
+A moving frame is a mapping into a group $\mathcal{G}$ that provides a frame of reference along a manifold.  It was extended by~\citet{Cartan35} to the `method of moving frames'. If the group $\mathcal{G}$ is a Lie group then it has a homogeneous space and a frame of reference can be applied on the manifold structure of the group. Considering the actions of such a transformation group enables the identification of invariants to that group since it defines a $\mathcal{G}$-equivariant mapping. A (right-) moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$, where $z \in J^d$ and where $\cdot$ denotes the group operation of $\mathcal{G}$. It is necessary~\citep{Olver2013} for the group to act freely. This means that the group action needs to be extended to the entire jet space of derivatives up to order $d$ by implicit differentiation of the group action, a process known as prolongation.
 
 The procedure to construct differential invariants to the action of Lie group $\mathcal{G}$ acting on manifold $\mathcal{M}$ using the method of moving frames is as follows:
 
