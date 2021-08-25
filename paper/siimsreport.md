@@ -53,29 +53,31 @@ Detailed comments:
 *Reworded to make intention clear*
 - [x] Figure 3 (d): this figure does not show very much, what do we see here? The figure should be improved or removed.
 *Added description to clarify*
-- [ ] Section 1.4: The historical remarks are in chronological order but not the references. It seems that the work of Lie was enabled by work done in 1929, in 1984 and in 1928!
+- [x] Section 1.4: The historical remarks are in chronological order but not the references. It seems that the work of Lie was enabled by work done in 1929, in 1984 and in 1928!
+*This seems to be a bibtex sorting issue. The ref is correct for 1884
 - [x] line 192 computing -> computed
 - [ ] line 203: a reference to the book on moving frames by Liz Mansfield should be added.
 - [x] line 237 "." should be moved at the end of the previous formula
 - [x] line 244: "similarity transformations" could be misunderstood, suggest to use "transformations by Sim(2)"
 - [x] line 244: backslash \emph{relative}
 - [ ] lines 260 and 261: is this ment to be the definition of transvectant? It is very unclear.
+*Vote to ignore: the other referees are OK!
 - [ ] line 264 and following: from this explanation it is very unclear what is Cayley's Omega Process and what it means to be a relative invariant, things are much clearer in "Lectures on moving frames" by P. Over, http://www-users.math.umn.edu/~olver/mf_/mfm.pdf. Perhaps this introductory part should be shorted down to a minimum referring to the literature.
-
-    *That document doesn't touch transvectants at all*
+*That document doesn't touch transvectants at all
+* SM: I vote for ignoring this. 
 - [x] line 308: Table 1 and 2 shows -> show
 - [x] line 314: "Recall that invariants .." perhaps could add a reference here.
-
-    *Not necessary, but have reworded to make the triviality of this statement clearer*
-- [ ] lines 348 to 350: I do not understand this sentence! What does it mean that a Lie group has a homogeneous space? What does it means that a frame of reference can be applied on the manifold structure of the group? What is a frame of reference in this context?  
-*Stephen/Robert?*
+*Not necessary, but have reworded to make the triviality of this statement clearer
+- [x] lines 348 to 350: I do not understand this sentence! What does it mean that a Lie group has a homogeneous space? What does it means that a frame of reference can be applied on the manifold structure of the group? What is a frame of reference in this context?  
+*Rewritten
 - [x] line 353 group act freely -> group to act freely
-- [ ] line 361: please clarify the notation here, it seems that F could be the prolonged group action, what is the notation for the group action, just "\cdot"? F is introduced without definition in line 361. But F could also be a generic function defined on the manifold that we are trying to "invariantize". An example is the case when F is the coordinate function Z_i:M ->R
-
-    *I've introduced the \cdot notation for the group operation earlier in the paragraph. Stephen, not sure what $F$ is here ... should we be defining everything with reference to a function (our image) rather than a generic manifold?*
-
+- [x] line 361: please clarify the notation here, it seems that F could be the prolonged group action, what is the notation for the group action, just "\cdot"? F is introduced without definition in line 361. But F could also be a generic function defined on the manifold that we are trying to "invariantize". An example is the case when F is the coordinate function Z_i:M ->R
+*I've introduced the \cdot notation for the group operation earlier in the paragraph. Stephen, not sure what $F$ is here ... should we be defining everything with reference to a function (our image) rather than a generic manifold?
+*I think it came along for the ride from an earlier more expansive version. Removed.
 - [ ] lines 340 to 381: I found this introduction to moving frame impossible to understand without using the literature. This part should be either substantially improved or reduced to a minimum including appropriate references.
+*I've done a bit of rewriting, but think we can ignore this
 - [ ] Sections 4.1 to 4.5 contain examples where the invariant signatures surfaces are constructed for certain Lie groups of interest, possibly some of these examples have been published somewhere before in the literature on moving frames, if so references should be included here. Some of the formulae of section 4 are rather daunting and should be moved to an appendix shortening the main body of the paper.
+*I vote for ignoring this
 
 
 ### Referee #2 (Remarks to the Author):
@@ -91,21 +93,15 @@ In conclusion, while the paper could serve as useful reference for further poten
 Specific comments:
 
 - [x] l. 28: I am not sure why the authors say "vary independently", as objects experience coupled motions as the camera is moved.
-
-    *Changed to "change in different ways"*
+*Changed to "change in different ways"
 - [ ] l. 124-125: See Kruglikov, B., Lychagin, V., Global Lie--Tresse theorem, Selecta Math.; 22 (2016) 1357-1411 for general results on rational differential invariants for algebraic group actions.
 - [x] l. 244: misprint at the end of the line.
 - [ ] l. 348 While the method of moving frames was developed extensively by Cartan, the modern approach based on equivariant maps that is used here does not appear in Cartan, but was introduced in the paper Fels, M., Olver, P.J., Moving coframes. II. Regularization and theoretical foundations, Acta Appl. Math. 55 (1999), 127-208.  
-
-    *Somehow we left this out of our bibliography ...*
-
+*Somehow we left this out of our bibliography ...
 - [ ] l. 432-440: it would be worth explaining how the moving frame-based Replacement Theorem (see the above reference) can be used to easily rewrite any differential invariant in terms of the moving frame differential invariants.
-
-    *We should probably do this, or at least reference the idea*
-
+*We should probably do this, or at least reference the idea
 - [ ] Section 4.4: the authors should relate their projective differential invariants with those in the cited 2019 paper by Li et. al.
-
-    *And also Olver's preprint*
+*And also Olver's preprint
 
 
 
