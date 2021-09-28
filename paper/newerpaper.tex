@@ -162,7 +162,16 @@ There has been a long-standing interest in constructing invariants for image rec
 
 A variety of function spaces have allowed for the creation of different sets of invariants for particular groups. For the Euclidean group, the Fourier transform provides a useful tool~\citep{Ghorbel1994,Turski2006,Smach2007,Gauthier2008}, and this can be extended to the affine group using the Fourier-Mellin transform~\citep{Reddy1996,Zhang2019} and the bispectrum~\citep{Kakarala2009,Negrinho2013}. Alternatively, integral invariants~\citep{Manay2006,Feng2010} and geometric moments can be computed. For the similarity group applied to images the original reference is \citet{Hu1962}, but see also~\citet{Hickman2011} for affine transformations, \citet{Flusser2009} for an implicit representation, and \citet{Papakostas2013} for their use in a binary pattern for image recognition, which is somewhat related to the invariant features such as SURF~\citep{SURF}.
 
-The group that has been of particular interest for image analysis is the projective group, because of its ubiquity in camera models. Invariants for this group have been computed using points~\citep{Gros1992,Suk2000}, geometric moments~\citep{Suk2004}, curvature~\citep{Hann2002a}, and differential and joint invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.
+The group that has been of particular interest for image analysis is the
+projective group, because of its ubiquity in camera models. Invariants for
+this group have been computed using points~\citep{Gros1992,Suk2000},
+geometric moments~\citep{Suk2004}, curvature~\citep{Hann2002a}, and
+differential and joint
+invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.  . In particular
+Olver, in \citet{Olver2020}, uses the same approach as we do in
+\S\ref{sec:projective}, but with a different moving frame normalization to
+produce a different set of projective image invariants.
+
 
 Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis~\citep{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\citep{Cartan35} (see Section~\ref{sec:movingframes}), which was used to construct image invariants as early as 1994 by \citet{Faugeras1994}, and the concept of an image signature built from a set of invariants~\citep{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described by \citet{Olver2005,Olver2007}
 The entire set of invariants is computed using the method of moving frames and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants. Further work, including applications to ODEs and the Calculus of Variations can be found in~\cite{Mansfield}.
@@ -1066,7 +1075,7 @@ phenomenon for images.
 %Any such signature that includes $J_1$ and $J_2$ is 
 
 
-\subsection{The Projective Group}
+\subsection{The Projective Group}\label{sec:projective}
 
 The action of the projective group arises naturally through the movements of the camera viewing planar objects.
 We consider the eight-dimensional group $PSL(3,\R)$ acting on $\R^2$ by projective transformations, i.e., 
