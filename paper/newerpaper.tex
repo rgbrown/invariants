@@ -1,4 +1,7 @@
-\documentclass[review,onefignum,onetabnum]{siamonline190516}
+
+\documentclass{artjlt}
+
+% Load whatever packages you need
 \usepackage{amsmath,amsfonts,graphicx}
 \def\R{\mathbb{R}}
 \usepackage{mathtools}
@@ -8,35 +11,61 @@
 \usepackage{array}
 \usepackage{natbib}
 
-\date{\today}
+% Make sure to set *all* of the following
 \title{Differential invariant signatures for planar Lie group transformations with application to images}
 \author{Richard Brown, Stephen Marsland, and Robert McLachlan}
+\lastname{Brown, Marsland, McLachlan}  %<-------------------
+
+% Mathematics Subject Classification 2000
+\msc{65D18, 53A55, 68U10}
+
+% Keywords and phrases
+\keywords{ Object recognition, planar transformation, planar Lie groups, invariants, differential invariant signature}
+
+% For each author, add one of the following
+\address{%
+Richard Brown \\               %<-------------------
+School of Information and Mathematical Sciences, Massey University, Palmerston North, New Zealand\\            %<-------------------
+r.g.brown@massey.ac.nz                %<-------------------
+}
+\address{%
+Stephen Marsland \\               %<-------------------
+School of Mathematics and Statistics, Victoria University of Wellington, Wellington, New Zealand\\            %<-------------------
+stephen.marsland@vuw.ac.nz                %<-------------------
+}
+\address{%
+Robert McLachlan \\               %<-------------------
+School of Information and Mathematical Sciences, Massey University, Palmerston North, New Zealand\\            %<-------------------
+r.mclachlan@massey.ac.nz                %<-------------------
+}
+
+
+
+%
+% The following are for editors only.
+%
+%\volume{VOLUME}
+%\annum{YEAR}
+%\issue{ISSUE}
+%\editor{NAME OF EDITOR}
+%\received{Date article was first received} 
+%\final{Date final version was received} 
+
 
 \begin{document}
 \maketitle
 \begin{abstract}
-The actions of different various Lie groups underlie the change of appearance of objects in images as the viewpoint changes, e.g., through camera motion. While there have been significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We demonstrate how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the relevant Lie groups. 
+The actions of different various Lie groups underlie the change of appearance of objects in images as the viewpoint changes, e.g., through camera motion. Despite significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We demonstrate how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the relevant Lie groups. 
 
 There are a variety of methods that can be used to identify differential invariants, and we provide examples of three of them: tensor contraction, transvectants, and the method of moving frames. We use the resulting invariants to construct practical sets to form three-dimensional invariant signatures. These signatures are not necessarily complete: the image cannot always be reconstructed uniquely up to transformation, but they are plottable, and depend at worst on third derivatives, although more channels of information, such as colour images, can reduce the highest order of derivative needed in some cases. We demonstrate the invariant signatures for each transformation group based on a simple smooth image. A full consideration of how these signatures could be used in practice will require effective methods to numerically approximate derivatives for images.
 \end{abstract}
 
-
-% REQUIRED
-\begin{keywords}
-Object recognition, planar transformation, planar Lie groups, invariants, differential invariant signature
-\end{keywords}
-
-% REQUIRED
-\begin{AMS}
-65D18, 53A55, 68U10
-\end{AMS}
-
 \section{Introduction}
-The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera against a fixed background. The appearance of each individual object will then chnnge in different ways as a constant camera motion or other such transformation is applied. The individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. 
+The appearance of a fixed object in a set of images can vary markedly depending upon such variables as pose and position relative to the camera, even though the object itself does not change. This is even more marked in scenes that consist of multiple objects at different distances and orientations to the camera against a fixed background. The appearance of each individual object will then change in different ways as a constant camera motion or other such transformation is applied. The individual transformations will appear as the action of an element of a planar Lie group, for example the affine, or projective groups, or an angle-preserving transformation from the conformal group, depending upon the camera model. 
 
-It is then natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the transformations form a Lie group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$.  One way to achieve this is to seek $\mathcal{G}$-invariant functions on $M$. Mathematical invariants provide a useful way to identify sets of objects that are the same up to some equivalence relation, since the functions are constant for objects in the same equivalence class (orbits of the group). For images, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\citep{Calabi1998,Hoff2013}. We extend this by considering the case of signatures for images rather than outlines of curves under a variety of planar Lie transformation groups, particularly those of relevance to image analysis.
+It is therefore natural to seek representations of objects that do not change as these various transformation groups act. If the space of objects is denoted $M$ and the transformations form a Lie group $\mathcal{G}$, then mathematically one seeks a way to study objects in $M / \mathcal{G}$, such as by seeking $\mathcal{G}$-invariant functions on $M$. Mathematical invariants provide a useful way to identify sets of objects that are the same up to some equivalence relation, since the functions are constant for objects in the same equivalence class (orbits of the group). For images, rather than considering the image of the object, one constructs an invariant signature of some kind, which represents the object modulo the action of elements from the relevant group. This has been considered extensively by Olver and co-authors for the case of outlines of objects~\citep{Calabi1998,Hoff2013}. We extend this by considering the case of signatures for images rather than outlines of curves under a variety of planar Lie transformation groups, particularly those of relevance to image analysis.
 
-In this paper our aim is to follow the mathematical underpinnings of constructing differential invariant signatures for images under the action of (nested) planar Lie groups, and to summarise the impediments to a practical implementation, including the number of derivatives required. We demonstrate three distinct methods of computing differential invariants: by tensor contraction, using the theory of transvectants, and via the method of moving frames, applying the methods to a variety of the planar Lie groups, providing sample signature sets for the various groups we consider, together with an example of a sample signature surface based on a random transformation of a simple, smooth image.
+In this paper our aim is to follow the mathematical underpinnings of constructing differential invariant signatures for images under the action of (nested) planar Lie groups, and to summarise the impediments to a practical implementation, including the number of derivatives required. We demonstrate three distinct methods of computing differential invariants: by tensor contraction, using the theory of transvectants, and via the method of moving frames, applying the methods to a variety of the planar Lie groups, and providing sample signature sets for the various groups we consider, together with an example of a sample signature surface based on a random transformation of a simple, smooth image.
 
 %An alternative option is by transforming all objects to match a chosen target object by registration (the transformation of the appearance of one shape to match another, typically by gradient descent on a matching function, see e.g.,~\citep{Modersitzki03}). For example, for the group of similarity transformations (rotation and reflection, translation, and scale), a Procrustes alignment~\citep{Kendall1989} will place all of the shapes into the reference frame of one template example. However, analysis on these quotient spaces is rarely simple (see e.g.,~\citet{RiemannianStats} for a basic primer), and if one is interested in the object, and not the transformation, then it necessitates a lot of computational work for relatively little benefit. The alternative approach, of showing examples of each object after applying sufficiently many transformations that the classifier can learn to recognise the object after any group transformation, inevitably scales extremely badly.
 
@@ -48,7 +77,7 @@ We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subs
 
 In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$ via the jet space~\citep{Kruglikov2011,OlverEIS}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$.) As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. It can also be useful to consider the maximum order of derivative in the invariant, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2. 
 
-The methods we use to construct the invariants, particularly the moving frames, produce invariants that are singular at points such as critical points. In all groups considered the invariants are rational functions of the derivatives of the function. Moreover, the denominators of these functions are powers of each other, and so it is possible to clear the denominators, thereby removing the singularity, by a projection technique that will be introduced in Section~\ref{sec:Sim2}.
+The methods we use to construct the invariants, particularly the moving frame, produce invariants that are singular at points such as critical points. In all groups considered the invariants are rational functions of the derivatives of the function. Moreover, the denominators of these functions are powers of each other, and so it is possible to clear the denominators, thereby removing the singularity, by a projection technique that will be introduced in Section~\ref{sec:Sim2}.
 
 For the case of two-dimensional greyscale images it is often convenient to work in coordinates. In this case the transformation group action by a coordinate transformation $\varphi \colon \mathbb{R}^2 \to \mathbb{R}^2$ is given by (where $f$ and $\mathbf{x}$ denote the original image and coordinates, and $\bar{f}$ and $\bar{\mathbf{x}}$ the transformed versions):
 \begin{equation}\label{eq:transformation}
@@ -71,7 +100,7 @@ where $\bar{x}_x = \frac{\partial \varphi_1}{\partial x}(x, y)$, et cetera. %It 
 A signature set is the image of $m$ invariants
 $\mathcal{I}=(I_1,I_2,\dots,I_m)$. For simplicity of notation we will write
 $\mathcal{I}(f) \subset \mathbb{R}^m$ with the understanding that each signature component is
-actually acting on the jet space $J^d(f, \Omega, k)$. See Section~\ref{sec:T2} for a basic
+actually acting on the jet space $J^d(f, \Omega, k)$; see Section~\ref{sec:T2} for a basic
 example. A signature set is complete for $f$ if it determines $f$ up to
 transformations from $\mathcal{G}$, i.e., if $\mathcal{I}(\tilde
 f)(\tilde\Omega) = \mathcal{I}(f)(\Omega)$ implies that there exists a
@@ -135,7 +164,7 @@ A variety of function spaces have allowed for the creation of different sets of 
 
 The group that has been of particular interest for image analysis is the projective group, because of its ubiquity in camera models. Invariants for this group have been computed using points~\citep{Gros1992,Suk2000}, geometric moments~\citep{Suk2004}, curvature~\citep{Hann2002a}, and differential and joint invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.
 
-Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis~\citep{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\citep{Cartan35} (see Section~\ref{sec:movingframes}), and which was used to construct image invariants as early as 1994 by \citet{Faugeras1994}, and the concept of an image signature built from a set of invariants~\citep{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described by \citet{Olver2005,Olver2007}
+Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis~\citep{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\citep{Cartan35} (see Section~\ref{sec:movingframes}), which was used to construct image invariants as early as 1994 by \citet{Faugeras1994}, and the concept of an image signature built from a set of invariants~\citep{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described by \citet{Olver2005,Olver2007}
 The entire set of invariants is computed using the method of moving frames and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants. Further work, including applications to ODEs and the Calculus of Variations can be found in~\cite{Mansfield}.
 
 %Groups we've done:
