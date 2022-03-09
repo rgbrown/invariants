@@ -56,7 +56,7 @@ r.mclachlan@massey.ac.nz                %<-------------------
 \begin{document}
 \maketitle
 \begin{abstract}
-The actions of different various Lie groups underlie the change of appearance of objects in images as the viewpoint changes, e.g., through camera motion. Despite significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We demonstrate how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the relevant Lie groups. 
+The actions of various Lie groups underlie the change of appearance of objects in images as the viewpoint changes, e.g., through camera motion. Despite significant advances in object recognition using machine learning in recent years, the question of how to recognise an object in an image as its appearance varies through camera motion and similar effects remains open. We demonstrate how differential invariant signatures can be derived for each of the transformation groups, and how the underlying invariances reflect the group-subgroup structure of the relevant Lie groups. 
 
 There are a variety of methods that can be used to identify differential invariants, and we provide examples of three of them: tensor contraction, transvectants, and the method of moving frames. We use the resulting invariants to construct practical sets to form three-dimensional invariant signatures. These signatures are not necessarily complete: the image cannot always be reconstructed uniquely up to transformation, but they are plottable, and depend at worst on third derivatives, although more channels of information, such as colour images, can reduce the highest order of derivative needed in some cases. We demonstrate the invariant signatures for each transformation group based on a simple smooth image. A full consideration of how these signatures could be used in practice will require effective methods to numerically approximate derivatives for images.
 \end{abstract}
@@ -76,7 +76,7 @@ A greyscale image can be viewed as a two-dimensional manifold embedded in a thre
 
 We define a {\em $k$-colour image} as a triple $(f,\Omega,k)$ where $\Omega\subset\R^n$ (typically, images are planar, so $n=2$), $1\le k\in\mathbb{Z}$ is the number of colour channels, and $f\colon\Omega\to\R^k$. The function $f$ will be taken to be as smooth as necessary. Consider a (finite or infinite-dimensional) local transformation group $\mathcal{G}$.  A transformation $\varphi\in G$ acts on images by $\varphi\cdot (f,\Omega,k) = (f\circ\varphi^{-1},\varphi(\Omega),k)$. We mostly consider greyscale images, so $k=1$. Also, since we work locally, we will usually omit the domain $\Omega$.
 
-In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$ via the jet space~\citep{Kruglikov2011,OlverEIS}. The $d$-th order jet space $J^d$ consists of the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$.) As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. It can also be useful to consider the maximum order of derivative in the invariant, which we term degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2. 
+In order to define differential invariants, it is necessary to identify how the group transformation $\varphi$ acts on derivatives of the function $f$ via the jet space~\citep{Kruglikov2011,OlverEIS}. The $d$-th order jet space $J^d$ is coordinatised by the function itself and the set of all partial derivatives of the function up to order $d$. (Note that there are $\left( \begin{array}{c} d+k-1 \\ k \end{array} \right)$ partial derivatives of order $d$.) As the group $\mathcal{G}$ is local, it acts naturally on derivatives of the transformation, and so each individual transformation $\varphi \in \mathcal{G}$ can be prolonged to act on the jet space $J^d$. We can thus prolong the action of the group and consider the action of $\mathcal{G}$ on not just $f$, but all derivatives of $f$ up to order $d$. A $d$-th order differential invariant is then a local scalar function $I: J^{d} (f,\Omega, k) \to \mathbb{R}$ that is invariant under the action of $\mathcal{G}$, i.e., $I(\varphi(f,\Omega, k)) = I(f, \Omega, k) \forall \varphi \in \mathcal{G}$. It can also be useful to consider the maximum order of derivative in the invariant, which we term the degree, e.g., $f_{xy}^2 f_x f_y$ has degree 2. 
 
 The methods we use to construct the invariants, particularly the moving frame, produce invariants that are singular at points such as critical points. In all groups considered the invariants are rational functions of the derivatives of the function. Moreover, the denominators of these functions are powers of each other, and so it is possible to clear the denominators, thereby removing the singularity, by a projection technique that will be introduced in Section~\ref{sec:Sim2}.
 
@@ -168,13 +168,13 @@ projective group, because of its ubiquity in camera models. Invariants for
 this group have been computed using points~\citep{Gros1992,Suk2000},
 geometric moments~\citep{Suk2004}, curvature~\citep{Hann2002a}, and
 differential and joint
-invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.  . In particular
+invariants~\citep{Hubert2007,Arora2009,Kogan2014,Li19}.  In particular
 Olver, in \citet{Olver2020}, uses the same approach as we do in
 \S\ref{sec:projective}, but with a different moving frame normalization to
 produce a different set of projective image invariants.
 
 
-Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and well-behaved with respect to small changes in the image, has made them popular for researchers in image analysis~\citep{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\citep{Cartan35} (see Section~\ref{sec:movingframes}), which was used to construct image invariants as early as 1994 by \citet{Faugeras1994}, and the concept of an image signature built from a set of invariants~\citep{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described by \citet{Olver2005,Olver2007}
+Although there are computational challenges regarding the numerical approximation of derivatives on images, the fact that differential invariants are robust to occlusion, cheap to compute, and are based on local computations, has made them popular for researchers in image analysis~\citep{Florack1993}. Two particular tools have been key to this: Cartan's moving frame~\citep{Cartan35} (see Section~\ref{sec:movingframes}), which was used to construct image invariants as early as 1994 by \citet{Faugeras1994}, and the concept of an image signature built from a set of invariants~\citep{Calabi1998}. An algorithm to compute differential and joint invariants and determine complete signature sets is described by \citet{Olver2005,Olver2007}
 The entire set of invariants is computed using the method of moving frames and then the signature set of a maximal set of functionally independent invariants is identified. A third step is possible, in which the dimension of the signature set is reduced by eliminating those invariants whose values can be computed from the values of derivatives of some subset of the invariants. Further work, including applications to ODEs and the Calculus of Variations can be found in~\cite{Mansfield}.
 
 %Groups we've done:
@@ -217,7 +217,8 @@ f(x, y) = \exp(-2x^2 - 4\sin^2(y + 0.5x^2))
 
 The function is depicted as a greyscale image in Fig.~\ref{fig:function}.
 We will use this function throughout, using the grid on the right of the figure to help visualise both the transformation and how the image
-is mapped into the three-dimensional signature surface. 
+is mapped into the three-dimensional signature surface. Note that there is nothing particularly special about this particular function; it has relatively 
+well-behaved derivatives, includes a critical point, and decays towards the boundary of the image.
 
 \begin{figure}
   \centering
@@ -350,15 +351,15 @@ invariant. However, this invariant is singular whenever $f_{xx} + f_{yy} =
 
 A better approach is to take three invariants of the same weight.
 Taking $I_1^2$, $I_2^2$, and $I_3$ from \eqref{eq:e2tensor}, all of which are
-weight $4$, they can be projected on to the unit sphere, which can be
-multiplied by $I_0 = f$ to form a signature surface. This signature is
-defined by:
+weight $4$, defines a surface up to scale, and so they can be projected on to the unit sphere. 
+We therefore multiply by another invariant to form the signature surface; an appropriate choice 
+is $I_0 = f$. This signature is defined by:
 \begin{equation}
     \label{eq:sim2signature}
 \mathcal{I}_{\text{Sim(2)}}(f) = \frac{f}{\sqrt{I_1^4 + I_2^4 + I_3^2}}(I_1^2, I_2^2,
         I_3) .
 \end{equation}
-This signature is only singular when $f_x = f_y = f_{xx} = f_{yy} = f_{xy}
+It is only singular when $f_x = f_y = f_{xx} = f_{yy} = f_{xy}
 = 0$. A sample similarity transformation and computed signature is shown in
 Fig.~\ref{fig:Sim2}.
 
@@ -719,7 +720,7 @@ Fig.~\ref{fig:A2} shows the signature of our test image under this transformatio
 
 So far, the methods that we have seen to construct differential invariants for particular groups are not directly generalisable. It is natural to ask if there is an algorithmic approach that will yield invariants more directly. The answer is a qualified yes. There is a general method, based on Cartan's method of moving frames, that is generally applicable, but finding good solutions with it still requires some ingenuity in general. Olver and co-authors have developed~\cite{Fels1999} and popularised the approach, and made it applicable to object recognition based on outline curves, see~\citet{Olver2005} for an overview, and note particularly the original application paper~\citep{Calabi1998}.  We introduce the method here and then demonstrate its use to find invariants to further groups, but for further technical details see~\citet{OlverCIT}. 
 
-A moving frame is a mapping into a group $\mathcal{G}$ that provides a frame of reference along a manifold.  It was extended by~\citet{Cartan35} to the `method of moving frames'. The actions of a Lie group $\mathcal{G}$ enables the identification of invariants to that group through the definition of a $\mathcal{G}$-equivariant mapping. A (right-) moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$, where $z \in J^d$ and where $\cdot$ denotes the group operation of $\mathcal{G}$. It is necessary~\citep{Olver2013} for the group to act freely. This means that the group action needs to be extended to the entire jet space of derivatives up to order $d$ by implicit differentiation of the group action, a process known as prolongation.
+A moving frame is a mapping into a group $\mathcal{G}$ that provides a frame of reference along a manifold. It was used by~\citet{Cartan35} as the basis for his `method of moving frames', which uses Cartan equivalence to identify the set of structural invariants of a manifold. \cite{Fels1998,Fels1999} showed that the actions of a Lie group $\mathcal{G}$ enable the identification of invariants to that group through the definition of a $\mathcal{G}$-equivariant mapping. A (right-) moving frame is a smooth $\mathcal{G}$-equivariant map $\rho : \mathcal{M} \to \mathcal{G}$ such that $\rho (g \cdot z) = \rho(z) \cdot g^{-1}$, where $z \in J^d$ and where $\cdot$ denotes the group operation of $\mathcal{G}$. It is necessary~\citep{Olver2013} for the group to act freely. This means that the group action needs to be extended to the entire jet space of derivatives up to order $d$ by implicit differentiation of the group action, a process known as prolongation.
 
 The procedure to construct differential invariants to the action of Lie group $\mathcal{G}$ acting on manifold $\mathcal{M}$ using the method of moving frames is as follows:
 
@@ -881,7 +882,7 @@ give the same invariants $K_0, K_1, K_2, K_4$ as for $SE(2)$,
 These invariants are a functionally independent, complete, set of
 polynomial differential invariants up to second derivatives. Note that the
 invariants found previously by tensor contraction Eq. (\ref{eq:e2tensor}) in
-Section~\ref{sec:contraction} can be expressed in terms of them:
+Section~\ref{sec:contraction} can be expressed in terms of them (see the replacement theorem in \cite{Fels1999} for a justification of this):
 \begin{align*}
   f = f &= K_0 \\
   f_if_i = f_x^2 + f_y^2 &= K_1 \\
@@ -982,10 +983,10 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\
 
 The moving frame calculation is then:
 \begin{enumerate}
-\item The frame $\bar f_{\bar x}=1$, $\bar f_{\bar y}=0$ determines two group parameters:
+\item The partial cross-section $\bar f_{\bar x}=1$, $\bar f_{\bar y}=0$ determines two group parameters:
 $$ a = f_x/(f_x^2 + f_y^2),\quad b = f_y/(f_x^2 f_y^2).$$
 
-\item The frame $\bar f_{\bar x \bar y}=\bar f_{\bar y \bar y}=0$ determines the next group parameters:
+\item The partial cross-section $\bar f_{\bar x \bar y}=\bar f_{\bar y \bar y}=0$ determines the next group parameters:
 $$ c = (2 f_xf_yf_{xyy} - f_{xx}f_y^2 - f_{yy}f_x^2)/(2 f_x^2 + f_y^2)^2$$
 $$ d = (f_{xy}f_x^2 - f_x f_y f_{xx} - f_{xy}f_y^2 - f_{yy} f_x f_y)/(2 f_x^2 + f_y^2)^2.$$
 
@@ -1122,7 +1123,7 @@ f_x \\ f_y \\ f_{xx} \\ f_{xy} \\ f_{yy} \\ f_{xxx} \\ f_{xxy} \\ f_{xyy} \\ f_{
 
 We begin the construction of the moving frame by choosing $\bar f_{\bar x}
 = 1$ and $\bar f_{\bar y}=  0$, which determines the group parameters $a =
-(1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direction substition then shows that
+(1-c f_y)/f_x.$ and $b = -d f_y/f_x$. Direct substition then shows that
 $\bar f_{\bar y \bar y} = D d^2 / f_x^2$, where $D = f_{x}^2 f_{yy} + f_y^2
 f_{xx} - 2 f_x f_y f_{xyy}$ was listed in Eq.~\eqref{eq:cde} as an invariant of
 $A(2)$, which is a subgroup of $PSL(3,\R)$. Note that $D$ and
@@ -1130,7 +1131,7 @@ $\bar f_{\bar y \bar y}$ have the same sign. If $D < 0$, we choose the
 frame $\bar{f}_{\bar y \bar y} = -1$ and if $D \ge 0$ we choose $\bar
 f_{\bar y \bar y} = 1$. Then $d = f_x/|D|^{1/2}.$
 
-The frame $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group
+The partial cross-section $\bar f_{ \bar y \bar y \bar y} = 0$ determines the group
 parameter $ h = \frac{f_{yyy}f_x^3 - 3 f_x^2 f_y f_{xyy} + 3 f_x f_y^2
 f_{xxy} - f_y^3 f_{xxx}}{6|D|^{3/2}},$ while $\bar f_{ \bar x \bar y 
 y}=0$ provides $ c = \frac{h f_x^2}{d D} - \frac{f_x f_{xy} - f_y
